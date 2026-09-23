@@ -1,15 +1,20 @@
 {
-  "version": 1,
+  "version": 2,
   "vod": [
-    {
-      "name": "王二小",
-      "url": "https://9280.kstore.vip/newwex.json",
-      "remark": "混合线路，网盘资源较多"
-    },
     {
       "name": "饭太硬",
       "url": "http://www.饭太硬.net/tv",
-      "remark": "经典老牌，资源较全"
+      "remark": "主地址，Punycode 已验证"
+    },
+    {
+      "name": "饭太硬备用1",
+      "url": "http://fty.xxooo.cf/tv",
+      "remark": "常用备用"
+    },
+    {
+      "name": "饭太硬备用2",
+      "url": "http://fty.888484.xyz/tv",
+      "remark": "另一个备用"
     },
     {
       "name": "肥猫",
@@ -17,66 +22,91 @@
       "remark": "混合线路，常用推荐"
     },
     {
-      "name": "菜妮丝",
-      "url": "https://tv.xn--yhqu5zs87a.top",
-      "remark": "常规线路"
+      "name": "王二小",
+      "url": "https://9280.kstore.vip/newwex.json",
+      "remark": "混合线路，网盘资源较多"
     },
     {
       "name": "小盒子",
       "url": "http://xhztv.top/xhz",
-      "remark": "常规线路"
-    },
-    {
-      "name": "俊哥",
-      "url": "http://home.jundie.top:81/top98.json",
-      "remark": "常规线路"
+      "remark": "常规稳定"
     },
     {
       "name": "小盒子 4K",
       "url": "http://xhztv.top/4k.json",
-      "remark": "小盒子 4K 线路"
+      "remark": "4K 资源"
     },
     {
-      "name": "小马少儿",
-      "url": "https://jihulab.com/ymz1231/xymz/-/raw/main/ymshaoer",
-      "remark": "少儿频道专用"
+      "name": "摸鱼儿",
+      "url": "http://fish.y456y.com",
+      "remark": "免登录 4K 较多"
     },
     {
-      "name": "OK线路",
-      "url": "http://ok321.top/ok",
-      "remark": "OK 线路"
+      "name": "俊哥",
+      "url": "http://home.jundie.top:81/top98.json",
+      "remark": "常规"
+    },
+    {
+      "name": "香雅情",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json",
+      "remark": "混合线路"
+    },
+    {
+      "name": "南风",
+      "url": "https://gh-proxy.net/https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json",
+      "remark": "GitHub 源，带加速"
+    },
+    {
+      "name": "半糖仙人",
+      "url": "https://raw.giteeusercontent.com/ph7368/ok/raw/master/半糖仙人.json",
+      "remark": "混合线路"
+    },
+    {
+      "name": "菜妮丝",
+      "url": "https://tv.xn--yhqu5zs87a.top",
+      "remark": "常规"
+    },
+    {
+      "name": "少儿专线",
+      "url": "http://xhztv.top/dc/少儿频道/api.json",
+      "remark": "儿童动画专用"
     }
   ],
   "live": [
     {
-      "name": "综合直播",
-      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.txt",
-      "remark": "TVBox 格式 txt"
+      "name": "zbds IPv4",
+      "url": "https://live.zbds.top/tv/iptv4.m3u",
+      "remark": "带台标 + EPG，推荐"
     },
     {
-      "name": "综合直播 m3u",
-      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.m3u",
-      "remark": "IPv4"
-    },
-    {
-      "name": "IPv6 直播",
-      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi-ipv6.m3u",
+      "name": "zbds IPv6",
+      "url": "https://live.zbds.top/tv/iptv6.m3u",
       "remark": "需要 IPv6 网络"
     },
     {
-      "name": "全球直播",
-      "url": "https://gh.catmak.name/https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/全球直播.m3u",
-      "remark": "综合全球源"
-    },
-    {
-      "name": "精选测速源",
-      "url": "https://ghfast.top/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
-      "remark": "经过测速优选"
+      "name": "Guovin 完整",
+      "url": "https://guovin.github.io/iptv-api/result.m3u",
+      "remark": "自动更新"
     },
     {
       "name": "fanmingming IPv6",
       "url": "https://live.fanmingming.com/tv/m3u/ipv6.m3u",
-      "remark": "其他常用"
+      "remark": "经典稳定"
+    },
+    {
+      "name": "RaycornM 综合",
+      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.m3u",
+      "remark": "IPv4"
+    },
+    {
+      "name": "RaycornM txt",
+      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.txt",
+      "remark": "TVBox 格式 txt"
+    },
+    {
+      "name": "测速优选",
+      "url": "https://ghfast.top/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+      "remark": "测速后优选"
     }
   ]
 }
