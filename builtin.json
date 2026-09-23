@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "vod": [
+    {
+      "name": "王二小",
+      "url": "https://9280.kstore.vip/newwex.json",
+      "remark": "混合线路，网盘资源较多"
+    },
+    {
+      "name": "饭太硬",
+      "url": "http://www.饭太硬.net/tv",
+      "remark": "经典老牌，资源较全"
+    },
+    {
+      "name": "肥猫",
+      "url": "http://肥猫.net/",
+      "remark": "混合线路，常用推荐"
+    },
+    {
+      "name": "菜妮丝",
+      "url": "https://tv.xn--yhqu5zs87a.top",
+      "remark": "常规线路"
+    },
+    {
+      "name": "小盒子",
+      "url": "http://xhztv.top/xhz",
+      "remark": "常规线路"
+    },
+    {
+      "name": "俊哥",
+      "url": "http://home.jundie.top:81/top98.json",
+      "remark": "常规线路"
+    },
+    {
+      "name": "小盒子 4K",
+      "url": "http://xhztv.top/4k.json",
+      "remark": "小盒子 4K 线路"
+    },
+    {
+      "name": "小马少儿",
+      "url": "https://jihulab.com/ymz1231/xymz/-/raw/main/ymshaoer",
+      "remark": "少儿频道专用"
+    },
+    {
+      "name": "OK线路",
+      "url": "http://ok321.top/ok",
+      "remark": "OK 线路"
+    }
+  ],
+  "live": [
+    {
+      "name": "综合直播",
+      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.txt",
+      "remark": "TVBox 格式 txt"
+    },
+    {
+      "name": "综合直播 m3u",
+      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi.m3u",
+      "remark": "IPv4"
+    },
+    {
+      "name": "IPv6 直播",
+      "url": "https://raw.githubusercontent.com/RaycornM/TVbox-IPTV/main/Tivi-ipv6.m3u",
+      "remark": "需要 IPv6 网络"
+    },
+    {
+      "name": "全球直播",
+      "url": "https://gh.catmak.name/https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/全球直播.m3u",
+      "remark": "综合全球源"
+    },
+    {
+      "name": "精选测速源",
+      "url": "https://ghfast.top/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+      "remark": "经过测速优选"
+    },
+    {
+      "name": "fanmingming IPv6",
+      "url": "https://live.fanmingming.com/tv/m3u/ipv6.m3u",
+      "remark": "其他常用"
+    }
+  ]
+}

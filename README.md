@@ -1,0 +1,60 @@
+# tv-source
+
+TVBox 内置源清单（远程）。改这里 → 推到 Gitee → 手机上点一次「刷新内置源」，App 里的内置清单就整体换掉。
+
+- 远程仓库：<https://gitee.com/sukai616/tv-source>
+- 清单地址（填进 App）：<https://gitee.com/sukai616/tv-source/raw/master/builtin.json>
+
+## 怎么用
+
+1. App 里：**设置 → 内置源 → 清单地址**，粘贴上面那条 raw 地址。
+2. **刷新内置源**：拉取本仓库的 `builtin.json`，覆盖 App 内置的点播 / 直播清单（会提示「刷新完成：点播 x 条、直播 y 条」）。
+3. 之后**内置点播源 / 内置直播源**两行里列出的，就是这份清单里的条目（带名称与备注），选中即切换当前配置地址。
+
+App 侧行为要记住两点：
+
+- 清单是**权威来源**：在 App 里删掉一条内置源只删本地，下次刷新会按清单回来。
+- 清单格式不对或里面没有可用条目时，刷新**只提示、不动**本地清单。
+
+## 每次改完怎么推上去
+
+```bash
+cd tv-source
+# 用任意编辑器改 builtin.json
+git add builtin.json
+git commit -m "更新内置源清单"
+git push origin master
+```
+
+首次推送会要 Gitee 账号；HTTPS 方式要填**私人令牌**当密码（Gitee 已不接受账号密码），
+或者把远程换成 SSH：`git remote set-url origin git@gitee.com:sukai616/tv-source.git`。
+
+推完在浏览器打开 raw 地址，能看到新的 JSON 原文就算成功（能看到内容 = 仓库是公开的，App 才拉得到）。
+
+## 清单格式
+
+```json
+{
+  "version": 1,
+  "vod": [
+    { "name": "我的线路A", "url": "https://example.com/a.json", "remark": "自建" }
+  ],
+  "live": [
+    { "name": "我的直播", "url": "https://example.com/live.m3u", "remark": "" }
+  ]
+}
+```
+
+- `vod` 是点播配置（单仓 / 多仓 JSON 地址都行），`live` 是直播源（`txt` / `m3u` 地址）。
+- 两个数组**可以只写一个**，另一个当作空。
+- 每项 `url` **必填**（没地址的条目会被 App 跳过）；`name` 可留空（界面上退回显示地址）；`remark` 可选。
+- `version` 目前 App 只当作普通字段忽略，留着方便以后做「清单有更新就提醒」。
+- 地址里别带空格、换行、制表符：App 会清洗，但清洗过就和你在别处记的地址对不上了。
+- 同一份清单里**不要重复**地址。
+
+## 换源时的建议
+
+- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里填的是固定路径 `raw/master/builtin.json`；换分支就同步改设置里的清单地址）。
+- 仓库里的地址尽量用**免登录、无防盗链**的直链。网盘分享页（阿里云盘 / 夸克 / 百度网盘分享）App 直接 GET 拿不到。
+- GitHub raw 国内不稳，用 `ghfast.top/` 这类加速前缀包一层（清单里已有例子）。
+- 仓库被举报会封：重要的清单建议在对象存储（阿里云 OSS / 腾讯云 COS）再放一份，App 里换清单地址即可。
