@@ -3,13 +3,14 @@
 TVBox 内置源清单（远程）。改这里 → 推到 Gitee → 手机上点一次「刷新内置源」，App 里的内置清单就整体换掉。
 
 - 远程仓库：<https://gitee.com/sukai616/tv-source>
-- 清单地址（填进 App）：<https://gitee.com/sukai616/tv-source/raw/master/builtin.json>
+- 清单地址（App 里已内置，也可手动填）：<https://gitee.com/sukai616/tv-source/raw/master/builtin.json>
 
 ## 怎么用
 
-1. App 里：**设置 → 内置源 → 清单地址**，粘贴上面那条 raw 地址。
+1. App 里：**设置 → 内置源 → 清单地址**。装好就默认是本仓库这条地址（后面标着「内置」），不用手填；想换别的清单才改。
 2. **刷新内置源**：拉取本仓库的 `builtin.json`，覆盖 App 内置的点播 / 直播清单（会提示「刷新完成：点播 x 条、直播 y 条」）。
-3. 之后**内置点播源 / 内置直播源**两行里列出的，就是这份清单里的条目（带名称与备注），选中即切换当前配置地址。
+3. 之后**内置点播源 / 内置直播源**两行里列出的，就是这份清单里的条目；带 `recommended` 的排在最上面，
+   名字前有「推荐 · 」，备注写在名字后的括号里。选中即切换当前配置地址。
 
 App 侧行为要记住两点：
 
@@ -26,10 +27,13 @@ git commit -m "更新内置源清单"
 git push origin master
 ```
 
-首次推送会要 Gitee 账号；HTTPS 方式要填**私人令牌**当密码（Gitee 已不接受账号密码），
-或者把远程换成 SSH：`git remote set-url origin git@gitee.com:sukai616/tv-source.git`。
+Gitee 的 HTTPS 推送不接受账号密码，密码位置要填**私人令牌**（Gitee → 设置 → 私人令牌，勾 `projects` 权限）；
+令牌已经存进本机钥匙串（`gitee.com` / 账号 `sukai616`），所以本机直接 `git push` 不会再问密码。
+或者换成 SSH：`git remote set-url origin git@gitee.com:sukai616/tv-source.git`。
 
 推完在浏览器打开 raw 地址，能看到新的 JSON 原文就算成功（能看到内容 = 仓库是公开的，App 才拉得到）。
+**注意**：Gitee 的 raw 走 CDN，而且会缓存 404。如果这个地址在推送前被访问过（那时文件还不存在），
+推完之后可能有一两分钟仍然返回 `Repository or file not found`，等一下再试即可。
 
 ## 清单格式
 
@@ -37,7 +41,7 @@ git push origin master
 {
   "version": 1,
   "vod": [
-    { "name": "我的线路A", "url": "https://example.com/a.json", "remark": "自建" }
+    { "name": "我的线路A", "url": "https://example.com/a.json", "remark": "自建", "recommended": true }
   ],
   "live": [
     { "name": "我的直播", "url": "https://example.com/live.m3u", "remark": "" }
@@ -49,12 +53,20 @@ git push origin master
 - 两个数组**可以只写一个**，另一个当作空。
 - 每项 `url` **必填**（没地址的条目会被 App 跳过）；`name` 可留空（界面上退回显示地址）；`remark` 可选。
 - `version` 目前 App 只当作普通字段忽略，留着方便以后做「清单有更新就提醒」。
+- `recommended: true`（可选）标推荐位：App 的「内置源」列表里这些条目**排在最前面**，名字前多一段
+  「推荐 · 」，备注跟在后面的括号里（例：`内置 · 推荐 · 饭太硬（主地址，Punycode 已验证）`）。
+  没写就是普通条目。排序在 App 侧做，所以清单里不按推荐顺序写也不会乱。
 - 地址里别带空格、换行、制表符：App 会清洗，但清洗过就和你在别处记的地址对不上了。
 - 同一份清单里**不要重复**地址。
 
 ## 换源时的建议
 
-- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里填的是固定路径 `raw/master/builtin.json`；换分支就同步改设置里的清单地址）。
+- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里内置的那条地址是 `raw/master/builtin.json`；换分支就同步改设置里的清单地址）。
 - 仓库里的地址尽量用**免登录、无防盗链**的直链。网盘分享页（阿里云盘 / 夸克 / 百度网盘分享）App 直接 GET 拿不到。
-- GitHub raw 国内不稳，用 `ghfast.top/` 这类加速前缀包一层（清单里已有例子）。
+- GitHub raw 国内不稳，用 `gh-proxy.com/`、`ghfast.top/` 这类加速前缀包一层（清单里已有例子）。
 - 仓库被举报会封：重要的清单建议在对象存储（阿里云 OSS / 腾讯云 COS）再放一份，App 里换清单地址即可。
+
+## 当前清单（2026-09-22 复核）
+
+点播推荐：饭太硬、肥猫、王二小、小盒子；直播推荐：zbds IPv4（带台标 + EPG）。
+其余条目按 `builtin.json` 顺序排列，饭太硬的备用地址放在最后。

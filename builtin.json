@@ -1,35 +1,29 @@
 {
-  "version": 2,
+  "version": 3,
   "vod": [
     {
       "name": "饭太硬",
       "url": "http://www.饭太硬.net/tv",
-      "remark": "主地址，Punycode 已验证"
-    },
-    {
-      "name": "饭太硬备用1",
-      "url": "http://fty.xxooo.cf/tv",
-      "remark": "常用备用"
-    },
-    {
-      "name": "饭太硬备用2",
-      "url": "http://fty.888484.xyz/tv",
-      "remark": "另一个备用"
+      "remark": "主地址，Punycode 已验证",
+      "recommended": true
     },
     {
       "name": "肥猫",
       "url": "http://肥猫.net/",
-      "remark": "混合线路，常用推荐"
+      "remark": "混合线路，常用推荐",
+      "recommended": true
     },
     {
       "name": "王二小",
       "url": "https://9280.kstore.vip/newwex.json",
-      "remark": "混合线路，网盘资源较多"
+      "remark": "混合线路，网盘资源较多",
+      "recommended": true
     },
     {
       "name": "小盒子",
       "url": "http://xhztv.top/xhz",
-      "remark": "常规稳定"
+      "remark": "常规稳定",
+      "recommended": true
     },
     {
       "name": "小盒子 4K",
@@ -70,13 +64,24 @@
       "name": "少儿专线",
       "url": "http://xhztv.top/dc/少儿频道/api.json",
       "remark": "儿童动画专用"
+    },
+    {
+      "name": "饭太硬备用1",
+      "url": "http://fty.xxooo.cf/tv",
+      "remark": "常用备用"
+    },
+    {
+      "name": "饭太硬备用2",
+      "url": "http://fty.888484.xyz/tv",
+      "remark": "另一个备用"
     }
   ],
   "live": [
     {
       "name": "zbds IPv4",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "带台标 + EPG，推荐"
+      "remark": "带台标 + EPG，推荐",
+      "recommended": true
     },
     {
       "name": "zbds IPv6",
