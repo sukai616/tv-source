@@ -1,5 +1,5 @@
 {
-  "version": 13,
+  "version": 14,
   "vod": [
     {
       "name": "饭太硬",
@@ -160,6 +160,12 @@
       "url": "https://ghfast.top/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
       "remark": "同源备用前缀 ghfast.top，与主地址同一份配置（2026-09-24 实测内容逐字节一致）",
       "backup": "四小时优选"
+    },
+    {
+      "name": "榴芒电视",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
+      "remark": "约 1274 条 / 924 个不同频道名，含香港卫视、凤凰中文/资讯/香港、电影轮播；线路口径 78%、频道口径 82%（2026-09-24 抽测 n=40）；1055 条地址相对现有源是新增的（与四小时优选只重叠 25 条）",
+      "recommended": true
     }
   ]
 }
