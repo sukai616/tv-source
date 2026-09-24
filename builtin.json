@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 8,
   "vod": [
     {
       "name": "饭太硬",
@@ -82,39 +82,36 @@
     {
       "name": "主力推荐",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "约 541 频道，央视+卫视+地方台，带台标和 EPG",
+      "remark": "约 541 频道，央视+卫视+地方台，带台标和 EPG（实测 10/10 可播）",
       "recommended": true
     },
     {
       "name": "备用域名",
       "url": "https://v.zbds.top/tv/iptv4.m3u",
-      "remark": "同源备用域名 v.zbds.top，内容同上",
+      "remark": "同源备用域名 v.zbds.top，内容同上（实测 10/10 可播）",
       "backup": "主力推荐"
-    },
-    {
-      "name": "TXT版",
-      "url": "https://live.zbds.top/tv/iptv4.txt",
-      "remark": "同一份内容的 TXT 版，适合只吃 TXT 的软件"
     },
     {
       "name": "备用1",
       "url": "https://guovin.github.io/iptv-api/ipv4.m3u",
-      "remark": "约 398 频道，纯 IPv4"
+      "remark": "Guovin 纯 IPv4，约 398 频道（实测 10/10 可播）",
+      "recommended": true
     },
     {
-      "name": "备用2（需 IPv6）",
-      "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
-      "remark": "约 82 频道，画质较好，需 IPv6 网络"
+      "name": "备用1 完整版",
+      "url": "https://guovin.github.io/iptv-api/result.m3u",
+      "remark": "同项目的综合输出（IPv4+IPv6），约 1180 频道，地方台偶发超时（实测 5/10，当补充源）",
+      "backup": "备用1"
     },
     {
-      "name": "精简源",
-      "url": "https://iptv.burningc4.com/TV-IPV4.m3u",
-      "remark": "约 58 频道，央视+卫视"
+      "name": "测速优选",
+      "url": "https://ghfast.top/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+      "remark": "约 288 频道，TVBox 格式 txt（GitHub raw 经 ghfast.top 加速；实测 8/10 可播）"
     },
     {
-      "name": "多频道",
-      "url": "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
-      "remark": "约 1273 频道，含 4K（GitHub，可能需加速）"
+      "name": "TXT版",
+      "url": "https://live.zbds.top/tv/iptv4.txt",
+      "remark": "同一份内容的 TXT 版，适合只吃 TXT 的软件（实测 9/10 可播）"
     }
   ]
 }
