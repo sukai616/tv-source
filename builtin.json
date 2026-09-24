@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 12,
   "vod": [
     {
       "name": "饭太硬",
@@ -100,8 +100,7 @@
     {
       "name": "备用1 完整版",
       "url": "https://guovin.github.io/iptv-api/result.m3u",
-      "remark": "同项目的综合输出（含 IPv6 线路），约 1180 频道，地方台偶发超时（2026-09 抽测 6/12，当补充源）",
-      "backup": "备用1"
+      "remark": "Guovin 综合输出（含 IPv6 线路），约 1180 频道 / 436 个频道名平均 2.6 条线路；线路口径 60%、频道口径 50%（2026-09 抽测），地方台常超时，当补充源"
     },
     {
       "name": "测速优选",
@@ -121,7 +120,14 @@
     {
       "name": "港澳台综合",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u",
-      "remark": "约 2334 条 / 604 个不同频道名，含 196 条港澳台（现有源几乎没有）；同一频道有多条备用线路，按频道口径 77% 可用、按单条线路 40%（2026-09 抽测）；每日 04:00 自动更新，带台标和 EPG"
+      "remark": "约 2334 条 / 604 个不同频道名，含 196 条港澳台（现有源几乎没有）；同一频道平均挂 3.9 条备用线路，按频道口径 75% 可用、按单条线路 40%（2026-09 抽测）；每日 04:00 自动更新，带台标和 EPG",
+      "recommended": true
+    },
+    {
+      "name": "备用前缀",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u",
+      "remark": "同源备用前缀 ghfast.top，与主地址同一份配置（2026-09 实测内容逐字节一致）",
+      "backup": "港澳台综合"
     },
     {
       "name": "稳定兜底",

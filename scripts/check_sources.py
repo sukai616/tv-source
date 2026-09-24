@@ -10,6 +10,17 @@
 3. 频道级检查（--live）：把直播源拉下来，解析出频道，**抽测若干频道真的能不能播**
    （HTTP 拿到 m3u8 播放列表 / TS 切片 / 视频流才算过，HTML 错误页、超时算挂）。
 
+带 --live 时同时给 **两个口径**，因为多线路聚合源（同一个频道名挂 2~6 条备用线路）
+用单条线路口径会严重低估可用性：
+
+- **线路口径**：抽 sample 个播放地址逐个探。只有一条线路的源用它就够了。
+- **频道口径**：抽 sample 个**频道名**，每个最多试 --max-lines 条线路，有一条能播就算
+  这个频道可用。只有平均线路数 ≥ 1.2 的源才真跑这一轮；单线路源两个口径等价，不重复发请求。
+
+判定一条源是否达标，用 **「线路口径达标 或 频道口径达标」**（两条都不达标才算挂），
+门槛分别是 --min-pass 与 --min-pass-channel（后者默认取前者的值）。
+**被标 recommended 的源也按这个规则判定**——否则多线路聚合源永远进不了推荐位。
+
 带 --live 时会先做一次 **IPv6 体检**（本机地址 + 真连一把双栈站点）：没有 IPv6 出口的话，
 只剔除 IPv6 裸地址（http://[2409:...]）那些频道，剩下的域名/IPv4 频道照测；
 只有整条源全是 IPv6 裸地址时才整条跳过（打 ⊘，不给结论）。
@@ -21,12 +32,15 @@
     python3 scripts/check_sources.py --live                   # 静态 + 源级 + 频道抽测（自动带 IPv6 体检）
     python3 scripts/check_sources.py --live --sources         # 只测哪些源还活着，不抽测频道
     python3 scripts/check_sources.py --live --git f2f4b5a     # 顺带把某个提交里的旧清单也测一遍
-    python3 scripts/check_sources.py --live --sample 20       # 每个源抽 20 个频道
+    python3 scripts/check_sources.py --live --sample 20       # 每个源抽 20 个（线路 / 频道名各抽 20）
+    python3 scripts/check_sources.py --live --max-lines 6     # 频道口径每条频道最多试几条线路（默认 4）
+    python3 scripts/check_sources.py --live --min-pass-channel 0.7   # 频道口径单独设门槛（默认同 --min-pass）
     python3 scripts/check_sources.py --live --force-ipv6      # 没 IPv6 也照测 IPv6 源
     python3 scripts/check_sources.py --live --json-out /tmp/report.json
 
 退出码：0 = 通过；1 = 有问题。判定失败的情形：JSON 坏了、地址重复、源抓不到、
-一条直播源都没通过、或者被标了 recommended 的源没达标（可播率 < --min-pass，默认 0.5）。
+一条直播源都没通过、或者被标了 recommended 的源没达标
+（线路口径与频道口径**都没**到 --min-pass / --min-pass-channel，默认 0.5）。
 """
 
 import argparse
@@ -247,6 +261,10 @@ def parse_playlist(text):
     return channels
 
 
+# 平均线路数达到这个值就认为源是「多线路聚合」的，额外跑一轮频道口径。
+# 用 1.2 而不是 1.0：留点余量，偶尔一两个频道重名不值得多花一轮请求。
+MULTI_LINE_RATIO = 1.2
+
 IPV6_URL_RE = re.compile(r"^https?://\[", re.I)
 
 
@@ -311,8 +329,21 @@ def probe_channel(channel, timeout):
     return channel, ok, why, result.seconds
 
 
-def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True):
-    """抓直播源 → 解析频道 → 抽测。返回结果 dict。
+def probe_channel_name(name, urls, timeout, max_lines):
+    """频道口径：这个频道名的前 max_lines 条线路里，有没有一条能播。
+
+    命中就提前返回，不再往下试——多线路聚合源一个频道挂 2~6 条线路，
+    逐条探完既慢又没意义（用户点开这个台，播放器也是按顺序重试）。
+    """
+    for url in urls[:max_lines]:
+        _, ok, _, _ = probe_channel((name, url), timeout)
+        if ok:
+            return True
+    return False
+
+
+def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True, max_lines=4):
+    """抓直播源 → 解析频道 → 按线路口径和频道口径各抽测一轮。返回结果 dict。
 
     entry 里基本是 IPv6 裸地址、而本机又没有 IPv6 出口时，直接标 skipped 不白跑
     （测出来只会是“连不上”，对结论没有信息量）。
@@ -333,6 +364,13 @@ def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True):
         "skipped": "",
         "channels": [],
         "seconds": 0.0,
+        "named_total": 0,
+        "lines_per_name": 0.0,
+        "multi_line": False,
+        "chan_sampled": 0,
+        "chan_passed": 0,
+        "chan_rate": 0.0,
+        "chan_channels": [],
     }
     started = time.time()
     page = fetch(entry["url"], timeout)
@@ -375,6 +413,31 @@ def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True):
         out["channels"].append(
             {"name": channel[0], "url": channel[1], "ok": ok, "reason": why, "seconds": round(seconds, 2)}
         )
+
+    # 频道口径：同一个频道名挂多条线路时，只要有 1 条能播就算这个频道可用。
+    # 单线路源两个口径等价，直接沿用线路口径的结果，不再多发一轮请求。
+    by_name = {}
+    for (n, u) in testable:
+        by_name.setdefault(n or u, []).append(u)
+    out["named_total"] = len(by_name)
+    out["lines_per_name"] = round(len(testable) / float(len(by_name)), 2) if by_name else 0.0
+    out["multi_line"] = out["lines_per_name"] >= MULTI_LINE_RATIO
+    if out["multi_line"]:
+        chan_picked = sample_evenly(sorted(by_name), sample_size)
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            chan_res = list(pool.map(
+                lambda n: (n, probe_channel_name(n, by_name[n], timeout, max_lines)), chan_picked))
+        out["chan_sampled"] = len(chan_res)
+        for (n, ok) in chan_res:
+            if ok:
+                out["chan_passed"] += 1
+            else:
+                out["chan_channels"].append({"name": n, "lines": len(by_name[n])})
+    else:
+        out["chan_sampled"] = out["sampled"]
+        out["chan_passed"] = out["passed"]
+    out["chan_rate"] = out["chan_passed"] / float(out["chan_sampled"]) if out["chan_sampled"] else 0.0
+
     out["seconds"] = time.time() - started
     return out
 
@@ -535,8 +598,14 @@ def report_static(label, issues, data):
     return not errors
 
 
-def report_live(label, results, min_pass):
-    """打印每个直播源的结果，返回通过的那些。"""
+def report_live(label, results, min_pass, min_pass_channel=None):
+    """打印每个直播源的结果，返回通过的那些。
+
+    达标规则：线路口径 ≥ min_pass **或** 频道口径 ≥ min_pass_channel（默认同 min_pass）。
+    两个口径都没到才算挂——多线路聚合源单条线路可播率天然低，只看线路口径会把它误杀。
+    """
+    if min_pass_channel is None:
+        min_pass_channel = min_pass
     passed_sources = []
     for out in results:
         if out.get("skipped"):
@@ -546,7 +615,8 @@ def report_live(label, results, min_pass):
             print("  ✗ %s → %s" % (pad_visible(out["name"]), out["fetch_error"]))
             continue
         rate = out["passed"] / float(out["sampled"]) if out["sampled"] else 0.0
-        ok = rate >= min_pass
+        chan_rate = out.get("chan_rate", 0.0)
+        ok = (rate >= min_pass) or (chan_rate >= min_pass_channel)
         if ok:
             passed_sources.append(out)
         head = "  %s %s" % ("✓" if ok else "✗", pad_visible(out["name"]))
@@ -555,11 +625,19 @@ def report_live(label, results, min_pass):
                 head, out["total"], out["sampled"], out["passed"], int(round(rate * 100)), out["seconds"]
             )
         )
+        if out.get("multi_line"):
+            print("        多线路源：%d 个频道名平均 %.1f 条线路；频道口径抽测 %d 个，可用 %d（%d%%）"
+                  % (out["named_total"], out["lines_per_name"], out["chan_sampled"],
+                     out["chan_passed"], int(round(chan_rate * 100))))
+            for ch in out.get("chan_channels", []):
+                print("        · %s：%d 条线路全挂" % (ch["name"][:28], ch["lines"]))
         if out.get("note"):
             print("        （%s）" % out["note"])
-        for ch in out["channels"]:
-            if not ch["ok"]:
-                print("        · %s：%s" % (ch["name"][:28], ch["reason"]))
+        # 多线路源已经按频道给过结论了，再逐条列线路失败只是噪音——除非它两个口径都没过
+        if (not out.get("multi_line")) or (not ok):
+            for ch in out["channels"]:
+                if not ch["ok"]:
+                    print("        · %s：%s" % (ch["name"][:28], ch["reason"]))
         if not out.get("note") and not ok and out["ipv6_channels"] * 2 >= max(1, out["sampled"]):
             print("        （抽到的频道里 %d/%d 是 IPv6 地址，本机没有 IPv6 出口的话这条源测不准）"
                   % (out["ipv6_channels"], out["sampled"]))
@@ -582,10 +660,14 @@ def main(argv=None):
     parser.add_argument("--force-ipv6", action="store_true", help="本机没有 IPv6 也照测 IPv6 源（不再跳过）")
     parser.add_argument("--sources", action="store_true", help="只测清单地址本身是否可达（不抽测频道）")
     parser.add_argument("--vod", action="store_true", help="顺带测点播地址是否可达")
-    parser.add_argument("--sample", type=int, default=10, help="每个直播源抽测多少频道，默认 10")
+    parser.add_argument("--sample", type=int, default=10, help="每个直播源抽测多少（线路 / 频道名各抽这么多），默认 10")
     parser.add_argument("--workers", type=int, default=12, help="并发数，默认 12")
     parser.add_argument("--timeout", type=float, default=8.0, help="单请求超时秒数，默认 8")
-    parser.add_argument("--min-pass", type=float, default=0.5, help="判定源通过的最低可播比例，默认 0.5")
+    parser.add_argument("--min-pass", type=float, default=0.5, help="线路口径的最低可播比例，默认 0.5")
+    parser.add_argument("--min-pass-channel", type=float, default=None,
+                        help="频道口径的最低可用比例，默认取 --min-pass 的值")
+    parser.add_argument("--max-lines", type=int, default=4,
+                        help="频道口径下每个频道最多试几条线路，默认 4")
     parser.add_argument("--json-out", default="", help="把完整结果写成 JSON")
     args = parser.parse_args(argv)
 
@@ -639,11 +721,16 @@ def main(argv=None):
             if args.force_ipv6 and not ipv6_ready:
                 print("  （--force-ipv6：IPv6 源不再跳过，测出来的失败是本机网络限制，不算源的锅）")
                 ipv6_ready = True
-            print("  直播频道抽测（每源 %d 个频道，可播率 ≥ %d%% 算通过）：" % (args.sample, int(args.min_pass * 100)))
+            print("  直播频道抽测（每源线路口径 %d 个 / 频道口径 %d 个；"
+                  "线路 ≥ %d%% 或 频道 ≥ %d%% 算通过）：" % (
+                      args.sample, args.sample, int(args.min_pass * 100),
+                      int((args.min_pass_channel if args.min_pass_channel is not None
+                           else args.min_pass) * 100)))
             # 逐个源串行抓取，源内部再并发探测频道——避免线程套线程把并发数放大成 workers^2
             results = [test_live_source(e, args.sample, args.timeout, args.workers,
-                                        ipv6_ready=ipv6_ready) for e in live]
-            passed = report_live(label, results, args.min_pass)
+                                        ipv6_ready=ipv6_ready, max_lines=args.max_lines)
+                       for e in live]
+            passed = report_live(label, results, args.min_pass, args.min_pass_channel)
             skipped = [o for o in results if o.get("skipped")]
             print("  通过的直播源：%s" % ("、".join(o["name"] for o in passed) or "无"))
             if skipped:
