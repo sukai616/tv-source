@@ -11,7 +11,8 @@
    （HTTP 拿到 m3u8 播放列表 / TS 切片 / 视频流才算过，HTML 错误页、超时算挂）。
 
 带 --live 时会先做一次 **IPv6 体检**（本机地址 + 真连一把双栈站点）：没有 IPv6 出口的话，
-整条都是 IPv6 裸地址的源直接跳过，免得每次都被一条“10% 可播”的假阴性干扰结论。
+只剔除 IPv6 裸地址（http://[2409:...]）那些频道，剩下的域名/IPv4 频道照测；
+只有整条源全是 IPv6 裸地址时才整条跳过（打 ⊘，不给结论）。
 
 用法：
 
@@ -246,6 +247,14 @@ def parse_playlist(text):
     return channels
 
 
+IPV6_URL_RE = re.compile(r"^https?://\[", re.I)
+
+
+def is_ipv6_url(url):
+    """是不是 IPv6 裸地址（http://[2409:8087::1]:80/...）。"""
+    return bool(IPV6_URL_RE.match((url or "").strip()))
+
+
 def sample_evenly(items, count):
     """从列表里均匀抽 count 个（顺序稳定，不用随机种子）。"""
     if count <= 0 or not items:
@@ -320,6 +329,7 @@ def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True):
         "ipv6_channels": 0,
         "ipv6_total": 0,
         "ipv6_only": False,
+        "note": "",
         "skipped": "",
         "channels": [],
         "seconds": 0.0,
@@ -339,15 +349,22 @@ def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True):
         out["seconds"] = time.time() - started
         return out
 
-    out["ipv6_total"] = sum(1 for (_, u) in channels if re.match(r"^https?://\[", u.strip()))
-    out["ipv6_only"] = out["ipv6_total"] * 2 >= len(channels)
-    if out["ipv6_only"] and not ipv6_ready:
-        out["skipped"] = "本机没有 IPv6 出口（%d/%d 个频道是 IPv6 裸地址）" % (out["ipv6_total"], len(channels))
+    # 没有 IPv6 出口时只剔除 IPv6 裸地址的那些频道，剩下的（域名 / IPv4）照测：
+    # 很多带“IPv6”名头的源里其实混着不少域名线路，整条跳过会把能播的也丢掉。
+    v6_channels = [c for c in channels if is_ipv6_url(c[1])]
+    testable = channels if ipv6_ready else [c for c in channels if not is_ipv6_url(c[1])]
+    out["ipv6_total"] = len(v6_channels)
+    out["ipv6_only"] = not testable
+    if not testable:
+        out["skipped"] = "整条源 %d/%d 个频道都是 IPv6 裸地址，本机没有 IPv6 出口" % (len(v6_channels), len(channels))
         out["seconds"] = time.time() - started
         return out
+    if not ipv6_ready and v6_channels:
+        out["note"] = "本机没有 IPv6：已剔除 %d 个 IPv6 裸地址频道，只测剩下 %d 个" % (
+            len(v6_channels), len(testable))
 
-    picked = sample_evenly(channels, sample_size)
-    out["ipv6_channels"] = sum(1 for (_, u) in picked if re.match(r"^https?://\[", u.strip()))
+    picked = sample_evenly(testable, sample_size)
+    out["ipv6_channels"] = sum(1 for (_, u) in picked if is_ipv6_url(u))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         results = list(pool.map(lambda ch: probe_channel(ch, timeout), picked))
 
@@ -473,7 +490,7 @@ def ipv6_check(timeout=5.0, quiet=False):
     elif addrs.get("ula"):
         note = "只有内网 ULA 地址（fd00::/8），连不到运营商 IPTV，IPv6 源测不准（%s）" % detail
     else:
-        note = "本机没有 IPv6（只有链路本地 fe80::），IPv6 源将跳过（%s）" % detail
+        note = "本机没有 IPv6（只有链路本地 fe80::），IPv6 裸地址频道将剔除（%s）" % detail
     if not quiet:
         print("  IPv6 体检：%s %s" % ("✓" if ok else "⊘", note))
     return ok, note
@@ -538,10 +555,12 @@ def report_live(label, results, min_pass):
                 head, out["total"], out["sampled"], out["passed"], int(round(rate * 100)), out["seconds"]
             )
         )
+        if out.get("note"):
+            print("        （%s）" % out["note"])
         for ch in out["channels"]:
             if not ch["ok"]:
                 print("        · %s：%s" % (ch["name"][:28], ch["reason"]))
-        if not ok and out["ipv6_channels"] * 2 >= max(1, out["sampled"]):
+        if not out.get("note") and not ok and out["ipv6_channels"] * 2 >= max(1, out["sampled"]):
             print("        （抽到的频道里 %d/%d 是 IPv6 地址，本机没有 IPv6 出口的话这条源测不准）"
                   % (out["ipv6_channels"], out["sampled"]))
     return passed_sources
