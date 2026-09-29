@@ -1,9 +1,13 @@
 # tv-source
 
-TVBox 内置源清单（远程）。改这里 → 推到 Gitee → 手机上点一次「刷新内置源」，App 里的内置清单就整体换掉。
+TVBox 内置源清单（远程）。改这里 → 推到 GitHub → 手机上点一次「刷新内置源」，App 里的内置清单就整体换掉。
 
-- 远程仓库：<https://gitee.com/sukai616/tv-source>
-- 清单地址（App 里已内置，也可手动填）：<https://gitee.com/sukai616/tv-source/raw/master/builtin.json>
+- 远程仓库（主）：<https://github.com/sukai616/tv-source>（**App 实际拉取源是 GitHub raw**）
+- 远程仓库（备份）：<https://gitee.com/sukai616/tv-source>（Gitee raw 因内容审核被判违规返回 **451**，App 拉不到，仅作 git 备份）
+- 清单地址（App 里已内置，也可手动填）：<https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/builtin.json>
+  - 直连备用：<https://raw.githubusercontent.com/sukai616/tv-source/master/builtin.json>
+  - 前缀备用：<https://ghfast.top/https://raw.githubusercontent.com/sukai616/tv-source/master/builtin.json>
+  （三条 2026-09-29 实测均 200，内容一致；直连在国内不稳，所以 App 内置默认带 gh-proxy 前缀）
 
 ## 怎么用
 
@@ -28,16 +32,16 @@ cd tv-source
 # 用任意编辑器改 builtin.json
 git add builtin.json
 git commit -m "更新内置源清单"
-git push origin master
+git push github master    # 主仓库：App 实际拉取源，必须推
+git push origin master    # Gitee 备份：可推可不推
 ```
 
+GitHub 的 HTTPS 推送走本机钥匙串令牌（`github.com` / 账号 `sukai616`），不会再问密码；
 Gitee 的 HTTPS 推送不接受账号密码，密码位置要填**私人令牌**（Gitee → 设置 → 私人令牌，勾 `projects` 权限）；
-令牌已经存进本机钥匙串（`gitee.com` / 账号 `sukai616`），所以本机直接 `git push` 不会再问密码。
-或者换成 SSH：`git remote set-url origin git@gitee.com:sukai616/tv-source.git`。
+令牌也已经存进本机钥匙串（`gitee.com` / 账号 `sukai616`），所以本机直接 `git push` 不会再问密码。
 
-推完在浏览器打开 raw 地址，能看到新的 JSON 原文就算成功（能看到内容 = 仓库是公开的，App 才拉得到）。
-**注意**：Gitee 的 raw 走 CDN，而且会缓存 404。如果这个地址在推送前被访问过（那时文件还不存在），
-推完之后可能有一两分钟仍然返回 `Repository or file not found`，等一下再试即可。
+推完在浏览器打开加速前缀地址或直连 raw 地址，能看到新的 JSON 原文就算成功（能看到内容 = 仓库是公开的，App 才拉得到）。
+**注意**：GitHub raw 也有几分钟的 CDN 缓存，推完立刻验证可能还是旧内容，等一下再试。
 
 ## 推送前自检（脚本）
 
@@ -147,7 +151,8 @@ IPv4 映射地址（`::ffff:1.2.3.4`）会被识破，不会误报。
 
 ## 换源时的建议
 
-- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里内置的那条地址是 `raw/master/builtin.json`；换分支就同步改设置里的清单地址）。
+- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里内置的那条地址是
+  `https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/builtin.json`；换分支就同步改设置里的清单地址）。
 - 仓库里的地址尽量用**免登录、无防盗链**的直链。网盘分享页（阿里云盘 / 夸克 / 百度网盘分享）App 直接 GET 拿不到。
 - GitHub raw 国内不稳，用 `gh-proxy.com/`、`ghfast.top/` 这类加速前缀包一层（清单里已有例子）。
 - 仓库被举报会封：重要的清单建议在对象存储（阿里云 OSS / 腾讯云 COS）再放一份，App 里换清单地址即可。
