@@ -1,5 +1,5 @@
 {
-  "version": 18,
+  "version": 19,
   "vod": [
     {
       "name": "饭太硬",
@@ -32,15 +32,16 @@
       "recommended": true
     },
     {
+      "name": "王二小备用",
+      "url": "http://new.王二小放牛娃.top",
+      "remark": "同源备用域名 new.王二小放牛娃.top（Punycode 已验证；与主地址逐字节一致，99 站点，jar 可用，2026-10-19 验证）",
+      "backup": "王二小"
+    },
+    {
       "name": "小盒子",
       "url": "http://xhztv.top/xhz",
       "remark": "常规稳定",
       "recommended": true
-    },
-    {
-      "name": "小盒子 4K",
-      "url": "http://xhztv.top/4k.json",
-      "remark": "4K 资源"
     },
     {
       "name": "摸鱼儿",
@@ -92,53 +93,58 @@
       "name": "Qist合集",
       "url": "https://qist.wyfc.qzz.io/jsm.json",
       "remark": "约 151 站点，家庭电视向合集，jar 可用（2026-09-24 验活）"
+    },
+    {
+      "name": "小马",
+      "url": "https://szyyds.cn/tv/x.json",
+      "remark": "约 62 站点（46 爬虫站 + 16 个采集接口，采集接口实测 14/16 可用），jar 可用，家庭向无成人站点（2026-10-19 验活）"
     }
   ],
   "live": [
     {
       "name": "主力推荐",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "约 544 频道，央视+卫视+地方台，带台标和 EPG；全量 --phone（deep+双口径≥0.7+max-lines=1）：线路口径 487/544（90%，2026-10-12）",
+      "remark": "约 523 频道，央视+卫视+地方台，带台标和 EPG；全量 --phone（deep+双口径≥0.7+max-lines=1）：线路口径 492/523（94%，2026-10-19）",
       "recommended": true
     },
     {
       "name": "备用域名",
       "url": "https://v.zbds.top/tv/iptv4.m3u",
-      "remark": "同源备用域名 v.zbds.top，内容同上；全量 --phone：线路口径 483/544（89%，2026-10-12）",
+      "remark": "同源备用域名 v.zbds.top，内容同上；全量 --phone：线路口径 495/523（95%，2026-10-19）",
       "backup": "主力推荐"
     },
     {
       "name": "TXT版",
       "url": "https://live.zbds.top/tv/iptv4.txt",
-      "remark": "与主力推荐同一份内容的 TXT 版，适合只吃 TXT 的软件；约 711 条 / 540 个频道名；全量 --phone：线路口径 613/711（86%）、频道口径 480/540（89%，2026-10-12）"
+      "remark": "与主力推荐同一份内容的 TXT 版，适合只吃 TXT 的软件；约 680 条 / 517 个频道名；全量 --phone：线路口径 618/680（91%）、频道口径 490/517（95%，2026-10-19）"
     },
     {
       "name": "IPv6 专线",
       "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
-      "remark": "约 82 频道：55 个移动 IPv6 直连（需移动宽带+IPv6，本机无出口未测）、27 个域名线路；全量 --phone 下域名线路 12/27（44%）未达 0.7，降权保留供有 IPv6 的环境用，勿当普通推荐（2026-10-12）"
+      "remark": "约 82 频道：55 个移动 IPv6 直连（需移动宽带+IPv6，本机无出口未测）、27 个域名线路；全量 --phone 下域名线路 12/27（44%）未达 0.7，降权保留供有 IPv6 的环境用，勿当普通推荐（2026-10-19）"
     },
     {
       "name": "四小时优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "Collect-IPTV，约 759 频道（单线路）；全量 --phone：线路口径 617/759（81%，2026-10-12）；每 4 小时测速优选更新",
+      "remark": "Collect-IPTV，约 688 频道（单线路）；全量 --phone：线路口径 618/688（90%，2026-10-19）；每 4 小时测速优选更新",
       "recommended": true
     },
     {
       "name": "四小时优选备用",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "同源备用前缀 ghfast.top，与主地址同一份配置；全量 --phone：线路口径 614/759（81%，2026-10-12）",
+      "remark": "同源备用前缀 ghfast.top，与主地址同一份配置；全量 --phone：线路口径 620/688（90%，2026-10-19）",
       "backup": "四小时优选"
     },
     {
       "name": "采集优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/bjzhou/iptv-collector/output/iptv.m3u",
-      "remark": "bjzhou/iptv-collector，约 450 条 / 117 个频道名平均 3.9 条线路；每日 Actions 测速筛选；全量 --phone：线路口径 436/450（97%）、频道口径 107/117（91%，2026-10-12）",
+      "remark": "bjzhou/iptv-collector，约 338 条 / 99 个频道名平均 3.4 条线路；全量 --phone：线路口径 324/338（96%）、频道口径 92/99（93%，2026-10-19）",
       "recommended": true
     },
     {
       "name": "采集优选备用",
       "url": "https://testingcf.jsdelivr.net/gh/bjzhou/iptv-collector@output/iptv.m3u",
-      "remark": "同源备用（jsDelivr CF），与主地址同为 450 条；全量 --phone：线路口径 432/450（96%）、频道口径 110/117（94%，2026-10-12）",
+      "remark": "同源备用（jsDelivr CF），与主地址同为 338 条；全量 --phone：线路口径 320/338（95%）、频道口径 91/99（92%，2026-10-19）",
       "backup": "采集优选"
     }
   ]
