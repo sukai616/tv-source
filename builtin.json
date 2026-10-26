@@ -1,24 +1,6 @@
 {
-  "version": 19,
+  "version": 20,
   "vod": [
-    {
-      "name": "饭太硬",
-      "url": "http://www.饭太硬.net/tv",
-      "remark": "主地址，Punycode 已验证",
-      "recommended": true
-    },
-    {
-      "name": "备用1",
-      "url": "http://fty.333232.xyz/tv",
-      "remark": "同源备用域名 fty.333232.xyz（原 fty.xxooo.cf 域名已失效 NXDOMAIN，2026-10-09 换；内容与主地址逐字节一致）",
-      "backup": "饭太硬"
-    },
-    {
-      "name": "备用2",
-      "url": "http://fty.888484.xyz/tv",
-      "remark": "同源备用域名 fty.888484.xyz",
-      "backup": "饭太硬"
-    },
     {
       "name": "肥猫",
       "url": "http://肥猫.net/",
@@ -27,15 +9,9 @@
     },
     {
       "name": "王二小",
-      "url": "https://9280.kstore.vip/newwex.json",
-      "remark": "混合线路，网盘资源较多",
-      "recommended": true
-    },
-    {
-      "name": "王二小备用",
       "url": "http://new.王二小放牛娃.top",
-      "remark": "同源备用域名 new.王二小放牛娃.top（Punycode 已验证；与主地址逐字节一致，99 站点，jar 可用，2026-10-19 验证）",
-      "backup": "王二小"
+      "remark": "混合线路，网盘资源较多；原 9280.kstore.vip DNS 失效，2026-10-26 升主用原备用域名 new.王二小放牛娃.top（99 站点，jar 可用）",
+      "recommended": true
     },
     {
       "name": "小盒子",
@@ -62,11 +38,6 @@
       "name": "南风",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json",
       "remark": "GitHub 源，gh-proxy.com 加速（原 gh-proxy.net 返回 JS 验证页 App 拉不到，2026-10-09 换）；加密配置 App 可解，约 84 站点"
-    },
-    {
-      "name": "半糖仙人",
-      "url": "https://raw.giteeusercontent.com/ph7368/ok/raw/master/半糖仙人.json",
-      "remark": "混合线路"
     },
     {
       "name": "菜妮丝",
@@ -104,47 +75,47 @@
     {
       "name": "主力推荐",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "约 523 频道，央视+卫视+地方台，带台标和 EPG；全量 --phone（deep+双口径≥0.7+max-lines=1）：线路口径 492/523（94%，2026-10-19）",
+      "remark": "约 507 频道，央视+卫视+地方台，带台标和 EPG；全量 --phone（deep+双口径≥0.7+max-lines=1）：线路口径 484/507（95%，2026-10-26）",
       "recommended": true
     },
     {
       "name": "备用域名",
       "url": "https://v.zbds.top/tv/iptv4.m3u",
-      "remark": "同源备用域名 v.zbds.top，内容同上；全量 --phone：线路口径 495/523（95%，2026-10-19）",
+      "remark": "同源备用域名 v.zbds.top，内容同上；全量 --phone：线路口径 486/507（96%，2026-10-26）",
       "backup": "主力推荐"
     },
     {
       "name": "TXT版",
       "url": "https://live.zbds.top/tv/iptv4.txt",
-      "remark": "与主力推荐同一份内容的 TXT 版，适合只吃 TXT 的软件；约 680 条 / 517 个频道名；全量 --phone：线路口径 618/680（91%）、频道口径 490/517（95%，2026-10-19）"
+      "remark": "与主力推荐同一份内容的 TXT 版，适合只吃 TXT 的软件；约 632 条 / 503 个频道名；全量 --phone：线路口径 597/632（94%）、频道口径 479/503（95%，2026-10-26）"
     },
     {
       "name": "IPv6 专线",
       "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
-      "remark": "约 82 频道：55 个移动 IPv6 直连（需移动宽带+IPv6，本机无出口未测）、27 个域名线路；全量 --phone 下域名线路 12/27（44%）未达 0.7，降权保留供有 IPv6 的环境用，勿当普通推荐（2026-10-19）"
+      "remark": "约 82 频道：55 个移动 IPv6 直连（需移动宽带+IPv6，本机无出口未测）、27 个域名线路；全量 --phone 下域名线路 12/27（44%）未达 0.7，降权保留供有 IPv6 的环境用，勿当普通推荐（2026-10-26）"
     },
     {
       "name": "四小时优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "Collect-IPTV，约 688 频道（单线路）；全量 --phone：线路口径 618/688（90%，2026-10-19）；每 4 小时测速优选更新",
+      "remark": "Collect-IPTV，约 711 频道（单线路）；全量 --phone：线路口径 634/711（89%，2026-10-26）；每 4 小时测速优选更新",
       "recommended": true
     },
     {
       "name": "四小时优选备用",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "同源备用前缀 ghfast.top，与主地址同一份配置；全量 --phone：线路口径 620/688（90%，2026-10-19）",
+      "remark": "同源备用前缀 ghfast.top，与主地址同一份配置；全量 --phone：线路口径 635/711（89%，2026-10-26）",
       "backup": "四小时优选"
     },
     {
       "name": "采集优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/bjzhou/iptv-collector/output/iptv.m3u",
-      "remark": "bjzhou/iptv-collector，约 338 条 / 99 个频道名平均 3.4 条线路；全量 --phone：线路口径 324/338（96%）、频道口径 92/99（93%，2026-10-19）",
+      "remark": "bjzhou/iptv-collector，约 316 条 / 99 个频道名平均 3.2 条线路；全量 --phone：线路口径 299/316（95%）、频道口径 90/99（91%，2026-10-26）",
       "recommended": true
     },
     {
       "name": "采集优选备用",
       "url": "https://testingcf.jsdelivr.net/gh/bjzhou/iptv-collector@output/iptv.m3u",
-      "remark": "同源备用（jsDelivr CF），与主地址同为 338 条；全量 --phone：线路口径 320/338（95%）、频道口径 91/99（92%，2026-10-19）",
+      "remark": "同源备用（jsDelivr CF），与主地址同为 316 条；全量 --phone：线路口径 296/316（94%）、频道口径 90/99（91%，2026-10-26）",
       "backup": "采集优选"
     }
   ]
