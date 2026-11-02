@@ -1,8 +1,8 @@
 {
-  "versionCode": 5,
-  "versionName": "1.0.4",
-  "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33350869,
-  "log": "1. 「关于」里的地址改为 GitHub：https://github.com/sukai616/tv-source\\n2. 更新包与清单统一由 GitHub 的 tv-source 仓库提供（gh-proxy 加速），不再使用 Gitee\\n3. 移除设置页「更新地址」行，不需要手动填地址",
+  "versionCode": 6,
+  "versionName": "1.0.5",
+  "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java64.apk",
+  "size": 20822269,
+  "log": "1. 改为只发布 64 位精简包（arm64-v8a），包体约 21MB\\n2. 检查更新固定使用 GitHub tv-source/apk 里的这个包",
   "force": false
 }
