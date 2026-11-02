@@ -1,0 +1,8 @@
+{
+  "versionCode": 4,
+  "versionName": "1.0.3",
+  "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
+  "size": 33350792,
+  "log": "1. 检查更新改为固定指向点播/直播源仓库（tv-source），不再需要手动填地址\\n2. 移除设置页的「更新地址」行\\n3. 修复「关于」弹窗文字重叠、压缩文案",
+  "force": false
+}
