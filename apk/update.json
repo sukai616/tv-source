@@ -1,8 +1,8 @@
 {
-  "versionCode": 7,
-  "versionName": "1.0.6",
-  "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java64.apk",
-  "size": 20822486,
-  "log": "1. 公开清单升到 v22：直播备注按 11 月 2 日晚全量手机口径复测刷新（点播 13 / 直播 9，无增删）\n2. 离线内置点播/直播列表与公开清单对齐（去掉已失效的饭太硬等旧兜底）\n3. 隐藏成人直播新增「成人精选 xxx」（hujingguang/ChinaIPTV），解锁密码仍为占位 888888\n4. 继续只发布 java64 精简包，检查更新走 GitHub tv-source/apk",
+  "versionCode": 8,
+  "versionName": "1.0.7",
+  "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
+  "size": 33351022,
+  "log": "1. 恢复发布通用包 java（armeabi-v7a + arm64-v8a，Android 4.4+/minSdk 19），解决 32 位与 Android 4.4 盒子无法安装的问题\\n2. 更新清单与安装包统一切到该通用包；不含 x86",
   "force": false
 }
