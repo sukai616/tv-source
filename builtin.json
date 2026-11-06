@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 25,
   "vod": [
     {
       "name": "饭太硬",
@@ -142,6 +142,12 @@
       "url": "https://testingcf.jsdelivr.net/gh/bjzhou/iptv-collector@output/iptv.m3u",
       "remark": "同源 jsDelivr CF，当前 296 条/102 名；2026-11-06 全量线路 284/296=96%、频道 94/102=92%，备用镜像",
       "backup": "采集优选"
+    },
+    {
+      "name": "港澳台精选",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
+      "remark": "suxuang/myIPTV 榴芒；2026-11-06 修正频道口径后全量线路 925/1274=73%、频道 683/924=74%；刚达双门槛，含港澳台/凤凰/NOW/轮播，非全央卫；1247 个归一化地址中与测速仅 25 重叠；ipv4 版 29%/32% 不收",
+      "recommended": false
     }
   ]
 }
