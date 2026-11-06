@@ -43,11 +43,6 @@
       "remark": "免登录 4K 较多；2026-11-06 配置 104 站、jar 有效；CSP 实际搜索/播放需真机复核"
     },
     {
-      "name": "俊哥",
-      "url": "http://home.jundie.top:81/top98.json",
-      "remark": "降权保留：2026-11-06 配置 24 站可解，但相对 spider ./jar/top98_1.jar 实测 HTTP 404，HTTPS 为 TLS 错误；CSP 多数不可加载，非推荐"
-    },
-    {
       "name": "香雅情",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json",
       "remark": "2026-11-06 配置 48 站（39 CSP），但唯一 CMS 柚子资源列表返回空/非 JSON，采集能力偏弱；CSP 未做真机全量"
