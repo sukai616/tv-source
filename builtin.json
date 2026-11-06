@@ -1,6 +1,24 @@
 {
-  "version": 22,
+  "version": 23,
   "vod": [
+    {
+      "name": "饭太硬",
+      "url": "http://www.饭太硬.net/tv",
+      "remark": "主地址；响应为 JPEG 外壳 + Base64 JSON（约 48 站），App/okhttp 可解；2026-11-06 误判修复后加回",
+      "recommended": true
+    },
+    {
+      "name": "备用1",
+      "url": "http://fty.333232.xyz/tv",
+      "remark": "同源备用域名 fty.333232.xyz，与主地址同一份图片外壳配置",
+      "backup": "饭太硬"
+    },
+    {
+      "name": "备用2",
+      "url": "http://fty.888484.xyz/tv",
+      "remark": "同源备用域名 fty.888484.xyz，与主地址同一份图片外壳配置",
+      "backup": "饭太硬"
+    },
     {
       "name": "肥猫",
       "url": "http://肥猫.net/",

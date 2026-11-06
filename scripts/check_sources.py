@@ -34,6 +34,7 @@
 """
 
 import argparse
+import base64
 import json
 import os
 import re
@@ -52,16 +53,36 @@ UA = (
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 
+# 点播配置常用 okhttp；部分源（如饭太硬）对浏览器 UA 回门户 HTML，对 okhttp 回「JPEG 外壳 + Base64 JSON」。
+OKHTTP_UA = "okhttp/3.15"
+
+
 # 播放地址里常带空格 / 中文 / 竖线，urllib 不认，统一先清洗 + 转义
 INVALID_URL_CHARS = re.compile(r"[\s\t\n\r]")
 SAFE_URL_CHARS = re.compile(r"[^A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%]")
 
 
 def clean_url(url):
-    """清掉空白字符，并把非法字符转义成 %xx。"""
+    """清掉空白字符，并把非法字符转义成 %xx；主机名转成 punycode，避免 urllib latin-1 炸中文域名。"""
     if not isinstance(url, str):
         return ""
     url = INVALID_URL_CHARS.sub("", url).strip()
+    try:
+        parts = urllib.parse.urlsplit(url)
+        if parts.hostname:
+            host = parts.hostname.encode("idna").decode("ascii")
+            # 保留用户信息/端口
+            netloc = host
+            if parts.port:
+                netloc = "%s:%s" % (host, parts.port)
+            if parts.username:
+                user = parts.username
+                if parts.password:
+                    user = "%s:%s" % (user, parts.password)
+                netloc = "%s@%s" % (user, netloc)
+            url = urllib.parse.urlunsplit((parts.scheme, netloc, parts.path, parts.query, parts.fragment))
+    except Exception:
+        pass
     return SAFE_URL_CHARS.sub(lambda m: "".join("%%%02X" % b for b in m.group(0).encode("utf-8")), url)
 
 
@@ -89,13 +110,16 @@ class FetchResult(object):
         self.seconds = seconds
 
 
-def fetch(url, timeout, limit=None):
-    """GET 一个地址。limit 给定时只读前 limit 字节（探测用，省流量）。"""
+def fetch(url, timeout, limit=None, ua=None, use_range=True):
+    """GET 一个地址。limit 给定时只读前 limit 字节（探测用，省流量）。
+
+    点播配置请把 use_range=False：不少源对 Range 回 206 截断 JSON，会被误判。
+    """
     url = clean_url(url)
     started = time.time()
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
-        if limit:
+        req = urllib.request.Request(url, headers={"User-Agent": ua or UA, "Accept": "*/*"})
+        if limit and use_range:
             req.add_header("Range", "bytes=0-%d" % (limit - 1))
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             body = resp.read(limit) if limit else resp.read()
@@ -280,6 +304,80 @@ def sample_evenly(items, count):
 DEEP_PLAYLIST_LIMIT = 8192
 DEEP_SEGMENT_LIMIT = 2048
 DEEP_MAX_FOLLOW = 2  # 最多再请求 2 次（不含最初那次）
+
+
+def decode_image_wrapped_config(body):
+    """识别饭太硬这类「JPEG/图片外壳 + Base64 JSON」点播配置。
+
+    真 JPEG 读到 EOI（\xff\xd9）后，若跟着 Base64（常以 ew0K={\r\n 起头），
+    解出来应是带 sites/spider 的 TVBox 配置。失败返回 None。
+    """
+    if not body or body[:2] != b"\xff\xd8":
+        return None
+    eoi = body.find(b"\xff\xd9")
+    if eoi < 0 or eoi + 2 >= len(body):
+        return None
+    rest = body[eoi + 2:].decode("latin1", "ignore")
+    idx = rest.find("ew0K")
+    if idx < 0:
+        # 兼容 ** 分隔后再跟 base64
+        star = rest.find("**")
+        if star >= 0:
+            idx = rest.find("ew0K", star)
+    if idx < 0:
+        return None
+    payload = re.sub(r"[^A-Za-z0-9+/=]", "", rest[idx:])
+    if len(payload) < 64:
+        return None
+    payload += "=" * ((-len(payload)) % 4)
+    try:
+        raw = base64.b64decode(payload)
+        text = raw.decode("utf-8")
+    except Exception:
+        return None
+    lines = [ln for ln in text.splitlines() if not ln.lstrip().startswith("//")]
+    text2 = re.sub(r",\s*([}\]])", r"\1", "\n".join(lines))
+    try:
+        data = json.loads(text2)
+    except Exception:
+        return None
+    if isinstance(data, dict) and isinstance(data.get("sites"), list) and data.get("sites"):
+        return data
+    return None
+
+
+def classify_vod_body(body, ctype):
+    """判断点播接口响应是不是可用配置。返回 (通过?, 说明)。"""
+    if not body:
+        return False, "空响应"
+    low = body[:512].lower()
+    ctype = (ctype or "").lower()
+    if b"<html" in low or b"<!doctype" in low:
+        return False, "返回的是 HTML 页面"
+    # 严格 JSON
+    try:
+        text = body.decode("utf-8")
+        stripped = text.lstrip()
+        if stripped[:1] in "{[":
+            try:
+                data = json.loads(text)
+                if isinstance(data, dict) and isinstance(data.get("sites"), list):
+                    return True, "JSON 配置（%d 站）" % len(data["sites"])
+                if isinstance(data, dict) and ("spider" in data or "urls" in data or "storeHouse" in data):
+                    return True, "JSON 配置"
+            except Exception:
+                # 加密配置 / 超大截断：看起来像 JSON 就过（App 端再解）
+                low = stripped[:4096].lower()
+                if '"sites"' in low or '"spider"' in low or '"storehouse"' in low or '"urls"' in low:
+                    return True, "类 JSON 配置（需 App 解析）"
+    except Exception:
+        pass
+    wrapped = decode_image_wrapped_config(body)
+    if wrapped is not None:
+        return True, "图片外壳配置（%d 站）" % len(wrapped["sites"])
+    if body[:2] == b"\xff\xd8" or "image/" in ctype:
+        return False, "纯图片占位（无附加配置）"
+    return False, "内容无法识别（Content-Type=%s）" % (ctype or "无")
 
 
 def judge_body(body, ctype):
@@ -875,13 +973,19 @@ def main(argv=None):
         live = [e for e in (data.get("live") or []) if isinstance(e, dict) and e.get("url")]
 
         if args.vod:
-            print("  点播地址可达性：")
+            print("  点播配置探测（okhttp UA；识别 JSON / 图片外壳配置）：")
             for item in (data.get("vod") or []):
                 url = clean_url(item.get("url") or "")
-                res = fetch(url, args.timeout, limit=2048)
-                print("    %s %s → %s" % ("✓" if res.ok else "✗",
-                                          pad((item.get("name") or url)[:24], 26),
-                                          "HTTP %s %.1fs" % (res.status, res.seconds) if res.ok else res.error))
+                # 图片外壳配置的 JSON 在 JPEG EOI 之后，2048 字节截断会误判成纯图
+                res = fetch(url, args.timeout, limit=262144, ua=OKHTTP_UA, use_range=False)
+                if not res.ok:
+                    print("    ✗ %s → %s" % (pad((item.get("name") or url)[:24], 26), res.error))
+                    continue
+                ok, why = classify_vod_body(res.body, res.ctype)
+                print("    %s %s → HTTP %s %.1fs，%s" % (
+                    "✓" if ok else "✗",
+                    pad((item.get("name") or url)[:24], 26),
+                    res.status, res.seconds, why))
 
         results = []
         if args.live:
