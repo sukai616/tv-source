@@ -1,152 +1,158 @@
 {
-  "version": 25,
+  "version": 26,
   "vod": [
     {
       "name": "饭太硬",
       "url": "http://www.饭太硬.net/tv",
-      "remark": "主地址；JPEG 外壳+Base64 JSON，2026-11-06 严格解出 48 站（45 CSP/3 HTTP），spider jar/ZIP+MD5 有效；误判修复后保留",
+      "remark": "主地址；JPEG 外壳+Base64 JSON，2026-11-09 严格解出 48 站（45 CSP/3 HTTP），spider jar/ZIP+MD5 有效；误判修复后保留",
       "recommended": true
     },
     {
       "name": "备用1",
       "url": "http://fty.333232.xyz/tv",
-      "remark": "同源备用域名 fty.333232.xyz；2026-11-06 与主地址同为 48 站图片外壳配置，jar 有效",
+      "remark": "同源备用域名 fty.333232.xyz；2026-11-09 与主地址同为 48 站图片外壳配置，jar 有效",
       "backup": "饭太硬"
     },
     {
       "name": "备用2",
       "url": "http://fty.888484.xyz/tv",
-      "remark": "同源备用域名 fty.888484.xyz；2026-11-06 与主地址同为 48 站图片外壳配置，jar 有效",
+      "remark": "同源备用域名 fty.888484.xyz；2026-11-09 与主地址同为 48 站图片外壳配置，jar 有效",
       "backup": "饭太硬"
     },
     {
       "name": "肥猫",
       "url": "http://肥猫.net/",
-      "remark": "混合线路；AES-CBC 配置 41 站（40 CSP），spider jar 有效；2026-11-06 修正检测后保留",
+      "remark": "混合线路；AES-CBC 配置 41 站（40 CSP），spider jar 有效；2026-11-09 复测保留",
       "recommended": true
     },
     {
       "name": "王二小",
       "url": "http://new.王二小放牛娃.top",
-      "remark": "混合线路，网盘资源较多；2026-11-06 解出 98 站、jar 有效；CSP 实际搜索/播放仍需真机复核",
+      "remark": "混合线路，网盘资源较多；2026-11-09 解出 100 站、jar 有效；CSP 实际搜索/播放仍需真机复核",
       "recommended": true
     },
     {
       "name": "小盒子",
       "url": "http://xhztv.top/xhz",
-      "remark": "2026-11-06 配置 54 站（50 CSP/4 HTTP），jar 有效；CSP 实际搜索/播放需真机复核",
+      "remark": "2026-11-09 配置 54 站（50 CSP/4 HTTP），jar 有效；CSP 实际搜索/播放需真机复核",
       "recommended": true
     },
     {
       "name": "摸鱼儿",
       "url": "http://我不是.摸鱼儿.top",
-      "remark": "免登录 4K 较多；2026-11-06 配置 104 站、jar 有效；CSP 实际搜索/播放需真机复核"
+      "remark": "免登录 4K 较多；2026-11-09 配置 104 站、jar 有效；CSP 实际搜索/播放需真机复核"
+    },
+    {
+      "name": "摸鱼儿备用",
+      "url": "http://www.y456y.com",
+      "remark": "同源备用 www.y456y.com；2026-11-09 与主地址同为 104 站、同一 jar（MD5 c78599dab489）",
+      "backup": "摸鱼儿"
     },
     {
       "name": "香雅情",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json",
-      "remark": "2026-11-06 配置 48 站（39 CSP），但唯一 CMS 柚子资源列表返回空/非 JSON，采集能力偏弱；CSP 未做真机全量"
+      "remark": "2026-11-09 配置 48 站（39 CSP），唯一 CMS 柚子资源列表仍返回空/非 JSON（采集 0/1），采集能力偏弱；CSP 未做真机全量"
     },
     {
       "name": "南风",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json",
-      "remark": "AES-CBC 配置 91 站（90 CSP/1 HTTP），2 个 spider jar 有效；2026-11-06 解码修正后复测"
+      "remark": "AES-CBC 配置 91 站（90 CSP/1 HTTP），2 个 spider jar 有效；2026-11-09 复测"
     },
     {
       "name": "菜妮丝",
       "url": "https://tv.xn--yhqu5zs87a.top",
-      "remark": "2026-11-06 配置 37 站，3 个 jar 有效；采集列表 1/1，媒体需 App 解析，CSP 未全量真机验证"
+      "remark": "2026-11-09 配置 37 站，3 个 jar 有效；采集列表 1/1，媒体需 App 解析，CSP 未全量真机验证"
     },
     {
       "name": "少儿专线",
       "url": "http://xhztv.top/dc/少儿频道/api.json",
-      "remark": "儿童动画专用；2026-11-06 配置 30 站（25 CSP）；无独立 CMS 采集，需真机抽查"
+      "remark": "儿童动画专用；2026-11-09 配置 30 站（25 CSP）；无独立 CMS 采集，需真机抽查"
     },
     {
       "name": "高坡",
       "url": "https://tvbox-public.gaoops.top/",
-      "remark": "2026-11-06 配置 52 站（49 CSP）可解；主站未声明 spider，站点以外部能力为主，需真机复核"
+      "remark": "2026-11-09 配置 52 站（49 CSP）可解，2 个 jar 有效；站点以外部能力为主，需真机复核"
     },
     {
       "name": "高坡备用",
       "url": "https://raw.giteeusercontent.com/gaoops404/tvbox-config/raw/main/tvbox.json",
-      "remark": "同源备用（Gitee raw），2026-11-06 同为 52 站；与 CDN 主地址一致",
+      "remark": "同源备用（Gitee raw），2026-11-09 同为 52 站；与 CDN 主地址一致",
       "backup": "高坡"
     },
     {
       "name": "Qist合集",
       "url": "https://qist.wyfc.qzz.io/jsm.json",
-      "remark": "2026-11-06 配置 157 站（108 CSP/15 HTTP）；采集列表 6/8，首媒体迹象 1/6，站多不等于播放好，保留但非推荐"
+      "remark": "2026-11-09 配置 157 站（108 CSP/15 HTTP）；采集列表 6/8，首媒体迹象 2/6，站多不等于播放好，保留但非推荐"
     },
     {
       "name": "小马",
       "url": "https://szyyds.cn/tv/x.json",
-      "remark": "2026-11-06 配置 62 站（40 CSP/22 HTTP）、4 个 jar 有效；采集列表 7/8，首媒体迹象 1/7，保留但非推荐"
+      "remark": "2026-11-09 配置 62 站（40 CSP/22 HTTP）、4 个 jar 有效；采集列表 7/8，首媒体迹象 2/7，保留但非推荐"
     }
   ],
   "live": [
     {
       "name": "主力推荐",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "zbds 当前仅 34 条（2026-11-06 全量 30/34=88%），较旧版 441 条大幅缩容；央视+卫视+地方台，保留推荐但不再宣称数百台",
+      "remark": "zbds 当前 431 条（2026-11-09 全量 390/431=90%），较 11-06 的 34 条明显回升；央视+卫视+地方台，保留推荐",
       "recommended": true
     },
     {
       "name": "备用域名",
       "url": "https://v.zbds.top/tv/iptv4.m3u",
-      "remark": "同源备用 v.zbds.top，当前同为 34 条；2026-11-06 全量 33/34=97%，仅作镜像",
+      "remark": "同源备用 v.zbds.top，当前同为 431 条；2026-11-09 全量 390/431=90%，仅作镜像",
       "backup": "主力推荐"
     },
     {
       "name": "TXT版",
       "url": "https://live.zbds.top/tv/iptv4.txt",
-      "remark": "zbds 同内容 TXT，43 条/34 个频道名；2026-11-06 全量线路 42/43=98%、频道 33/34=97%；含 1 条宣传 MP4，非全为电视直播"
+      "remark": "zbds 同内容 TXT，558 条/427 个频道名；2026-11-09 全量线路 506/558=91%、频道 391/427=92%；含宣传/电影条目，非全为电视直播"
     },
     {
       "name": "IPv6 专线",
       "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
-      "remark": "约 82 条：55 个 IPv6 裸地址本机无出口未测，27 个域名线路仅 12/27=44%；仅供特定 IPv6 环境，非普通推荐（2026-11-06）"
+      "remark": "约 82 条：55 个 IPv6 裸地址本机无出口未测，27 个域名线路仅 12/27=44%；仅供特定 IPv6 环境，非普通推荐（2026-11-09）"
     },
     {
       "name": "测速优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
-      "remark": "Supprise0901/TVBox_live；2026-11-06 全量线路 693/773=90%、频道 222/244=91%，双口径达标，升为推荐；与主力/四小时重复少，与采集有部分重叠",
+      "remark": "Supprise0901/TVBox_live；2026-11-09 全量线路 618/676=91%、频道 229/250=92%，双口径达标，保留推荐",
       "recommended": true
     },
     {
       "name": "央卫精选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/best-fan/iptv-sources/main/cn_all.m3u8",
-      "remark": "best-fan 全国列表；2026-11-06 全量线路 205/214=96%、频道 78/82=95%；比旧复测显著提升，82 个频道名精简补充；与测速/四小时/采集归一化去重后约 63 个新增地址；cctv/province 为子集不叠收",
+      "remark": "best-fan 全国列表；2026-11-09 全量线路 289/298=97%、频道 73/74=99%；cctv/province 为子集不叠收",
       "recommended": true
     },
     {
       "name": "四小时优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "Collect-IPTV，每 4 小时更新；当前 426 条（旧版 505）；2026-11-06 全量线路 356/426=84%，保留推荐",
+      "remark": "Collect-IPTV，每 4 小时更新；当前 663 条；2026-11-09 全量线路 543/663=82%，保留推荐",
       "recommended": true
     },
     {
       "name": "四小时优选备用",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "同源 ghfast.top 前缀，当前 426 条；2026-11-06 全量线路 356/426=84%，与主地址同一份配置",
+      "remark": "同源 ghfast.top 前缀，当前 663 条；2026-11-09 全量线路 551/663=83%，与主地址同一份配置",
       "backup": "四小时优选"
     },
     {
       "name": "采集优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/bjzhou/iptv-collector/output/iptv.m3u",
-      "remark": "bjzhou/iptv-collector；当前 296 条/102 名（旧版 358/104）；2026-11-06 全量线路 275/296=93%、频道 89/102=87%，保留推荐",
+      "remark": "bjzhou/iptv-collector；当前 322 条/104 名；2026-11-09 全量线路 301/322=93%、频道 93/104=89%，保留推荐",
       "recommended": true
     },
     {
       "name": "采集优选备用",
       "url": "https://testingcf.jsdelivr.net/gh/bjzhou/iptv-collector@output/iptv.m3u",
-      "remark": "同源 jsDelivr CF，当前 296 条/102 名；2026-11-06 全量线路 284/296=96%、频道 94/102=92%，备用镜像",
+      "remark": "同源 jsDelivr CF，当前 322 条/104 名；2026-11-09 全量线路 304/322=94%、频道 94/104=90%，备用镜像",
       "backup": "采集优选"
     },
     {
       "name": "港澳台精选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
-      "remark": "suxuang/myIPTV 榴芒；2026-11-06 修正频道口径后全量线路 925/1274=73%、频道 683/924=74%；刚达双门槛，含港澳台/凤凰/NOW/轮播，非全央卫；1247 个归一化地址中与测速仅 25 重叠；ipv4 版 29%/32% 不收",
+      "remark": "suxuang/myIPTV 榴芒；2026-11-09 全量线路 993/1274=78%、频道 748/924=81%；含港澳台/凤凰/NOW/轮播，非全央卫；ipv4 版抽测 25%/0% 不收",
       "recommended": false
     }
   ]
