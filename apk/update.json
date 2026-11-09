@@ -2,7 +2,8 @@
   "versionCode": 10,
   "versionName": "1.0.9",
   "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33354583,
-  "log": "1. 修复点播换源/换集卡死：JS 源加载全局锁拆为 per-key 锁 + 全流程 30s 超时，坏源不再拖死主线程\n2. 直播换台/换源重试风暴治理：连续失败 3 次上限 + 错误态播放器强制释放 + 退出页清理全部定时器\n3. 性能：直播大列表 O(n²)→O(n) 且解析/缓存写挪后台、配置解析下后台、聚合搜索并发窗口+250ms 批量刷新、Room 高频读写后台化、DoH 8s 超时\n4. 体验：换源重试进度提示、冷启动瘦身、服务器启动下后台、ImgUtil 改 8MB LruCache、删除无用死代码\n5. 修复搜索页\"指定搜索源\"按返回键闪退",
+  "size": 33352269,
+  "sha256": "5122fd33f21673bf817aba5f2a93365e79f5a96679f23c8298248520f22372ed",
+  "log": "修复换源卡死残留风险：更新包三重校验、JarLoader 代际作废、Spider 两段清理、JS 超时可挂起/级联取消、配置加载代际校验",
   "force": false
 }
