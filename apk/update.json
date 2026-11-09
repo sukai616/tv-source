@@ -1,8 +1,8 @@
 {
-  "versionCode": 9,
-  "versionName": "1.0.8",
+  "versionCode": 10,
+  "versionName": "1.0.9",
   "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33352229,
-  "log": "1. 同步内置清单到 v26：新增摸鱼儿备用（www.y456y.com，与主地址同为 104 站、同一 jar）\n2. 隐藏源：tvyuan 简洁版因 GitHub raw 已空，改用仍可用的 Gitee 镜像；删除未达 phone 双口径 70% 的成人精选 xxx（两轮均为 54/78=69%）\n3. 继续发布通用包 java（armeabi-v7a + arm64-v8a，Android 4.4+/minSdk 19），不含 x86",
+  "size": 33354583,
+  "log": "1. 修复点播换源/换集卡死：JS 源加载全局锁拆为 per-key 锁 + 全流程 30s 超时，坏源不再拖死主线程\n2. 直播换台/换源重试风暴治理：连续失败 3 次上限 + 错误态播放器强制释放 + 退出页清理全部定时器\n3. 性能：直播大列表 O(n²)→O(n) 且解析/缓存写挪后台、配置解析下后台、聚合搜索并发窗口+250ms 批量刷新、Room 高频读写后台化、DoH 8s 超时\n4. 体验：换源重试进度提示、冷启动瘦身、服务器启动下后台、ImgUtil 改 8MB LruCache、删除无用死代码\n5. 修复搜索页\"指定搜索源\"按返回键闪退",
   "force": false
 }
