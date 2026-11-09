@@ -1,8 +1,8 @@
 {
-  "versionCode": 8,
-  "versionName": "1.0.7",
+  "versionCode": 9,
+  "versionName": "1.0.8",
   "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33351022,
-  "log": "1. 恢复发布通用包 java（armeabi-v7a + arm64-v8a，Android 4.4+/minSdk 19），解决 32 位与 Android 4.4 盒子无法安装的问题\n2. 更新清单与安装包统一切到该通用包；不含 x86",
+  "size": 33352229,
+  "log": "1. 同步内置清单到 v26：新增摸鱼儿备用（www.y456y.com，与主地址同为 104 站、同一 jar）\n2. 隐藏源：tvyuan 简洁版因 GitHub raw 已空，改用仍可用的 Gitee 镜像；删除未达 phone 双口径 70% 的成人精选 xxx（两轮均为 54/78=69%）\n3. 继续发布通用包 java（armeabi-v7a + arm64-v8a，Android 4.4+/minSdk 19），不含 x86",
   "force": false
 }
