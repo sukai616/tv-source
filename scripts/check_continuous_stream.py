@@ -26,9 +26,10 @@ def main():
     parser.add_argument('--seconds',type=float,default=180);parser.add_argument('--rounds',type=int,default=2)
     parser.add_argument('--timeout',type=float,default=8);parser.add_argument('--json-out',required=True)
     parser.add_argument('--lock',default='.live-quality.lock')
+    parser.add_argument('--network-label',default='user Mac; exit not independently verified; not phone')
     args=parser.parse_args()
     if args.seconds<1 or args.rounds<1:parser.error('positive duration/rounds required')
-    out=dict(started=time.strftime('%Y-%m-%d %H:%M:%S %Z'),network='user Mac; not phone',results=[])
+    out=dict(started=time.strftime('%Y-%m-%d %H:%M:%S %Z'),network=args.network_label,results=[])
     with quality.run_lock(args.lock):
         for i in range(args.rounds):
             print('START',i+1,args.name,flush=True)

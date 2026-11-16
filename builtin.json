@@ -1,5 +1,5 @@
 {
-  "version": 28,
+  "version": 29,
   "vod": [
     {
       "name": "饭太硬",
@@ -109,80 +109,80 @@
   ],
   "live": [
     {
-      "name": "央视实测（3台·非完整）",
+      "name": "央地实测优选（43台）",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/live/cctv.m3u",
-      "remark": "严格2/18：CCTV5/5+同URL600+180秒、480p；CCTV13仅相对备选：600秒供给通过、60秒音画有0.588秒追赶提示，1080p；仅Mac白天非手机保证",
+      "remark": "跨源逐台：央视18/18、省级卫视22/31、地方少儿3/8；严格24/相对19，非完整不卡保证。多数480p/共享底层；180/600秒覆盖及缺台见公开证据。Mac出口查询洛杉矶，非大陆/手机实测",
       "recommended": true
     },
     {
       "name": "国际新闻实测（CGTN）",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/live/international.m3u",
-      "remark": "相对推荐·仅CGTN英语1台；2026-11-16 两轮180秒及600秒HLS无失败/供给不足，720p25fps；60秒解码有HTTP EOF警告，非央卫替代，不保证手机/晚高峰",
+      "remark": "相对推荐·仅CGTN英语1台；2026-11-16 两轮180秒及600秒HLS无失败/供给不足，720p25fps；60秒解码有HTTP EOF警告，非央卫替代，不保证手机/晚高峰；央视基础覆盖0/18；Mac本次出口查询洛杉矶，历史媒体路径未逐时核实",
       "recommended": true
     },
     {
       "name": "港澳资讯实测（凤凰）",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/live/phoenix.m3u",
-      "remark": "相对推荐·仅凤凰资讯1台，独立底层；两轮180秒及600秒连续视频解码，600秒15000帧dup/drop0，但有最大8.092秒读入追赶警告，严格无警告门槛未过；非全港澳台",
+      "remark": "相对推荐·仅凤凰资讯1台，独立底层；两轮180秒及600秒连续视频解码，600秒15000帧dup/drop0，但有最大8.092秒读入追赶警告，严格无警告门槛未过；非全港澳台；央视基础覆盖0/18；Mac本次出口查询洛杉矶，历史媒体路径未逐时核实",
       "recommended": true
+    },
+    {
+      "name": "测速优选",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+      "remark": "本轮目标子集：35/53台有持续窗口，29台取得可用证据（严格23/相对6）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路831/942、频道口径223/248；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；Mac出口查询洛杉矶，非大陆实测"
+    },
+    {
+      "name": "港澳台精选",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
+      "remark": "本轮目标子集：10/56台有持续窗口，6台取得可用证据（严格0/相对6）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路986/1274、频道口径745/924；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；凤凰FLV已单独连续解码，不能把非HLS当失效；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "zbds 综合",
       "url": "https://live.zbds.top/tv/iptv4.m3u",
-      "remark": "2026-11-16 基础全量线路369/402、频道口径369/402；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV13/浙江少儿冻结、湖南首线ENDLIST已有实证"
+      "remark": "本轮目标子集：3/34台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路369/402、频道口径369/402；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV13/浙江少儿冻结、湖南首线ENDLIST已有实证；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "备用域名",
       "url": "https://v.zbds.top/tv/iptv4.m3u",
-      "remark": "2026-11-16 抓取快照402条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选",
+      "remark": "本轮目标子集：3/34台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 抓取快照402条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选；Mac出口查询洛杉矶，非大陆实测",
       "backup": "zbds 综合"
     },
     {
       "name": "TXT版",
       "url": "https://live.zbds.top/tv/iptv4.txt",
-      "remark": "2026-11-16 抓取快照529条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选"
+      "remark": "本轮目标子集：4/34台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 抓取快照529条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "IPv6 专线",
       "url": "https://live.fanmingming.cn/tv/m3u/ipv6.m3u",
-      "remark": "2026-11-16 共82条，55裸IPv6本机无出口未测；仅域名12/27，不据此删除IPv6；供特定网络选用，非推荐"
-    },
-    {
-      "name": "测速优选",
-      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
-      "remark": "2026-11-16 基础全量线路831/942、频道口径223/248；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐"
+      "remark": "本轮目标子集：0/50台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 共82条，55裸IPv6本机无出口未测；仅域名12/27，不据此删除IPv6；供特定网络选用，非推荐；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "央卫精选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/best-fan/iptv-sources/main/cn_all.m3u8",
-      "remark": "2026-11-16 基础全量线路213/253、频道口径61/72；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV1首线ENDLIST，不再标整表流畅"
+      "remark": "本轮目标子集：2/52台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路213/253、频道口径61/72；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV1首线ENDLIST，不再标整表流畅；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "四小时优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "2026-11-16 基础全量线路533/614、频道口径533/614；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐"
+      "remark": "本轮目标子集：3/43台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路533/614、频道口径533/614；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "四小时优选备用",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/zilong7728/Collect-IPTV/main/best_sorted.m3u",
-      "remark": "2026-11-16 抓取快照614条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选",
+      "remark": "本轮目标子集：3/43台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 抓取快照614条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选；Mac出口查询洛杉矶，非大陆实测",
       "backup": "四小时优选"
     },
     {
       "name": "采集优选",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/bjzhou/iptv-collector/output/iptv.m3u",
-      "remark": "2026-11-16 基础全量线路198/206、频道口径77/81；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV1原首线失败；备线仍需逐条验证"
+      "remark": "本轮目标子集：1/43台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 基础全量线路198/206、频道口径77/81；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；CCTV1原首线失败；备线仍需逐条验证；Mac出口查询洛杉矶，非大陆实测"
     },
     {
       "name": "采集优选备用",
       "url": "https://testingcf.jsdelivr.net/gh/bjzhou/iptv-collector@output/iptv.m3u",
-      "remark": "2026-11-16 抓取快照206条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选",
+      "remark": "本轮目标子集：1/43台有持续窗口，0台取得可用证据（严格0/相对0）；不是整表推荐，未测部分待验。2026-11-16 抓取快照206条；同源格式/镜像未重复全量、无独立持续推荐证据；保留备选；Mac出口查询洛杉矶，非大陆实测",
       "backup": "采集优选"
-    },
-    {
-      "name": "港澳台精选",
-      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
-      "remark": "2026-11-16 基础全量线路986/1274、频道口径745/924；仅基础可取样，不等于持续流畅；原聚合保留覆盖，非推荐；凤凰FLV已单独连续解码，不能把非HLS当失效"
     }
   ]
 }

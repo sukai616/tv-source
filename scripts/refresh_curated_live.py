@@ -5,10 +5,12 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from check_live_stability import run_lock
 from cctv_policy import BASE_CHANNELS, canonical_station
+from live_composite_policy import validate_target_coverage
 
 def render(data):
     outputs={};all_urls=set()
     for group in data['lists']:
+        validate_target_coverage(group)
         filename=group['file']
         if not re.fullmatch(r'[a-z0-9-]+[.]m3u',filename):raise ValueError('unsafe output name')
         if filename in outputs:raise ValueError('duplicate filename')

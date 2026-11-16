@@ -1,8 +1,88 @@
 #EXTM3U
 # Manually reviewed public stations; see live/README.md and selected.json.
-#EXTINF:-1 group-title="央视体育实测（480p）",CCTV-5
+#EXTINF:-1 group-title="央视主选·实测",CCTV-1
+http://116.237.170.51:7788/608807420
+#EXTINF:-1 group-title="央视主选·实测",CCTV-2
+http://116.237.170.51:7788/631780532
+#EXTINF:-1 group-title="央视主选·实测",CCTV-3
+http://116.237.170.51:7788/624878271
+#EXTINF:-1 group-title="央视主选·实测",CCTV-4
+http://116.237.170.51:7788/631780421
+#EXTINF:-1 group-title="央视主选·实测",CCTV-5
 http://116.237.170.51:7788/641886683
-#EXTINF:-1 group-title="央视体育实测（480p）",CCTV-5+
-http://116.237.170.51:7788/641886773
-#EXTINF:-1 group-title="央视新闻相对备选（有追赶提示）",CCTV-13
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-6
+http://204.12.221.218:8181/3m1080p/cctv6.m3u8
+#EXTINF:-1 group-title="央视主选·实测",CCTV-7
+http://116.237.170.51:7788/673168121
+#EXTINF:-1 group-title="央视主选·实测",CCTV-8
+http://116.237.170.51:7788/624878356
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-9
+http://116.237.170.51:7788/673168140
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-10
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv10hd
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-11
+http://116.237.170.51:7788/667987558
+#EXTINF:-1 group-title="央视主选·实测",CCTV-12
+http://116.237.170.51:7788/673168185
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-13
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd
+#EXTINF:-1 group-title="央视主选·实测",CCTV-14
+http://116.237.170.51:7788/624878440
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-15
+http://116.237.170.51:7788/673168223
+#EXTINF:-1 group-title="央视主选·相对（有警告）",CCTV-16
+http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009
+#EXTINF:-1 group-title="央视主选·实测",CCTV-17
+http://116.237.170.51:7788/673168256
+#EXTINF:-1 group-title="央视主选·实测",CCTV-5+
+http://116.237.170.51:7788/641886773
+#EXTINF:-1 group-title="省级卫视主选·实测",北京卫视
+http://116.237.170.51:7788/630287636
+#EXTINF:-1 group-title="省级卫视主选·实测",河北卫视
+http://116.237.170.51:7788/962042070
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",山西卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",辽宁卫视
+http://116.237.170.51:7788/630291707
+#EXTINF:-1 group-title="省级卫视主选·实测",吉林卫视
+http://116.237.170.51:7788/947472500
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",黑龙江卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",东方卫视
+http://116.237.170.51:7788/651632648
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",江苏卫视
+http://116.237.170.51:7788/623899368
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",浙江卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=zjwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",江西卫视
+http://116.237.170.51:7788/783847495
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",山东卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",河南卫视
+http://116.237.170.51:7788/790187291
+#EXTINF:-1 group-title="省级卫视主选·实测",湖北卫视
+http://116.237.170.51:7788/947472496
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",湖南卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",广东卫视
+http://204.12.221.218:8181/3m1080p/gdws.m3u8
+#EXTINF:-1 group-title="省级卫视主选·实测",海南卫视
+http://116.237.170.51:7788/947472502
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",四川卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",重庆卫视
+http://116.237.170.51:7788/738910914
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",贵州卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd
+#EXTINF:-1 group-title="省级卫视主选·相对（有警告）",云南卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ynwshd
+#EXTINF:-1 group-title="省级卫视主选·实测",陕西卫视
+http://116.237.170.51:7788/738910838
+#EXTINF:-1 group-title="省级卫视主选·实测",青海卫视
+http://116.237.170.51:7788/947472506
+#EXTINF:-1 group-title="地方少儿主选·相对（有警告）",深圳卫视
+http://204.12.221.218:8181/3m1080p/szws.m3u8
+#EXTINF:-1 group-title="地方少儿主选·相对（有警告）",厦门卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xmws
+#EXTINF:-1 group-title="地方少儿主选·实测",兵团卫视
+http://116.237.170.51:7788/956923145

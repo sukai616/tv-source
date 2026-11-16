@@ -1330,9 +1330,9 @@ def report_live(label, results, min_pass, min_pass_channel=None, require_both=Fa
 # main
 # --------------------------------------------------------------------------- #
 
-def default_workers(full=False):
-    """Full live probes favor low load; sustained audits have a separate cap of2."""
-    return 4 if full else 16
+def default_workers(full=False, live=False):
+    """Public live basic and sustained stages both cap load at two workers."""
+    return 2 if live else (4 if full else 16)
 
 
 def main(argv=None):
@@ -1362,7 +1362,7 @@ def main(argv=None):
     parser.add_argument("--channel-first-line", action="store_true",
                         help="频道口径只试排序后的第一条线路（等价于 --max-lines 1）")
     parser.add_argument("--workers", type=int, default=None,
-                        help="并发数（默认 16；--full 时默认 4）")
+                        help="并发数（--live 默认且最多2；其他默认16，--full默认4）")
     parser.add_argument("--timeout", type=float, default=8.0, help="单请求超时秒数，默认 8")
     parser.add_argument("--min-pass", type=float, default=None,
                         help="线路口径最低可播比例（默认 0.5；--phone 下 0.7）")
@@ -1386,7 +1386,9 @@ def main(argv=None):
     if args.max_lines is None:
         args.max_lines = 1 if phone else 4
     if args.workers is None:
-        args.workers = default_workers(args.full)
+        args.workers = default_workers(args.full, args.live)
+    if args.live and args.workers not in (1, 2):
+        parser.error("--live requires --workers 1 or 2; do not generate congestion during quality maintenance")
     require_both = phone  # --phone：推荐源/达标判定用 AND
 
     ipv6_ready = True

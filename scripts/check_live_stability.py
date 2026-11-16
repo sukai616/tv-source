@@ -16,7 +16,7 @@ import time
 import urllib.request
 import urllib.parse
 import check_sources as base
-from cctv_policy import BASE_CHANNELS, select_representatives
+from live_composite_policy import TARGETS as BASE_CHANNELS, select_representatives
 
 
 def playlist(text, url):
@@ -288,6 +288,7 @@ def run_lock(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--manifest', default='builtin.json')
+    ap.add_argument('--network-label', default='user Mac; exit not independently verified; not phone', help='explicit observed network scope; never infer mainland from host/timezone')
     ap.add_argument('--source', action='append', help='exact source name; repeatable')
     ap.add_argument('--channel', action='append', default=[], help='channel regex; first match/line only')
     ap.add_argument('--seconds', type=float, default=180)
@@ -304,10 +305,10 @@ def main():
     data = json.loads(Path(args.manifest).read_text())
     unknown = set(args.source or []) - {e['name'] for e in data['live']}
     if unknown: ap.error('unknown sources: '+', '.join(sorted(unknown)))
-    output = dict(started=time.strftime('%Y-%m-%d %H:%M:%S %Z'), network='user Mac; not phone',
+    output = dict(started=time.strftime('%Y-%m-%d %H:%M:%S %Z'), network=args.network_label,
                   seconds=args.seconds, rounds=args.rounds, concurrency=args.workers, decode_seconds=args.decode_seconds, decode_audio_requested=args.decode_audio, results=[], coverage=[])
     patterns = args.channel or None
-    output['selection_policy'] = 'explicit channel regex' if patterns else 'CCTV1-17 plus5+ baseline; never CGTN/Phoenix substitute'
+    output['selection_policy'] = 'explicit channel regex' if patterns else 'cross-source CCTV18 + provincial31 + additional8; labels not identity; never CGTN/Phoenix substitute'
     ipv6, detail = base.ipv6_check(min(args.timeout, 3), quiet=True)
     output['ipv6'] = dict(ready=ipv6, detail=detail)
     def save():

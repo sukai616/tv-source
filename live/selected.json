@@ -1,19 +1,407 @@
 {
-  "reviewed": "2026-11-16 Beijing daytime Mac network; not phone",
-  "policy": "Manual public-station allowlist only; no whole-upstream auto-import; preserve full URLs; relative recommendations with limited coverage",
+  "reviewed": "2026-11-16 Beijing daytime/evening Mac; public exit queries Los Angeles AS906, NOT mainland/phone validation",
+  "policy": "Cross-subscription per-channel manual public allowlist; strict/relative separate; no auto-import, fake-live filler, adult content or inferred backend independence",
   "lists": [
     {
       "file": "cctv.m3u",
-      "title": "央视实测子集（非完整）",
-      "cctv_baseline_qualified": [
-        "CCTV-5",
-        "CCTV-5+"
-      ],
-      "cctv_baseline_relative_only": [
-        "CCTV-13"
-      ],
-      "qualification_state": "2/18 strict600 plus sameURL180; 1/18 relative600 with pacing warnings; not complete CCTV",
+      "title": "央地跨源实测（分级与缺台见说明）",
+      "target_coverage": {
+        "strict": [
+          "CCTV-1",
+          "CCTV-2",
+          "CCTV-3",
+          "CCTV-4",
+          "CCTV-5",
+          "CCTV-7",
+          "CCTV-8",
+          "CCTV-12",
+          "CCTV-14",
+          "CCTV-17",
+          "CCTV-5+",
+          "北京卫视",
+          "河北卫视",
+          "辽宁卫视",
+          "吉林卫视",
+          "东方卫视",
+          "江西卫视",
+          "河南卫视",
+          "湖北卫视",
+          "海南卫视",
+          "重庆卫视",
+          "陕西卫视",
+          "青海卫视",
+          "兵团卫视"
+        ],
+        "relative": [
+          "CCTV-6",
+          "CCTV-9",
+          "CCTV-10",
+          "CCTV-11",
+          "CCTV-13",
+          "CCTV-15",
+          "CCTV-16",
+          "山西卫视",
+          "黑龙江卫视",
+          "江苏卫视",
+          "浙江卫视",
+          "山东卫视",
+          "湖南卫视",
+          "广东卫视",
+          "四川卫视",
+          "贵州卫视",
+          "云南卫视",
+          "深圳卫视",
+          "厦门卫视"
+        ],
+        "basic_only": []
+      },
       "channels": [
+        {
+          "name": "CCTV-1",
+          "url": "http://116.237.170.51:7788/608807420",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-00-target180.jpg",
+              "station": "CCTV-1",
+              "identity_verified": true,
+              "visible": "Visible CCTV1 comprehensive logo and Haohao De Shiguang drama, Migu watermark",
+              "reviewed_beijing": "2026-11-16 16:22:55 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-00-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.005040084,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.005040084,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.005040084,
+                  "unique_segments": 32,
+                  "supplied_media_seconds": 192.0,
+                  "supply_ratio": 1.0666368003384934,
+                  "startup_complete_segment_seconds": 0.8155182920000001,
+                  "first_body_byte_seconds": 0.048392458000002136,
+                  "p95_download_media_ratio": 0.11512812499999825,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.690186124999997,
+                  "missed_sequences": 0,
+                  "bytes": 24996292,
+                  "average_downloaded_media_bitrate": 1041512.1666666666,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-1",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-2",
+          "url": "http://116.237.170.51:7788/631780532",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-01-target180.jpg",
+              "station": "CCTV-2",
+              "identity_verified": true,
+              "visible": "Visible CCTV2 finance logo; Zhengwu Caijing APEC Shenzhen news; onscreen16:20 near capture",
+              "reviewed_beijing": "2026-11-16 16:22:55 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-01-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00510308300002,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00510308300002,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00510308300002,
+                  "unique_segments": 31,
+                  "supplied_media_seconds": 186.0,
+                  "supply_ratio": 1.0333040386873684,
+                  "startup_complete_segment_seconds": 0.7669815830000033,
+                  "first_body_byte_seconds": 0.04573891700000132,
+                  "p95_download_media_ratio": 0.09706366666666592,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.862261125000003,
+                  "missed_sequences": 0,
+                  "bytes": 22837488,
+                  "average_downloaded_media_bitrate": 982257.5483870967,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-2",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-3",
+          "url": "http://116.237.170.51:7788/624878271",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-02-target180.jpg",
+              "station": "CCTV-3",
+              "identity_verified": true,
+              "visible": "Visible CCTV3 arts logo; Qingchun Huachang Qilai stage entertainment",
+              "reviewed_beijing": "2026-11-16 16:28:56 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-02-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.005056333,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.005056333,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.005056333,
+                  "unique_segments": 31,
+                  "supplied_media_seconds": 186.0,
+                  "supply_ratio": 1.0333043070518513,
+                  "startup_complete_segment_seconds": 0.7752712080000208,
+                  "first_body_byte_seconds": 0.03597145900002374,
+                  "p95_download_media_ratio": 0.09027907633334091,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.731447417000027,
+                  "missed_sequences": 0,
+                  "bytes": 22530108,
+                  "average_downloaded_media_bitrate": 969036.9032258064,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-3",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-4",
+          "url": "http://116.237.170.51:7788/631780421",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-03-target180.jpg",
+              "station": "CCTV-4",
+              "identity_verified": true,
+              "visible": "Visible CCTV4 Chinese International logo; period military-drama title sequence. Regional Asia/Europe/America version NOT independently EPG-verified by this generic logo",
+              "reviewed_beijing": "2026-11-16 16:28:56 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-03-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00508808299998,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00508808299998,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00508808299998,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555257188751874,
+                  "startup_complete_segment_seconds": 1.0270751249999819,
+                  "first_body_byte_seconds": 0.04202566699999011,
+                  "p95_download_media_ratio": 0.12620661670000005,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.534729667000022,
+                  "missed_sequences": 0,
+                  "bytes": 26148544,
+                  "average_downloaded_media_bitrate": 1100991.3263157895,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-4",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent. Generic Chinese International logo visible; regional version not independently EPG-verified.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
         {
           "name": "CCTV-5",
           "url": "http://116.237.170.51:7788/641886683",
@@ -22,53 +410,752 @@
           "provenance": [
             "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
           ],
-          "group_title": "央视体育实测（480p）",
+          "group_title": "央视主选·实测",
           "relative_only": false,
           "evidence": {
             "date": "2026-11-16",
+            "role": "primary",
             "identity_verified": true,
+            "identity_method": {
+              "identity_verified": true,
+              "visible": "visible expected logo; single still only, not full-program realtime verification",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-5-2.jpg",
+              "method": "prior actual Read review"
+            },
             "sustained_seconds": 600,
+            "actual_best_window_elapsed": 600.009864292,
             "hls_supply_qualified": true,
             "sustained_qualified": true,
+            "playable_sustained_sample": true,
             "rounds_seconds": [
               600,
               180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/next-results.json",
+                "elapsed": 600.009864292,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 600.009864292,
+                  "unique_segments": 101,
+                  "supplied_media_seconds": 606.0,
+                  "supply_ratio": 1.0099833953814548,
+                  "startup_complete_segment_seconds": 0.7577026669999896,
+                  "first_body_byte_seconds": 0.04557258299999489,
+                  "p95_download_media_ratio": 0.07928274316665807,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.692510792000007,
+                  "missed_sequences": 0,
+                  "bytes": 68896172,
+                  "average_downloaded_media_bitrate": 909520.4224422442,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              },
+              {
+                "reference": ".audit-work/cctv-20261116/repeat-final.json",
+                "elapsed": 180.00339837500002,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00339837500002,
+                  "unique_segments": 31,
+                  "supplied_media_seconds": 186.0,
+                  "supply_ratio": 1.0333138245118423,
+                  "startup_complete_segment_seconds": 0.815177791,
+                  "first_body_byte_seconds": 0.039497708999999936,
+                  "p95_download_media_ratio": 0.10829571533333393,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.896986458999999,
+                  "missed_sequences": 0,
+                  "bytes": 20493316,
+                  "average_downloaded_media_bitrate": 881432.9462365592,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
             ],
             "supplementary_av_seconds": [
               60,
               20
             ],
-            "reference": "evidence-cctv-2026-11-16.json#CCTV-5",
-            "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-5",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
           }
         },
         {
-          "name": "CCTV-5+",
-          "url": "http://116.237.170.51:7788/641886773",
+          "name": "CCTV-6",
+          "url": "http://204.12.221.218:8181/3m1080p/cctv6.m3u8",
           "headers": {},
           "reviewed_public_station": true,
           "provenance": [
-            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
             "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
           ],
-          "group_title": "央视体育实测（480p）",
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "identity_verified": true,
+              "visible": "Read image: CCTV6 movie logo, same named film as initial Migu still; not full-program realtime proof",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-6-independent-route-180.jpg",
+              "method": "prior actual Read review"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.203948166,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/next-results.json",
+                "elapsed": 180.203948166,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7ccec10600] Resumed reading at pts 9.904 with rate 1.050 after a lag of 0.596s\n",
+                "summary": {
+                  "elapsed": 180.203948166,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1098535966357645,
+                  "startup_complete_segment_seconds": 3.7835152499999998,
+                  "first_body_byte_seconds": 0.4242754170000005,
+                  "p95_download_media_ratio": 0.29701715410000007,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 13.369901249999998,
+                  "missed_sequences": 0,
+                  "bytes": 29291152,
+                  "average_downloaded_media_bitrate": 1171646.08,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "204.12.241.18:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-6",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent. Full43-line basic test reset once; one separate deep basic recheck then passed, NOT a new180s window.",
+            "quality_scope": "corrected/alternate final media URL was NOT re-probed; older entry profile deliberately NOT inherited",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-7",
+          "url": "http://116.237.170.51:7788/673168121",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
           "relative_only": false,
           "evidence": {
             "date": "2026-11-16",
+            "role": "primary",
             "identity_verified": true,
-            "sustained_seconds": 600,
+            "identity_method": {
+              "file": "frames/all-06-target180.jpg",
+              "station": "CCTV-7",
+              "identity_verified": true,
+              "visible": "Visible CCTV7 national-defense/military logo; Tebie Xingdong normal drama",
+              "reviewed_beijing": "2026-11-16 16:28:56 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-06-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.000759625,
             "hls_supply_qualified": true,
             "sustained_qualified": true,
+            "playable_sustained_sample": true,
             "rounds_seconds": [
-              600,
               180
             ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.000759625,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.000759625,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1111064220876896,
+                  "startup_complete_segment_seconds": 0.985244041000044,
+                  "first_body_byte_seconds": 0.03932137499998589,
+                  "p95_download_media_ratio": 0.09155027909999944,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.796334084000023,
+                  "missed_sequences": 0,
+                  "bytes": 25605224,
+                  "average_downloaded_media_bitrate": 1024208.96,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
             "supplementary_av_seconds": [
-              60,
               20
             ],
-            "reference": "evidence-cctv-2026-11-16.json#CCTV-5+",
-            "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-7",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-8",
+          "url": "http://116.237.170.51:7788/624878356",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-07-target180.jpg",
+              "station": "CCTV-8",
+              "identity_verified": true,
+              "visible": "Visible CCTV8 drama logo; normal drama with subtitles",
+              "reviewed_beijing": "2026-11-16 16:28:56 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-07-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.003499083,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.003499083,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.003499083,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.055535036640541,
+                  "startup_complete_segment_seconds": 1.0608067079999728,
+                  "first_body_byte_seconds": 0.03733604199999263,
+                  "p95_download_media_ratio": 0.16783299589999956,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.910325500000056,
+                  "missed_sequences": 0,
+                  "bytes": 21647448,
+                  "average_downloaded_media_bitrate": 911471.4947368421,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-8",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-9",
+          "url": "http://116.237.170.51:7788/673168140",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-08-bounded180.jpg",
+              "station": "CCTV-9",
+              "identity_verified": true,
+              "visible": "Visible CCTV9 documentary logo; wildlife migration documentary, different scene from earlier seals still",
+              "reviewed_beijing": "2026-11-16 17:37:28 CST",
+              "limits": "repeat180 supply/AV now pass, but same-entry earlier request timeout/deficit retained; aggregate tier only relative",
+              "frame": ".audit-work/composite-20261116/frames/all-08-bounded180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.005261625,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180,
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.005028875,
+                "supply_pass": false,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.005028875,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555260660630807,
+                  "startup_complete_segment_seconds": 2.940462332999914,
+                  "first_body_byte_seconds": 0.14636829200003376,
+                  "p95_download_media_ratio": 0.20677379579999525,
+                  "slow_segments": 0,
+                  "failures": 1,
+                  "request_failures": 1,
+                  "validation_failures": 0,
+                  "retries": 1,
+                  "longest_no_new_media_seconds": 36.695373833000076,
+                  "missed_sequences": 0,
+                  "bytes": 22177232,
+                  "average_downloaded_media_bitrate": 933778.1894736842,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 13.173372000000086,
+                  "simulated_buffer_deficit_events": 1,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              },
+              {
+                "reference": ".audit-work/composite-20261116/bounded-gap-results.json",
+                "elapsed": 180.005261625,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.005261625,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555247012491322,
+                  "startup_complete_segment_seconds": 1.0582206660000004,
+                  "first_body_byte_seconds": 0.03919483299999982,
+                  "p95_download_media_ratio": 0.17156452090000016,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 12.388119875000001,
+                  "missed_sequences": 0,
+                  "bytes": 21887148,
+                  "average_downloaded_media_bitrate": 921564.1263157895,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20,
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-9",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 1,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-10",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv10hd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "identity_verified": true,
+              "visible": "visible expected logo; single still only, not full-program realtime verification",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-10-1.jpg",
+              "method": "prior actual Read review"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.004653125,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/next-results.json",
+                "elapsed": 180.004653125,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x777b014600] Resumed reading at pts 9.905 with rate 1.050 after a lag of 0.592s\n",
+                "summary": {
+                  "elapsed": 180.004653125,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.111082388859774,
+                  "startup_complete_segment_seconds": 4.149941458000001,
+                  "first_body_byte_seconds": 0.41989625000000075,
+                  "p95_download_media_ratio": 0.2672708709,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 13.181808791999998,
+                  "missed_sequences": 0,
+                  "bytes": 17916964,
+                  "average_downloaded_media_bitrate": 716678.56,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "63.141.239.226:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-10",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "corrected/alternate final media URL was NOT re-probed; older entry profile deliberately NOT inherited",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-11",
+          "url": "http://116.237.170.51:7788/667987558",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-10-bounded180.jpg",
+              "station": "CCTV-11",
+              "identity_verified": true,
+              "visible": "Visible CCTV11 opera logo; Tianlong Babu drama, different programme from prior opera still",
+              "reviewed_beijing": "2026-11-16 17:37:28 CST",
+              "limits": "repeat180 supply/AV now pass, but same-entry earlier request timeout/deficit retained; aggregate tier only relative",
+              "frame": ".audit-work/composite-20261116/frames/all-10-bounded180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.004128791,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180,
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00504995799997,
+                "supply_pass": false,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00504995799997,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110799394053965,
+                  "startup_complete_segment_seconds": 1.9812074579999717,
+                  "first_body_byte_seconds": 0.05789779199994882,
+                  "p95_download_media_ratio": 0.16885295419999694,
+                  "slow_segments": 0,
+                  "failures": 1,
+                  "request_failures": 1,
+                  "validation_failures": 0,
+                  "retries": 1,
+                  "longest_no_new_media_seconds": 37.71425608300001,
+                  "missed_sequences": 0,
+                  "bytes": 24914512,
+                  "average_downloaded_media_bitrate": 996580.48,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 14.92490399999997,
+                  "simulated_buffer_deficit_events": 1,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              },
+              {
+                "reference": ".audit-work/composite-20261116/bounded-gap-results.json",
+                "elapsed": 180.004128791,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.004128791,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555313440649245,
+                  "startup_complete_segment_seconds": 1.1265310830000006,
+                  "first_body_byte_seconds": 0.0334632500000005,
+                  "p95_download_media_ratio": 0.19205132090000063,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 12.447192957999988,
+                  "missed_sequences": 0,
+                  "bytes": 21935276,
+                  "average_downloaded_media_bitrate": 923590.5684210527,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20,
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-11",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 1,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-12",
+          "url": "http://116.237.170.51:7788/673168185",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-11-target180.jpg",
+              "station": "CCTV-12",
+              "identity_verified": true,
+              "visible": "Visible CCTV12 society/law logo; normal drama with subtitles",
+              "reviewed_beijing": "2026-11-16 16:43:22 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-11-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00502474999996,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00502474999996,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00502474999996,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555260902515446,
+                  "startup_complete_segment_seconds": 1.1411698329999354,
+                  "first_body_byte_seconds": 0.04351829200004431,
+                  "p95_download_media_ratio": 0.19272292079999714,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 16.72305604099995,
+                  "missed_sequences": 0,
+                  "bytes": 27247216,
+                  "average_downloaded_media_bitrate": 1147251.2,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-12",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
           }
         },
         {
@@ -77,28 +1164,2800 @@
           "headers": {},
           "reviewed_public_station": true,
           "provenance": [
-            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
             "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
-            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
           ],
-          "group_title": "央视新闻相对备选（有追赶提示）",
+          "group_title": "央视主选·相对（有警告）",
           "relative_only": true,
           "evidence": {
             "date": "2026-11-16",
+            "role": "primary",
             "identity_verified": true,
+            "identity_method": {
+              "identity_verified": true,
+              "visible": "visible expected logo; single still only, not full-program realtime verification",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-13-2.jpg",
+              "method": "prior actual Read review"
+            },
             "sustained_seconds": 600,
+            "actual_best_window_elapsed": 601.374772167,
             "hls_supply_qualified": true,
             "sustained_qualified": false,
+            "playable_sustained_sample": true,
             "rounds_seconds": [
               600
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/next-results.json",
+                "elapsed": 601.374772167,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[aist#0:1/aac @ 0x7485014480] Resumed reading at pts 8.104 with rate 1.050 after a lag of 0.327s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 18.035 with rate 1.050 after a lag of 0.588s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 38.035 with rate 1.050 after a lag of 0.375s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 48.035 with rate 1.050 after a lag of 0.378s\n",
+                "summary": {
+                  "elapsed": 601.374772167,
+                  "unique_segments": 62,
+                  "supplied_media_seconds": 616.3199999999999,
+                  "supply_ratio": 1.0248517705176527,
+                  "startup_complete_segment_seconds": 4.288398292000011,
+                  "first_body_byte_seconds": 0.41504908399997475,
+                  "p95_download_media_ratio": 0.27553389668367123,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 24.028775959000086,
+                  "missed_sequences": 0,
+                  "bytes": 257397192,
+                  "average_downloaded_media_bitrate": 3341085.0467289723,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "69.197.146.146:82"
+                }
+              }
             ],
             "supplementary_av_seconds": [
               60
             ],
-            "reference": "evidence-cctv-2026-11-16.json#CCTV-13",
-            "limitations": "Relative backup ONLY: supply600 passed but supplementary60 AV pacing warnings max0.588s; not strict clean or proven player stalls; max no-new-media24.029s; actual1920x1080 H26425 AAC; no independent backup"
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1280,
+                "height": 720,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-13",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-14",
+          "url": "http://116.237.170.51:7788/624878440",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-13-target180.jpg",
+              "station": "CCTV-14",
+              "identity_verified": true,
+              "visible": "Visible CCTV14 kids logo; Lucky Luke cartoon",
+              "reviewed_beijing": "2026-11-16 16:43:22 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-13-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.0050765829999,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.0050765829999,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.0050765829999,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.111079775062791,
+                  "startup_complete_segment_seconds": 1.0734320829999433,
+                  "first_body_byte_seconds": 0.05230741700006547,
+                  "p95_download_media_ratio": 0.07391391250000652,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.688541459000021,
+                  "missed_sequences": 0,
+                  "bytes": 20989260,
+                  "average_downloaded_media_bitrate": 839570.4,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-14",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-15",
+          "url": "http://116.237.170.51:7788/673168223",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-14-target180.jpg",
+              "station": "CCTV-15",
+              "identity_verified": true,
+              "visible": "Visible CCTV15 music logo; folk-song performance",
+              "reviewed_beijing": "2026-11-16 16:43:22 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-14-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00506325000015,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00506325000015,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7779014600] Resumed reading at pts 19.902 with rate 1.050 after a lag of 0.330s\n",
+                "summary": {
+                  "elapsed": 180.00506325000015,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110798573606224,
+                  "startup_complete_segment_seconds": 1.019346750000068,
+                  "first_body_byte_seconds": 0.030543833000137965,
+                  "p95_download_media_ratio": 0.07706775829999515,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.93561099999988,
+                  "missed_sequences": 0,
+                  "bytes": 24606192,
+                  "average_downloaded_media_bitrate": 984247.68,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-15",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-16",
+          "url": "http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "group_title": "央视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/CCTV-16-late-program-check.jpg",
+              "station": "CCTV-16",
+              "identity_verified": true,
+              "visible": "CCTV16 Olympics; World Snooker International Championship final Higgins versus Wilson. Normal sport now visible; early ident-only frame did NOT establish fake live or a permanently missing programme. 4K watermark does not establish actual UHD resolution.",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-16-late-program-check.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00371475000003,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/sustained-180.json",
+                "elapsed": 180.00371475000003,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x79ed014600] Resumed reading at pts 9.908 with rate 1.050 after a lag of 0.647s\n",
+                "summary": {
+                  "elapsed": 180.00371475000003,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.055533771977336,
+                  "startup_complete_segment_seconds": 3.8925015410000015,
+                  "first_body_byte_seconds": 0.4194579580000095,
+                  "p95_download_media_ratio": 0.2992378874999986,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 14.33114070900001,
+                  "missed_sequences": 0,
+                  "bytes": 32253468,
+                  "average_downloaded_media_bitrate": 1358040.757894737,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "192.187.98.98:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1280,
+                "height": 720,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-16",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent. Legacy20s decode did not retain audio-request flag; audio decoding not established.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": null
+          }
+        },
+        {
+          "name": "CCTV-17",
+          "url": "http://116.237.170.51:7788/673168256",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-16-target180.jpg",
+              "station": "CCTV-17",
+              "identity_verified": true,
+              "visible": "Visible CCTV17 agriculture/rural logo; normal drama Mama Zai Deng Ni",
+              "reviewed_beijing": "2026-11-16 16:43:22 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-16-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00105104099998,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00105104099998,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00105104099998,
+                  "unique_segments": 32,
+                  "supplied_media_seconds": 192.0,
+                  "supply_ratio": 1.0666604383119238,
+                  "startup_complete_segment_seconds": 0.5618787079999947,
+                  "first_body_byte_seconds": 0.0356347500000993,
+                  "p95_download_media_ratio": 0.07780939583331777,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.713372708000179,
+                  "missed_sequences": 0,
+                  "bytes": 17571608,
+                  "average_downloaded_media_bitrate": 732150.3333333334,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-17",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "CCTV-5+",
+          "url": "http://116.237.170.51:7788/641886773",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "央视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "identity_verified": true,
+              "visible": "visible expected logo; single still only, not full-program realtime verification",
+              "frame": ".audit-work/cctv-20261116/frames/CCTV-5plus-2.jpg",
+              "method": "prior actual Read review"
+            },
+            "sustained_seconds": 600,
+            "actual_best_window_elapsed": 600.0100528329999,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              600,
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/cctv-20261116/next-results.json",
+                "elapsed": 600.0100528329999,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 600.0100528329999,
+                  "unique_segments": 102,
+                  "supplied_media_seconds": 612.0,
+                  "supply_ratio": 1.0199829104702305,
+                  "startup_complete_segment_seconds": 0.7121041249999962,
+                  "first_body_byte_seconds": 0.05943716599995241,
+                  "p95_download_media_ratio": 0.0831793611666664,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.767737334000003,
+                  "missed_sequences": 0,
+                  "bytes": 75124236,
+                  "average_downloaded_media_bitrate": 982016.1568627451,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              },
+              {
+                "reference": ".audit-work/cctv-20261116/repeat-final.json",
+                "elapsed": 180.003910459,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.003910459,
+                  "unique_segments": 31,
+                  "supplied_media_seconds": 186.0,
+                  "supply_ratio": 1.0333108848897243,
+                  "startup_complete_segment_seconds": 0.8650051670000001,
+                  "first_body_byte_seconds": 0.038193208000000034,
+                  "p95_download_media_ratio": 0.09637327083333365,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 9.720162458999997,
+                  "missed_sequences": 0,
+                  "bytes": 17159888,
+                  "average_downloaded_media_bitrate": 738059.6989247312,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              60,
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#CCTV-5+",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "北京卫视",
+          "url": "http://116.237.170.51:7788/630287636",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "station": "北京卫视",
+              "file": "frames/province-0.jpg",
+              "identity_verified": true,
+              "visible": "BRTV Beijing satellite logo, Da Xiansheng programme promo; promo alone is NOT fake-live evidence",
+              "frame": ".audit-work/composite-20261116/frames/province-0.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00334358300006,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/first-batch-results.json",
+                "elapsed": 180.00334358300006,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00334358300006,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555359484885927,
+                  "startup_complete_segment_seconds": 1.0833130409999967,
+                  "first_body_byte_seconds": 0.10884554200004004,
+                  "p95_download_media_ratio": 0.11619192919999932,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.33891108299997,
+                  "missed_sequences": 0,
+                  "bytes": 28403604,
+                  "average_downloaded_media_bitrate": 1195941.2210526315,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#北京卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "河北卫视",
+          "url": "http://116.237.170.51:7788/962042070",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-20-target180.jpg",
+              "station": "河北卫视",
+              "identity_verified": true,
+              "visible": "Visible Hebei satellite orange logo and label; commercial segment, no full EPG claim",
+              "reviewed_beijing": "2026-11-16 16:51:42 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-20-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.001558917,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.001558917,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.001558917,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555464138375066,
+                  "startup_complete_segment_seconds": 1.1958893339999577,
+                  "first_body_byte_seconds": 0.17278108400000747,
+                  "p95_download_media_ratio": 0.07056336670000292,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.019913834000135,
+                  "missed_sequences": 0,
+                  "bytes": 24074528,
+                  "average_downloaded_media_bitrate": 1013664.3368421053,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#河北卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "山西卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://raw.githubusercontent.com/cs3306/IPTV-Sources/main/data/output/iptv_collection.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-21-target180.jpg",
+              "station": "山西卫视",
+              "identity_verified": true,
+              "visible": "Visible Shanxi satellite logo and label; commercial segment, not by itself proof of fake live",
+              "reviewed_beijing": "2026-11-16 16:51:42 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-21-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.005043375,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.005043375,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7837014600] Resumed reading at pts 9.905 with rate 1.050 after a lag of 0.637s\n[aist#0:1/aac @ 0x7837014480] Resumed reading at pts 10.008 with rate 1.050 after a lag of 1.116s\n[aist#0:1/aac @ 0x7837014480] Resumed reading at pts 10.681 with rate 1.050 after a lag of 1.436s\n",
+                "summary": {
+                  "elapsed": 180.005043375,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 198.52000000000004,
+                  "supply_ratio": 1.1028579881866325,
+                  "startup_complete_segment_seconds": 4.919332124999983,
+                  "first_body_byte_seconds": 0.48706141699994987,
+                  "p95_download_media_ratio": 0.37805182008428395,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 17.841042290999894,
+                  "missed_sequences": 0,
+                  "bytes": 84148800,
+                  "average_downloaded_media_bitrate": 3391045.7384646377,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "69.30.211.138:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#山西卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "辽宁卫视",
+          "url": "http://116.237.170.51:7788/630291707",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-23-target180.jpg",
+              "station": "辽宁卫视",
+              "identity_verified": true,
+              "visible": "Visible Liaoning satellite yellow sphere logo and label; normal comedy drama",
+              "reviewed_beijing": "2026-11-16 17:00:09 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-23-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00339624999992,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00339624999992,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00339624999992,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110901470004908,
+                  "startup_complete_segment_seconds": 1.235630207999975,
+                  "first_body_byte_seconds": 0.16745800000012423,
+                  "p95_download_media_ratio": 0.08085035420001532,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.227903083000001,
+                  "missed_sequences": 0,
+                  "bytes": 28438572,
+                  "average_downloaded_media_bitrate": 1137542.88,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#辽宁卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "吉林卫视",
+          "url": "http://116.237.170.51:7788/947472500",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-24-target180.jpg",
+              "station": "吉林卫视",
+              "identity_verified": true,
+              "visible": "Full-size Read: visible Jilin satellite bird logo and explicit Jilin satellite text; Xue Rengui drama",
+              "reviewed_beijing": "2026-11-16 17:00:09 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-24-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00366966699994,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00366966699994,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00366966699994,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110884593074826,
+                  "startup_complete_segment_seconds": 1.0285632499999338,
+                  "first_body_byte_seconds": 0.031777916999999434,
+                  "p95_download_media_ratio": 0.07395033329999023,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.185201124999821,
+                  "missed_sequences": 0,
+                  "bytes": 24814120,
+                  "average_downloaded_media_bitrate": 992564.8,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#吉林卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "黑龙江卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-25-target180.jpg",
+              "station": "黑龙江卫视",
+              "identity_verified": true,
+              "visible": "Full-size Read: red calligraphic dragon mark consistent with Heilongjiang satellite; commercial, no full-name caption or independent EPG confirmation",
+              "reviewed_beijing": "2026-11-16 17:00:09 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-25-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.32095412499984,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.32095412499984,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x748ac10600] Resumed reading at pts 9.897 with rate 1.050 after a lag of 0.681s\n[aist#0:1/aac @ 0x748ac10480] Resumed reading at pts 9.984 with rate 1.050 after a lag of 1.183s\n[aist#0:1/aac @ 0x748ac10480] Resumed reading at pts 11.123 with rate 1.050 after a lag of 1.486s\n",
+                "summary": {
+                  "elapsed": 180.32095412499984,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0536767671952898,
+                  "startup_complete_segment_seconds": 5.536011791999954,
+                  "first_body_byte_seconds": 0.5259255000000849,
+                  "p95_download_media_ratio": 0.44223226249996517,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 14.160231709000072,
+                  "missed_sequences": 0,
+                  "bytes": 78619908,
+                  "average_downloaded_media_bitrate": 3310311.915789474,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "173.208.155.26:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#黑龙江卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "东方卫视",
+          "url": "http://116.237.170.51:7788/651632648",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "station": "东方卫视",
+              "file": "frames/province-8.jpg",
+              "identity_verified": true,
+              "visible": "Dragon TV red star logo, Rose Story drama caption",
+              "frame": ".audit-work/composite-20261116/frames/province-8.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00512270899992,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/first-batch-results.json",
+                "elapsed": 180.00512270899992,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00512270899992,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555255158330021,
+                  "startup_complete_segment_seconds": 0.8963748339999711,
+                  "first_body_byte_seconds": 0.12342449999994187,
+                  "p95_download_media_ratio": 0.08313966250000249,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.885336209000002,
+                  "missed_sequences": 0,
+                  "bytes": 18948708,
+                  "average_downloaded_media_bitrate": 797840.3368421053,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#东方卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "江苏卫视",
+          "url": "http://116.237.170.51:7788/623899368",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "station": "Jiangsu satellite",
+              "file": "frames/province-9.jpg",
+              "identity_verified": true,
+              "visible": "Jiangsu logo and New Dating Conference normal programme",
+              "frame": ".audit-work/composite-20261116/frames/province-9.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00341033299998,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180,
+              600
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/first-batch-results.json",
+                "elapsed": 180.00341033299998,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00341033299998,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110900600716789,
+                  "startup_complete_segment_seconds": 1.0653487079999877,
+                  "first_body_byte_seconds": 0.042728791999991245,
+                  "p95_download_media_ratio": 0.09878405829999792,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.88206570799997,
+                  "missed_sequences": 0,
+                  "bytes": 24116828,
+                  "average_downloaded_media_bitrate": 964673.12,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              },
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 600.0050987919999,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x768b014600] Resumed reading at pts 19.917 with rate 1.050 after a lag of 0.423s\n",
+                "summary": {
+                  "elapsed": 600.0050987919999,
+                  "unique_segments": 62,
+                  "supplied_media_seconds": 620.0,
+                  "supply_ratio": 1.033324552155067,
+                  "startup_complete_segment_seconds": 0.9047362500000418,
+                  "first_body_byte_seconds": 0.03210466699988501,
+                  "p95_download_media_ratio": 0.06505334999999376,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.940394875000038,
+                  "missed_sequences": 0,
+                  "bytes": 56237004,
+                  "average_downloaded_media_bitrate": 725638.7612903225,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20,
+              60
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#江苏卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "浙江卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=zjwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "station": "浙江卫视",
+              "file": "frames/province-10.jpg",
+              "identity_verified": true,
+              "visible": "Zhejiang satellite blue logo and public-interest/news clip",
+              "frame": ".audit-work/composite-20261116/frames/province-10.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00517708300004,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/first-batch-results.json",
+                "elapsed": 180.00517708300004,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7c4d014600] Resumed reading at pts 8.392 with rate 1.050 after a lag of 0.662s\n",
+                "summary": {
+                  "elapsed": 180.00517708300004,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 192.55999999999997,
+                  "supply_ratio": 1.069747010171885,
+                  "startup_complete_segment_seconds": 4.168801958000017,
+                  "first_body_byte_seconds": 0.4263223749999838,
+                  "p95_download_media_ratio": 0.4122130071271993,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 23.322160541000017,
+                  "missed_sequences": 0,
+                  "bytes": 81961984,
+                  "average_downloaded_media_bitrate": 3405150.97631907,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "199.168.97.90:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#浙江卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "江西卫视",
+          "url": "http://116.237.170.51:7788/783847495",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-31-target180.jpg",
+              "station": "江西卫视",
+              "identity_verified": true,
+              "visible": "Visible Jiangxi satellite red logo and text; Shanhe Tongzai drama",
+              "reviewed_beijing": "2026-11-16 17:07:03 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-31-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.0009802919999,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.0009802919999,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.0009802919999,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1111050599588816,
+                  "startup_complete_segment_seconds": 0.9600852919998033,
+                  "first_body_byte_seconds": 0.11169866699992781,
+                  "p95_download_media_ratio": 0.1149191332999635,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.599673042000177,
+                  "missed_sequences": 0,
+                  "bytes": 26667048,
+                  "average_downloaded_media_bitrate": 1066681.92,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#江西卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "山东卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://raw.githubusercontent.com/cs3306/IPTV-Sources/main/data/output/iptv_collection.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-32-target180.jpg",
+              "station": "山东卫视",
+              "identity_verified": true,
+              "visible": "Visible Shandong satellite yellow swirl logo and text; Cang Long drama",
+              "reviewed_beijing": "2026-11-16 17:07:03 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-32-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00251524999976,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00251524999976,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7920c10600] Resumed reading at pts 9.554 with rate 1.050 after a lag of 0.757s\n[aist#0:1/aac @ 0x7920c10480] Resumed reading at pts 9.961 with rate 1.050 after a lag of 1.058s\n",
+                "summary": {
+                  "elapsed": 180.00251524999976,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 197.59999999999997,
+                  "supply_ratio": 1.097762438072377,
+                  "startup_complete_segment_seconds": 4.426435833999676,
+                  "first_body_byte_seconds": 0.4351585829999749,
+                  "p95_download_media_ratio": 0.3312225476457619,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 14.26478062499973,
+                  "missed_sequences": 0,
+                  "bytes": 87880036,
+                  "average_downloaded_media_bitrate": 3557896.1943319845,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "173.208.208.10:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#山东卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "河南卫视",
+          "url": "http://116.237.170.51:7788/790187291",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-33-target180.jpg",
+              "station": "河南卫视",
+              "identity_verified": true,
+              "visible": "Visible Henan satellite logo/text; commercial, not full EPG proof",
+              "reviewed_beijing": "2026-11-16 17:07:03 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-33-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.0100481669997,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.0100481669997,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.0100481669997,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110490888511686,
+                  "startup_complete_segment_seconds": 1.0350112920000356,
+                  "first_body_byte_seconds": 0.11787258300000758,
+                  "p95_download_media_ratio": 0.07100133339999956,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.326936124999975,
+                  "missed_sequences": 0,
+                  "bytes": 22580680,
+                  "average_downloaded_media_bitrate": 903227.2,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#河南卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "湖北卫视",
+          "url": "http://116.237.170.51:7788/947472496",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-34-target180.jpg",
+              "station": "湖北卫视",
+              "identity_verified": true,
+              "visible": "Visible Hubei satellite blue/green phoenix logo; normal drama with subtitles",
+              "reviewed_beijing": "2026-11-16 17:07:03 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-34-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.0100648749999,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.0100648749999,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.0100648749999,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110489857268884,
+                  "startup_complete_segment_seconds": 1.0988785409999764,
+                  "first_body_byte_seconds": 0.1748909999996613,
+                  "p95_download_media_ratio": 0.07202041669997925,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 10.939756665999994,
+                  "missed_sequences": 0,
+                  "bytes": 29567512,
+                  "average_downloaded_media_bitrate": 1182700.48,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#湖北卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "湖南卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "station": "Hunan satellite",
+              "file": "frames/province-17.jpg",
+              "identity_verified": true,
+              "visible": "Hunan mango logo and normal drama; not realtime EPG verification",
+              "frame": ".audit-work/composite-20261116/frames/province-17.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 181.379467584,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/first-batch-results.json",
+                "elapsed": 181.379467584,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7785014600] Resumed reading at pts 12.586 with rate 1.050 after a lag of 0.665s\n[aist#0:1/aac @ 0x7785014480] Resumed reading at pts 12.980 with rate 1.050 after a lag of 0.997s\n",
+                "summary": {
+                  "elapsed": 181.379467584,
+                  "unique_segments": 21,
+                  "supplied_media_seconds": 209.92000000000002,
+                  "supply_ratio": 1.1573526088490826,
+                  "startup_complete_segment_seconds": 3.989680417000045,
+                  "first_body_byte_seconds": 0.4298361249999516,
+                  "p95_download_media_ratio": 0.43900732020548566,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 23.312525583000024,
+                  "missed_sequences": 0,
+                  "bytes": 89194156,
+                  "average_downloaded_media_bitrate": 3399167.5304878047,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "69.197.135.170:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#湖南卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "广东卫视",
+          "url": "http://204.12.221.218:8181/3m1080p/gdws.m3u8",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-36-target180.jpg",
+              "station": "广东卫视",
+              "identity_verified": true,
+              "visible": "Visible Guangdong satellite red logo/text; APEC Shenzhen news reporter",
+              "reviewed_beijing": "2026-11-16 17:17:25 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-36-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00803483299978,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00803483299978,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x756d014600] Resumed reading at pts 9.932 with rate 1.050 after a lag of 0.595s\n[aist#0:1/aac @ 0x756d014480] Resumed reading at pts 9.985 with rate 1.050 after a lag of 1.141s\n",
+                "summary": {
+                  "elapsed": 180.00803483299978,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 199.64,
+                  "supply_ratio": 1.1090616048623247,
+                  "startup_complete_segment_seconds": 4.031139624999923,
+                  "first_body_byte_seconds": 0.43613595899978463,
+                  "p95_download_media_ratio": 0.4345442209000339,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 13.446778708000238,
+                  "missed_sequences": 0,
+                  "bytes": 85038980,
+                  "average_downloaded_media_bitrate": 3407693.047485474,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "173.208.211.242:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#广东卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "海南卫视",
+          "url": "http://116.237.170.51:7788/947472502",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-38-target180.jpg",
+              "station": "海南卫视",
+              "identity_verified": true,
+              "visible": "Visible Hainan/travel-channel golden palm-style logo; Mu Guiying drama. Regional/full EPG not independently checked",
+              "reviewed_beijing": "2026-11-16 17:17:25 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-38-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00628020799968,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00628020799968,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00628020799968,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555187284602094,
+                  "startup_complete_segment_seconds": 0.8903236659998583,
+                  "first_body_byte_seconds": 0.15277004200015654,
+                  "p95_download_media_ratio": 0.07431353749998379,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.771221333000085,
+                  "missed_sequences": 0,
+                  "bytes": 26158132,
+                  "average_downloaded_media_bitrate": 1101395.0315789473,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#海南卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "四川卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://raw.githubusercontent.com/cs3306/IPTV-Sources/main/data/output/iptv_collection.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-40-target180.jpg",
+              "station": "四川卫视",
+              "identity_verified": true,
+              "visible": "Visible Sichuan satellite red S logo and text; New Legend of White Snake2 drama",
+              "reviewed_beijing": "2026-11-16 17:17:25 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-40-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00474695900039,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00474695900039,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x789f014600] Resumed reading at pts 7.792 with rate 1.050 after a lag of 0.586s\n[aist#0:1/aac @ 0x789f014480] Resumed reading at pts 8.080 with rate 1.050 after a lag of 0.925s\n",
+                "summary": {
+                  "elapsed": 180.00474695900039,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 201.52,
+                  "supply_ratio": 1.1195260314212723,
+                  "startup_complete_segment_seconds": 3.8258614999999736,
+                  "first_body_byte_seconds": 0.4341152499996497,
+                  "p95_download_media_ratio": 0.32757434231839727,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 17.292031916999804,
+                  "missed_sequences": 0,
+                  "bytes": 84289236,
+                  "average_downloaded_media_bitrate": 3346138.7852322347,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "69.30.251.138:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#四川卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "重庆卫视",
+          "url": "http://116.237.170.51:7788/738910914",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-41-target180.jpg",
+              "station": "重庆卫视",
+              "identity_verified": true,
+              "visible": "Visible Chongqing satellite red/blue globe logo/text; normal drama",
+              "reviewed_beijing": "2026-11-16 17:17:25 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-41-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00048929199966,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00048929199966,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00048929199966,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1111080907983357,
+                  "startup_complete_segment_seconds": 0.7748967499996979,
+                  "first_body_byte_seconds": 0.037252499999794964,
+                  "p95_download_media_ratio": 0.06257793340000717,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 11.034730041999865,
+                  "missed_sequences": 0,
+                  "bytes": 24001208,
+                  "average_downloaded_media_bitrate": 960048.32,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#重庆卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "贵州卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-42-target180.jpg",
+              "station": "贵州卫视",
+              "identity_verified": true,
+              "visible": "Visible Guizhou satellite circular G logo/text; commercial",
+              "reviewed_beijing": "2026-11-16 17:24:19 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-42-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.005077625,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.005077625,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7c36c10600] Resumed reading at pts 9.917 with rate 1.050 after a lag of 0.781s\n",
+                "summary": {
+                  "elapsed": 180.005077625,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.24,
+                  "supply_ratio": 1.1124130643534118,
+                  "startup_complete_segment_seconds": 4.271770958000161,
+                  "first_body_byte_seconds": 0.44169587500027774,
+                  "p95_download_media_ratio": 0.3246086333000221,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 14.301005541999984,
+                  "missed_sequences": 0,
+                  "bytes": 83461284,
+                  "average_downloaded_media_bitrate": 3334450.0199760287,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "204.12.230.74:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#贵州卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "云南卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ynwshd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "group_title": "省级卫视主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-43-target180.jpg",
+              "station": "云南卫视",
+              "identity_verified": true,
+              "visible": "Visible Yunnan satellite rainbow/peacock logo and text; commercial",
+              "reviewed_beijing": "2026-11-16 17:24:19 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-43-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00124925,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00124925,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x76dac10600] Resumed reading at pts 9.919 with rate 1.050 after a lag of 0.624s\n[aist#0:1/aac @ 0x76dac10480] Resumed reading at pts 11.192 with rate 1.050 after a lag of 0.924s\n",
+                "summary": {
+                  "elapsed": 180.00124925,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.12,
+                  "supply_ratio": 1.111770061784724,
+                  "startup_complete_segment_seconds": 4.48611637499971,
+                  "first_body_byte_seconds": 0.43799554099996385,
+                  "p95_download_media_ratio": 0.31858359170000766,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 21.72795612500022,
+                  "missed_sequences": 0,
+                  "bytes": 86381676,
+                  "average_downloaded_media_bitrate": 3453195.122926244,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "69.197.135.170:82"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#云南卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "陕西卫视",
+          "url": "http://116.237.170.51:7788/738910838",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-44-target180.jpg",
+              "station": "陕西卫视",
+              "identity_verified": true,
+              "visible": "Visible Shaanxi satellite yellow logo and explicit Shaanxi text, not Shanxi; commercial",
+              "reviewed_beijing": "2026-11-16 17:24:19 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-44-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00506841700007,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00506841700007,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00506841700007,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.1110798254673564,
+                  "startup_complete_segment_seconds": 2.0740031250002176,
+                  "first_body_byte_seconds": 0.03876404199991157,
+                  "p95_download_media_ratio": 0.09197867080001743,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 16.14685058399982,
+                  "missed_sequences": 0,
+                  "bytes": 23204464,
+                  "average_downloaded_media_bitrate": 928178.56,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#陕西卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "青海卫视",
+          "url": "http://116.237.170.51:7788/947472506",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "省级卫视主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-46-target180.jpg",
+              "station": "青海卫视",
+              "identity_verified": true,
+              "visible": "Visible Qinghai satellite explicit text and green ring logo; normal costume drama",
+              "reviewed_beijing": "2026-11-16 17:27:42 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-46-target180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00169516700043,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/followup-results.json",
+                "elapsed": 180.00169516700043,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00169516700043,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.111100647215826,
+                  "startup_complete_segment_seconds": 1.4449686250000013,
+                  "first_body_byte_seconds": 0.04078458399999363,
+                  "p95_download_media_ratio": 0.10182553340000595,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 19.701837375000196,
+                  "missed_sequences": 0,
+                  "bytes": 27552904,
+                  "average_downloaded_media_bitrate": 1102116.16,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#青海卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "深圳卫视",
+          "url": "http://204.12.221.218:8181/3m1080p/szws.m3u8",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "地方少儿主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-49-bounded180.jpg",
+              "station": "深圳卫视",
+              "identity_verified": true,
+              "visible": "Visible Shenzhen satellite magenta S logo and explicit text; normal drama at memorial scene, not the prior unidentifiable medical-ad still",
+              "reviewed_beijing": "2026-11-16 17:49:11 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-49-bounded180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.003531458,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/bounded-gap-results.json",
+                "elapsed": 180.003531458,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[aist#0:1/aac @ 0x757f404480] Resumed reading at pts 9.961 with rate 1.050 after a lag of 0.420s\n[vist#0:0/h264 @ 0x757f404600] Resumed reading at pts 19.461 with rate 1.050 after a lag of 0.639s\n",
+                "summary": {
+                  "elapsed": 180.003531458,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.44,
+                  "supply_ratio": 1.0579792432818749,
+                  "startup_complete_segment_seconds": 4.96514916700005,
+                  "first_body_byte_seconds": 0.5243737499999952,
+                  "p95_download_media_ratio": 0.6057967647836521,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 17.931567457999904,
+                  "missed_sequences": 0,
+                  "bytes": 81465664,
+                  "average_downloaded_media_bitrate": 3422208.107540433,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "142.54.179.26:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#深圳卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "厦门卫视",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xmws",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+          ],
+          "group_title": "地方少儿主选·相对（有警告）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-50-bounded180.jpg",
+              "station": "厦门卫视",
+              "identity_verified": true,
+              "visible": "Visible Xiamen satellite blue/green gull logo and explicit text; normal cartoon",
+              "reviewed_beijing": "2026-11-16 17:49:11 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-50-bounded180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00201237500005,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/bounded-gap-results.json",
+                "elapsed": 180.00201237500005,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "[vist#0:0/h264 @ 0x7cd7014600] Resumed reading at pts 9.920 with rate 1.050 after a lag of 0.740s\n[aist#0:1/aac @ 0x7cd7014480] Resumed reading at pts 9.978 with rate 1.050 after a lag of 1.528s\n[aist#0:1/aac @ 0x7cd7014480] Resumed reading at pts 11.034 with rate 1.050 after a lag of 1.942s\n[aist#0:1/aac @ 0x7cd7014480] Resumed reading at pts 11.738 with rate 1.050 after a lag of 2.287s\n[aist#0:1/aac @ 0x7cd7014480] Resumed reading at pts 12.474 with rate 1.050 after a lag of 2.661s\n",
+                "summary": {
+                  "elapsed": 180.00201237500005,
+                  "unique_segments": 19,
+                  "supplied_media_seconds": 190.0,
+                  "supply_ratio": 1.0555437547229807,
+                  "startup_complete_segment_seconds": 4.848878875000082,
+                  "first_body_byte_seconds": 0.5223667080000496,
+                  "p95_download_media_ratio": 0.6189377124999964,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 14.133435500000019,
+                  "missed_sequences": 0,
+                  "bytes": 99248020,
+                  "average_downloaded_media_bitrate": 4178864.0,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "173.208.190.226:88"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 720,
+                "height": 576,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#厦门卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
+          }
+        },
+        {
+          "name": "兵团卫视",
+          "url": "http://116.237.170.51:7788/956923145",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u",
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
+          ],
+          "group_title": "地方少儿主选·实测",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "role": "primary",
+            "identity_verified": true,
+            "identity_method": {
+              "file": "frames/all-51-bounded180.jpg",
+              "station": "兵团卫视",
+              "identity_verified": true,
+              "visible": "Visible Xinjiang Production/Construction Corps satellite star logo and explicit Bingtuan satellite text; commercial segment, not full EPG proof",
+              "reviewed_beijing": "2026-11-16 17:49:11 CST",
+              "frame": ".audit-work/composite-20261116/frames/all-51-bounded180.jpg"
+            },
+            "sustained_seconds": 180,
+            "actual_best_window_elapsed": 180.00366625000004,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "playable_sustained_sample": true,
+            "rounds_seconds": [
+              180
+            ],
+            "same_entry_window_summaries": [
+              {
+                "reference": ".audit-work/composite-20261116/bounded-gap-results.json",
+                "elapsed": 180.00366625000004,
+                "supply_pass": true,
+                "decode_complete": true,
+                "decode_warning": "",
+                "summary": {
+                  "elapsed": 180.00366625000004,
+                  "unique_segments": 20,
+                  "supplied_media_seconds": 200.0,
+                  "supply_ratio": 1.111088480399215,
+                  "startup_complete_segment_seconds": 1.335547457999951,
+                  "first_body_byte_seconds": 0.11438241700000162,
+                  "p95_download_media_ratio": 0.3194991707999975,
+                  "slow_segments": 0,
+                  "failures": 0,
+                  "request_failures": 0,
+                  "validation_failures": 0,
+                  "retries": 0,
+                  "longest_no_new_media_seconds": 15.774098666999976,
+                  "missed_sequences": 0,
+                  "bytes": 25479452,
+                  "average_downloaded_media_bitrate": 1019178.08,
+                  "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+                  "simulated_buffer_deficit_seconds": 0.0,
+                  "simulated_buffer_deficit_events": 0,
+                  "media_host": "hlsztemgsplive.miguvideo.com:8080"
+                }
+              }
+            ],
+            "supplementary_av_seconds": [
+              20
+            ],
+            "quality_streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 854,
+                "height": 480,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "reference": "evidence-composite-2026-11-16.json#兵团卫视",
+            "network": "Mac urllib public exit lookup Los Angeles AS906; NOT mainland or phone verification",
+            "historical_supply_failures": 0,
+            "limitations": "Single-day limited windows; no phone/peak-hour/mainland guarantee; request first-byte/first-complete-segment are NOT decoded first-frame; many entries share Migu backend; different relays are not proven independent backends; backup is separately measured, not necessarily independent.",
+            "quality_scope": "profile on sampled resolved route; not every segment",
+            "best_decode_audio_requested": true
           }
         }
+      ],
+      "cctv_baseline_qualified": [
+        "CCTV-1",
+        "CCTV-2",
+        "CCTV-3",
+        "CCTV-4",
+        "CCTV-5",
+        "CCTV-7",
+        "CCTV-8",
+        "CCTV-12",
+        "CCTV-14",
+        "CCTV-17",
+        "CCTV-5+"
+      ],
+      "cctv_baseline_relative_only": [
+        "CCTV-6",
+        "CCTV-9",
+        "CCTV-10",
+        "CCTV-11",
+        "CCTV-13",
+        "CCTV-15",
+        "CCTV-16"
+      ],
+      "qualification_state": "43/57 target identities with scoped sustained evidence: strict24,relative19; not full smooth coverage",
+      "missing_targets": [
+        "天津卫视",
+        "内蒙古卫视",
+        "安徽卫视",
+        "东南卫视",
+        "广西卫视",
+        "西藏卫视",
+        "甘肃卫视",
+        "宁夏卫视",
+        "新疆卫视",
+        "三沙卫视",
+        "海峡卫视",
+        "金鹰卡通",
+        "卡酷少儿",
+        "浙江少儿"
       ]
     },
     {
@@ -160,8 +4019,8 @@
     }
   ],
   "public_live_priority": {
-    "baseline": "CCTV1-17 plus CCTV5+ =18; international variants/UHD/pay channels separate",
-    "workflow": "gap-driven search > exact dedup/backend grouping > per-channel identity/basic/sustained matrix > qualified CCTV coverage and stability > minimal publish > per-channel report",
+    "baseline": "CCTV18 + mainland provincial31 + additional8 =57 targets",
+    "workflow": "gap-driven independent-source search > exact URL/header dedup and backend grouping > per-channel identity/basic/sustained matrix > cross-source composition and evidence-scoped other-list ordering > publish > complete per-channel report",
     "not_a_cctv_substitute": [
       "CGTN",
       "Phoenix"
