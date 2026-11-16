@@ -29,6 +29,18 @@ class CuratedTests(unittest.TestCase):
         with self.assertRaises(ValueError):c.render(data)
         group['channels'][0]['evidence']['sustained_qualified']=True
         self.assertIn('CCTV-1',c.render(data)['news.m3u'])
+    def test_relative_cctv_disjoint_evidence_and_visible_group(self):
+        data=self.fixture();group=data['lists'][0];ch=group['channels'][0];ch['name']='CCTV-13';group['cctv_baseline_relative_only']=['CCTV-13']
+        with self.assertRaises(ValueError):c.render(data)
+        ch.update(relative_only=True);ch['evidence'].update(identity_verified=True,sustained_seconds=600,hls_supply_qualified=True,sustained_qualified=False)
+        with self.assertRaises(ValueError):c.render(data)
+        ch['group_title']='Relative fallback'
+        self.assertIn('group-title="Relative fallback"',c.render(data)['news.m3u'])
+        group['cctv_baseline_qualified']=['CCTV-13']
+        with self.assertRaises(ValueError):c.render(data)
+        group['cctv_baseline_qualified']=[];ch['group_title']='bad"group'
+        with self.assertRaises(ValueError):c.render(data)
+
     def test_decode_success_requires_full_video_and_no_warning(self):
         decoded={'status':'decoded','elapsed':181,'progress':[{'out_time_us':'180000000','frame':'4500','dup_frames':'0','drop_frames':'0'}],'warnings':''}
         with patch.object(stream.quality,'decode_sample',return_value=decoded):self.assertTrue(stream.measure(('x','https://example.com/a'),180)['continuous_decode_sample'])

@@ -1,0 +1,8 @@
+#EXTM3U
+# Manually reviewed public stations; see live/README.md and selected.json.
+#EXTINF:-1 group-title="央视体育实测（480p）",CCTV-5
+http://116.237.170.51:7788/641886683
+#EXTINF:-1 group-title="央视体育实测（480p）",CCTV-5+
+http://116.237.170.51:7788/641886773
+#EXTINF:-1 group-title="央视新闻相对备选（有追赶提示）",CCTV-13
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd

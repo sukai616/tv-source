@@ -3,6 +3,105 @@
   "policy": "Manual public-station allowlist only; no whole-upstream auto-import; preserve full URLs; relative recommendations with limited coverage",
   "lists": [
     {
+      "file": "cctv.m3u",
+      "title": "央视实测子集（非完整）",
+      "cctv_baseline_qualified": [
+        "CCTV-5",
+        "CCTV-5+"
+      ],
+      "cctv_baseline_relative_only": [
+        "CCTV-13"
+      ],
+      "qualification_state": "2/18 strict600 plus sameURL180; 1/18 relative600 with pacing warnings; not complete CCTV",
+      "channels": [
+        {
+          "name": "CCTV-5",
+          "url": "http://116.237.170.51:7788/641886683",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
+          ],
+          "group_title": "央视体育实测（480p）",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "identity_verified": true,
+            "sustained_seconds": 600,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "rounds_seconds": [
+              600,
+              180
+            ],
+            "supplementary_av_seconds": [
+              60,
+              20
+            ],
+            "reference": "evidence-cctv-2026-11-16.json#CCTV-5",
+            "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+          }
+        },
+        {
+          "name": "CCTV-5+",
+          "url": "http://116.237.170.51:7788/641886773",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+            "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
+          ],
+          "group_title": "央视体育实测（480p）",
+          "relative_only": false,
+          "evidence": {
+            "date": "2026-11-16",
+            "identity_verified": true,
+            "sustained_seconds": 600,
+            "hls_supply_qualified": true,
+            "sustained_qualified": true,
+            "rounds_seconds": [
+              600,
+              180
+            ],
+            "supplementary_av_seconds": [
+              60,
+              20
+            ],
+            "reference": "evidence-cctv-2026-11-16.json#CCTV-5+",
+            "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+          }
+        },
+        {
+          "name": "CCTV-13",
+          "url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+            "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+          ],
+          "group_title": "央视新闻相对备选（有追赶提示）",
+          "relative_only": true,
+          "evidence": {
+            "date": "2026-11-16",
+            "identity_verified": true,
+            "sustained_seconds": 600,
+            "hls_supply_qualified": true,
+            "sustained_qualified": false,
+            "rounds_seconds": [
+              600
+            ],
+            "supplementary_av_seconds": [
+              60
+            ],
+            "reference": "evidence-cctv-2026-11-16.json#CCTV-13",
+            "limitations": "Relative backup ONLY: supply600 passed but supplementary60 AV pacing warnings max0.588s; not strict clean or proven player stalls; max no-new-media24.029s; actual1920x1080 H26425 AAC; no independent backup"
+          }
+        }
+      ]
+    },
+    {
       "file": "international.m3u",
       "title": "国际新闻实测",
       "channels": [

@@ -1,0 +1,275 @@
+{
+  "measured_beijing": "2026-11-16 daytime",
+  "network": "Mac only; not phone/TV or evening; public collected entries, no purchase/login/authentication bypass",
+  "baseline_count": 18,
+  "strict_600_channels": [
+    "CCTV-5",
+    "CCTV-5+"
+  ],
+  "relative_only_600_channels": [
+    "CCTV-13"
+  ],
+  "same_entry_rounds_seconds": {
+    "CCTV-5": [
+      600,
+      180
+    ],
+    "CCTV-5+": [
+      600,
+      180
+    ],
+    "CCTV-13": [
+      600
+    ]
+  },
+  "method": "Complete unique HLS segments and refreshed final media playlist; SHA256/sequence dedup; supplementary AV60 after600, AV20 after180, NOT continuous600s decode. First body byte / first complete segment are NOT actual first frame. No warning suppression.",
+  "channels": [
+    {
+      "station": "CCTV-5",
+      "entry_url": "http://116.237.170.51:7788/641886683",
+      "sources": [
+        "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
+      ],
+      "identity_verified": true,
+      "identity_method": "visible logo and normal programme stills; CCTV13 clock13:24 near13:25capture; not full-day EPG verification",
+      "profile": {
+        "returncode": 0,
+        "warnings": "",
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 854,
+            "height": 480,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ]
+      },
+      "rounds": [
+        {
+          "requested_seconds": 600,
+          "summary": {
+            "elapsed": 600.009864292,
+            "unique_segments": 101,
+            "supplied_media_seconds": 606.0,
+            "supply_ratio": 1.0099833953814548,
+            "startup_complete_segment_seconds": 0.7577026669999896,
+            "first_body_byte_seconds": 0.04557258299999489,
+            "p95_download_media_ratio": 0.07928274316665807,
+            "slow_segments": 0,
+            "failures": 0,
+            "request_failures": 0,
+            "validation_failures": 0,
+            "retries": 0,
+            "longest_no_new_media_seconds": 9.692510792000007,
+            "missed_sequences": 0,
+            "bytes": 68896172,
+            "average_downloaded_media_bitrate": 909520.4224422442,
+            "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+            "simulated_buffer_deficit_seconds": 0.0,
+            "simulated_buffer_deficit_events": 0,
+            "media_host": "hlsztemgsplive.miguvideo.com:8080"
+          },
+          "hls_supply_qualified": true,
+          "strict_supplementary_av": true,
+          "decode_requested_seconds": 60,
+          "decode_status": "decoded",
+          "decode_warnings": ""
+        },
+        {
+          "requested_seconds": 180,
+          "summary": {
+            "elapsed": 180.00339837500002,
+            "unique_segments": 31,
+            "supplied_media_seconds": 186.0,
+            "supply_ratio": 1.0333138245118423,
+            "startup_complete_segment_seconds": 0.815177791,
+            "first_body_byte_seconds": 0.039497708999999936,
+            "p95_download_media_ratio": 0.10829571533333393,
+            "slow_segments": 0,
+            "failures": 0,
+            "request_failures": 0,
+            "validation_failures": 0,
+            "retries": 0,
+            "longest_no_new_media_seconds": 9.896986458999999,
+            "missed_sequences": 0,
+            "bytes": 20493316,
+            "average_downloaded_media_bitrate": 881432.9462365592,
+            "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+            "simulated_buffer_deficit_seconds": 0.0,
+            "simulated_buffer_deficit_events": 0,
+            "media_host": "hlsztemgsplive.miguvideo.com:8080"
+          },
+          "hls_supply_qualified": true,
+          "strict_supplementary_av": true,
+          "decode_requested_seconds": 20,
+          "decode_status": "decoded",
+          "decode_warnings": ""
+        }
+      ],
+      "separate_new_entry_av20_clean": true,
+      "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+    },
+    {
+      "station": "CCTV-5+",
+      "entry_url": "http://116.237.170.51:7788/641886773",
+      "sources": [
+        "https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+        "https://raw.githubusercontent.com/CCSH/IPTV/main/live_lite.m3u"
+      ],
+      "identity_verified": true,
+      "identity_method": "visible logo and normal programme stills; CCTV13 clock13:24 near13:25capture; not full-day EPG verification",
+      "profile": {
+        "returncode": 0,
+        "warnings": "",
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 854,
+            "height": 480,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ]
+      },
+      "rounds": [
+        {
+          "requested_seconds": 600,
+          "summary": {
+            "elapsed": 600.0100528329999,
+            "unique_segments": 102,
+            "supplied_media_seconds": 612.0,
+            "supply_ratio": 1.0199829104702305,
+            "startup_complete_segment_seconds": 0.7121041249999962,
+            "first_body_byte_seconds": 0.05943716599995241,
+            "p95_download_media_ratio": 0.0831793611666664,
+            "slow_segments": 0,
+            "failures": 0,
+            "request_failures": 0,
+            "validation_failures": 0,
+            "retries": 0,
+            "longest_no_new_media_seconds": 9.767737334000003,
+            "missed_sequences": 0,
+            "bytes": 75124236,
+            "average_downloaded_media_bitrate": 982016.1568627451,
+            "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+            "simulated_buffer_deficit_seconds": 0.0,
+            "simulated_buffer_deficit_events": 0,
+            "media_host": "hlsztemgsplive.miguvideo.com:8080"
+          },
+          "hls_supply_qualified": true,
+          "strict_supplementary_av": true,
+          "decode_requested_seconds": 60,
+          "decode_status": "decoded",
+          "decode_warnings": ""
+        },
+        {
+          "requested_seconds": 180,
+          "summary": {
+            "elapsed": 180.003910459,
+            "unique_segments": 31,
+            "supplied_media_seconds": 186.0,
+            "supply_ratio": 1.0333108848897243,
+            "startup_complete_segment_seconds": 0.8650051670000001,
+            "first_body_byte_seconds": 0.038193208000000034,
+            "p95_download_media_ratio": 0.09637327083333365,
+            "slow_segments": 0,
+            "failures": 0,
+            "request_failures": 0,
+            "validation_failures": 0,
+            "retries": 0,
+            "longest_no_new_media_seconds": 9.720162458999997,
+            "missed_sequences": 0,
+            "bytes": 17159888,
+            "average_downloaded_media_bitrate": 738059.6989247312,
+            "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+            "simulated_buffer_deficit_seconds": 0.0,
+            "simulated_buffer_deficit_events": 0,
+            "media_host": "hlsztemgsplive.miguvideo.com:8080"
+          },
+          "hls_supply_qualified": true,
+          "strict_supplementary_av": true,
+          "decode_requested_seconds": 20,
+          "decode_status": "decoded",
+          "decode_warnings": ""
+        }
+      ],
+      "separate_new_entry_av20_clean": true,
+      "limitations": "Same relay and Migu backend for both sports channels; no independent backup or HD claim; actual854x480 H26425 AAC; URL durability beyond daytime not established"
+    },
+    {
+      "station": "CCTV-13",
+      "entry_url": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd",
+      "sources": [
+        "https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt",
+        "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+        "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u"
+      ],
+      "identity_verified": true,
+      "identity_method": "visible logo and normal programme stills; CCTV13 clock13:24 near13:25capture; not full-day EPG verification",
+      "profile": {
+        "at": "2026-11-16 13:31:30 CST",
+        "scope": "same final600s media URL metadata only",
+        "returncode": 0,
+        "warnings": "",
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ]
+      },
+      "rounds": [
+        {
+          "requested_seconds": 600,
+          "summary": {
+            "elapsed": 601.374772167,
+            "unique_segments": 62,
+            "supplied_media_seconds": 616.3199999999999,
+            "supply_ratio": 1.0248517705176527,
+            "startup_complete_segment_seconds": 4.288398292000011,
+            "first_body_byte_seconds": 0.41504908399997475,
+            "p95_download_media_ratio": 0.27553389668367123,
+            "slow_segments": 0,
+            "failures": 0,
+            "request_failures": 0,
+            "validation_failures": 0,
+            "retries": 0,
+            "longest_no_new_media_seconds": 24.028775959000086,
+            "missed_sequences": 0,
+            "bytes": 257397192,
+            "average_downloaded_media_bitrate": 3341085.0467289723,
+            "note": "供给模拟而非真实播放器卡顿/首帧；不含解码及手机缓冲策略",
+            "simulated_buffer_deficit_seconds": 0.0,
+            "simulated_buffer_deficit_events": 0,
+            "media_host": "69.197.146.146:82"
+          },
+          "hls_supply_qualified": true,
+          "strict_supplementary_av": false,
+          "decode_requested_seconds": 60,
+          "decode_status": "decoded",
+          "decode_warnings": "[aist#0:1/aac @ 0x7485014480] Resumed reading at pts 8.104 with rate 1.050 after a lag of 0.327s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 18.035 with rate 1.050 after a lag of 0.588s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 38.035 with rate 1.050 after a lag of 0.375s\n[vist#0:0/h264 @ 0x7485014600] Resumed reading at pts 48.035 with rate 1.050 after a lag of 0.378s\n"
+        }
+      ],
+      "limitations": "Relative backup ONLY: supply600 passed but supplementary60 AV pacing warnings max0.588s; not strict clean or proven player stalls; max no-new-media24.029s; actual1920x1080 H26425 AAC; no independent backup"
+    }
+  ]
+}

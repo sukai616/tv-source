@@ -1,5 +1,5 @@
 {
-  "version": 27,
+  "version": 28,
   "vod": [
     {
       "name": "饭太硬",
@@ -108,6 +108,12 @@
     }
   ],
   "live": [
+    {
+      "name": "央视实测（3台·非完整）",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/live/cctv.m3u",
+      "remark": "严格2/18：CCTV5/5+同URL600+180秒、480p；CCTV13仅相对备选：600秒供给通过、60秒音画有0.588秒追赶提示，1080p；仅Mac白天非手机保证",
+      "recommended": true
+    },
     {
       "name": "国际新闻实测（CGTN）",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/live/international.m3u",
