@@ -1,36 +1,55 @@
-# 直播人工优选（2026-11-16）
+# 公开直播：央视覆盖与持续质量驱动的统一流程
 
-不是新发现的万能源。**目前只相对推荐2个小列表、每表1台**，均取自原聚合已有线路，扩搜后按持续证据重新筛选/排序；不把镜像数量当底层多样性。央视/湖南/少儿尚无新合格替代，原11订阅保留覆盖但取消整表流畅推荐。
+本目录不是大列表镜像仓库。维护次序必须是：**官方基础集合与缺口 -> 按弱台搜源 -> 精确去重/底层分组 -> 逐台基础、可见身份、持续矩阵 -> 按合格央视覆盖和稳定性选择主备 -> 最小发布 -> 逐频道交付**。完整规则与参数以根README“公开直播统一维护流程”为准；不得只在旧“连通率优先”流程末尾追加一次央视抽测。
 
-| 列表 | 唯一频道/完整媒体URL | 本次结果 |
-| --- | --- | --- |
-| international.m3u | CGTN英语 `http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8` | 两轮180秒供给比1.056/1.111；600秒61片/610媒体秒，供给比1.0167、P95下载/媒体0.0487、0失败/漏片/模拟不足；720p25fps。60秒视频解码1500帧dup/drop0，存在HTTP EOF警告，不能说完全无警告。 |
-| phoenix.m3u | 凤凰资讯 `http://43.152.224.209/qctv.fengshows.cn/live/0701pin72.flv` | 两轮180秒各4500帧无警告；600秒601.759墙钟秒、15000帧/600媒体秒、dup/drop0，媒体/墙钟0.9971；有最大8.092秒读入追赶警告，严格无警告门槛未过，仅相对备选。720p25fps视频约999kbps、AAC约47kbps。 |
+## 频道集合与范围
 
-这两台底层不同，**不代表央卫或全港澳台替代，也不保证手机/晚高峰/异地**。首分片首字节不是首帧；HLS供给不足是模型，不是播放器真实卡顿率；FLV是节流视频解码，不与HLS供给指标混算。未检验实际节目/画面真实性、音画同步。不能说已证实用户网络或播放器是根因。
+[央视官方目录](https://tv.cctv.com/cctvnav/m/)的基础集合为CCTV-1至17和CCTV-5+，共18台。CCTV4默认/亚洲版与[欧洲版](https://tv.cctv.com/cctv4europe/)、[美洲版](https://tv.cctv.com/cctv4america/index.shtml)区分。HD/SD为同台画质变体，不重复计台；CCTV4K、8K及风云等付费特色频道单列，不把不支持AVS3/超高清的普通设备限制硬算成基础缺台。没有授权的登录/付费/签名不绕过。
 
-## 明确不入选
+本优先级仅适用于公开直播。点播仍按配置、图片外壳/AES、jar、JSON/type0 XML及播放能力分别验收；密码隐藏列表单独隔离，不要求成人类别具备CCTV覆盖，也不能进入本目录或公开builtin。
 
-- 原zbds/91的CCTV13 `http://ali-m-l.cztv.com/channels/lantian/channel21/1080p.m3u8`、浙江少儿 `http://ali-vl.cztv.com/channels/lantian/channel008/360p.m3u8`，以及Daily A浙江 `http://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8`：180秒仅16秒独特媒体，供给约0.089，playlist冻结。
-- 原湖南 `https://txmov2.a.kwimgs.com/bs3/video-hls/5199687338554291078_hlsb.m3u8`、央卫CCTV1 `https://p2.bdstatic.com/rtmp.liveshow.lss-user.baidubce.com/live/stream_bduid_6488563992_8982723413/merged_1707497046297_88536_25144_41936.m3u8`：ENDLIST录播/占位，绝不改用解码成功洗成直播。
-- 新分层6条央视/卫视180秒供给比分别约0.518(CCTV1)、0.389(CCTV13)、0.574(湖南)、0(浙江)、0.657(河北)、0.028(山东)，不因基础短片通过硬收。
-- 广西官网线路 `https://hlscdn.liangtv.cn/live/0c4ef3a44b934cacb8b47121dfada66c/d7e04258157b480dae53883cc6f8123b.m3u8`：两轮180秒供给良好，但600秒有4.053秒模拟不足/2个慢片；再用ffprobe及60秒解码发现大量AAC/H264损坏/损坏画面，**不入选**。ffmpeg退出0也不能据此宣称流畅。此URL本就存在测速聚合，并非新CDN。
+## 实际执行与验收
 
-## 来源与维护
+1. 检查仓库/进程/维护锁owner与PID，避免周更双写；复用当天证据，失去进度或超预算记未完成而非失效。质量测试串行于基础，最多2并发。
+2. 从全部现有订阅和候选中提取每台的所有完整URL、UA/Referer、来源及别名。完整URL+请求头去重，保留同台更稳线路；显式TXT多线路拆开，真实重定向/CDN分组。同host不是绝对同源，不同IP也不是独立运营者的证明。
+3. 列出缺台/弱台后定向扩大GitHub/Gitee/活跃项目/论坛博客搜索，保留必查四项目。不能只换镜像，不以CGTN/凤凰顶替缺台。裸IPv6没有出口时跳过并保留。
+4. 先基础全量手机口径双70%；大规模分层时明确未测范围。再用实际截帧看台标/节目，对可疑错标逐台核实；ffprobe分辨率及ffmpeg退出0均不能代替看图。记录音视频轨道及损坏/警告，身份无可见核实就标未核实。
+5. 每个基础频道至少一个最好候选真实连续180–300秒，拟推荐尽量两轮；CCTV1/5/5+/13及优胜主备600秒。ENDLIST/冻结/重复旧片不算直播。FLV/直流用连续解码，不套HLS误判；必要音频/坏帧检查不能略过。未完成的台明确未测，不能说18台流畅。
+6. 矩阵分别计“有地址、基础通过、身份核实、持续通过、可用主备”，按合格央视覆盖及稳定性、画质、独立底层排序，而不是总条数或汇总率。没有完整解就给具体缺台。保留2–3个诚实相对推荐，不清空已有备选，但非央视备选必须标央视覆盖0。
+7. 只把实测且身份可靠的公开台写入selected.json。每台保存来源/完整URL/必要头/身份与持续证据/限制；不自动整表导入，避免自动混入成人、录播或错台。生成器检查声称的央视合格台是否与真实条目及证据字段对应。
+8. 清单/推荐实际变化才升builtin版本、必要时同步App公开离线默认；回归后仅正常推指定GitHub分支，验证raw和固定gh-proxy的实际内容。本专项不改隐藏、不打APK、不动无关点播/UI/缓存；文档/脚本修订不虚构清单更新。
+9. 每次报告必须附完整18台矩阵和变体附表，逐台给主备完整URL/来源、基础结果、持续秒数/供给/停滞、解码/音频/画质、身份核实方法、失败/未测原因。聊天也明确覆盖几台、长测合格几台、缺哪些，不能只说有几个推荐。
 
-`selected.json`保存每条公开电视台、完整URL、请求头、上游出处、实测覆盖；`evidence-2026-11-16.json`保存供给与解码总结及真实警告。完整逐请求日志仅在维护Mac的.audit-work保留，不包含进公共提交。小白名单**不自动拉取整张第三方列表**，避免上游自动混入成人/录播；频道内容未来仍需人工复核。
+## 命令与证据格式
 
 ```bash
-python3 scripts/refresh_curated_live.py --check
-# 修改selected.json后渲染；会加.curated-live.lock，不抢占别人的owner
-python3 scripts/refresh_curated_live.py
-# 基础完整检测（远程发布后）：
+python3 scripts/build_cctv_inventory.py --snapshot-dir .audit-work/current/public-playlists --source-map .audit-work/current/public-sources.json --out-dir .audit-work/current/cctv
 python3 scripts/check_sources.py --live --full --phone --workers 4 --json-out /tmp/live-basic.json
-# 然后单独HLS样本，两轮3分钟和优胜10分钟，不与基础/FLV另开并发：
-python3 scripts/check_live_stability.py --source '国际新闻实测（CGTN）' --channel '^CGTN英语$' --seconds 180 --rounds 2 --json-out /tmp/cgtn-180.json
-python3 scripts/check_live_stability.py --source '国际新闻实测（CGTN）' --channel '^CGTN英语$' --seconds 600 --json-out /tmp/cgtn-600.json
-python3 scripts/check_continuous_stream.py --name 凤凰资讯 --url 'http://43.152.224.209/qctv.fengshows.cn/live/0701pin72.flv' --seconds 180 --rounds 2 --json-out /tmp/phoenix-180.json
-python3 scripts/check_continuous_stream.py --name 凤凰资讯 --url 'http://43.152.224.209/qctv.fengshows.cn/live/0701pin72.flv' --seconds 600 --rounds 1 --json-out /tmp/phoenix-600.json
+# 默认逐18台找首匹配并报告缺台，不代表它会自动找出该频道的最佳线路
+python3 scripts/check_live_stability.py --source '央卫精选' --seconds 180 --rounds 2 --json-out /tmp/cctv-matrix.json
+# 已从矩阵选出的主备候选再600秒并补解码
+python3 scripts/check_live_stability.py --manifest /tmp/candidates.json --source '央视候选' --channel '^CCTV-?13$' --seconds 600 --decode-seconds 60 --decode-audio --json-out /tmp/cctv13-final.json
+# 其他类别/非HLS必须显式选择适当测法，不能套央视完整度
+python3 scripts/check_continuous_stream.py --name '实际频道' --url '公开完整FLV-URL' --seconds 180 --rounds 2 --json-out /tmp/direct.json
+python3 scripts/refresh_curated_live.py --check
+python3 scripts/test_cctv_policy.py
 ```
 
-任何新卫视优胜者应补连续解码/错误审阅，不只看TS同步字节或ffmpeg退出码。先检查维护锁及PID，使用README的低并发顺序；无IPv6出口只跳过裸IPv6，不删源。严格样本指标不自动授予整聚合推荐；本次依用户要求保留2个有明示局限的相对推荐。周更调度另由维护者调整，本次不改routine。
+selected.json中`cctv_baseline_qualified`仅列可核对身份与真实持续证据的基础台；不能按名称/HTTP200自动填。根`public_live_priority`说明优先级，非央视列表显式为空。原始截图/逐请求证据保存在维护Mac审计目录，公共证据总结不得夹入隐藏专项或凭据。
+
+建议矩阵列：频道/版本、独立候选及底层数、有无地址、基础通过数、可见身份及截图时间、180/600秒覆盖、首字节/完整首片（非首帧）、供给/重试/不足/停滞、解码及音频/画质、推荐主备完整URL/来源、缺台/未测原因。
+
+## 当前已发布的v27相对新闻备选：央视基础合格覆盖0/18
+
+- international.m3u仅CGTN英语，媒体 `http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8`。两轮180秒及600秒HLS；600秒61片/610媒体秒、供给比1.0167、P95下载/媒体0.0487、0失败/漏片/模拟不足，720p25fps；补充60秒解码1500帧dup/drop0但有HTTP EOF警告。
+- phoenix.m3u仅凤凰资讯，媒体 `http://43.152.224.209/qctv.fengshows.cn/live/0701pin72.flv`。两轮180秒各4500帧无警告；600秒15000帧、dup/drop0，601.759墙钟秒，有最大8.092秒读入追赶警告，严格无警告门槛未过，只是相对备选。
+
+两台不是央视基础集合替代。此前冻结CCTV13/浙江少儿、ENDLIST湖南/CCTV1未进入人工小列表；广西虽两轮180秒供给良好，600秒有4.053秒模拟不足且补解码大量AAC/H264损坏，最终未收。详见evidence-2026-11-16.json，不能因短片或ffmpeg退出0翻案。
+
+全部结论仅Mac当时网络，不是手机/晚高峰/异地保证。首字节/首片不是首帧，HLS供给模拟不是播放器卡顿率，视频解码不证明音画同步、实时节目真实性或根因。routine由调度维护者按同一流程维护，本任务不直接修改。
+
+持续CLI默认另补20秒音画解码并单列范围；`--decode-seconds 0`只能作供给记录，`--video-only-decode`显式省略音频。音轨是否存在另看ffprobe，不凭可选音轨映射宣称有声音。纯音频不计央视电视覆盖，4K角标不替代实际分辨率。
+
+`build_cctv_inventory.py`只读显式指定目录的公开`*.playlist`，输出完整URL/请求头/别名/来源和18台计数；不发媒体请求，也不自动授予完整、同底层独立或持续合格。来源映射缺失会计数，不能编造。共用解析器已在解析UA/Referer前展开TXT/M3U的`#http(s)`独立备线；旧全量条数属于旧解析快照，不能直接冒充新解析全量结果。
+
+HLS刷新沿最终重定向媒体playlist及完整query继续，避免重复入口调度造成跨后端序列混用；旧入口口径异常应保存并复验，不直接判死。整体回归：`python3 -m unittest discover -s scripts -p 'test_*.py'`。

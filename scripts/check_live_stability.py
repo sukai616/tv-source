@@ -16,6 +16,7 @@ import time
 import urllib.request
 import urllib.parse
 import check_sources as base
+from cctv_policy import BASE_CHANNELS, select_representatives
 
 
 def playlist(text, url):
@@ -148,7 +149,9 @@ def audit(channel, seconds=180, timeout=8, max_segment_mb=32):
             media_url = selected['url']
         else:
             raise ValueError('too many HLS nesting levels')
-        out['media_url'] = meta['url']; out['initial_sequence'] = parsed['segments'][0]['seq'] if parsed['segments'] else None
+        # Refresh the resolved media playlist, not a scheduling entry that may choose another stream.
+        media_url = meta['url']
+        out['media_url'] = media_url; out['initial_sequence'] = parsed['segments'][0]['seq'] if parsed['segments'] else None
         while time.monotonic() < deadline:
             if parsed['end']:
                 out['status'] = 'not_live_endlist'; break
@@ -203,6 +206,7 @@ def audit(channel, seconds=180, timeout=8, max_segment_mb=32):
             time.sleep(min(max(1., parsed['target']/2), max(0., deadline-time.monotonic())))
             if time.monotonic() >= deadline: break
             body, pm = get(media_url, 2*1024*1024, 'playlist'); events.append(pm)
+            media_url = pm['url']
             parsed = playlist(body.decode('utf-8-sig','replace'), pm['url'])
         else:
             out['status'] = 'measured'
@@ -233,7 +237,7 @@ def audit(channel, seconds=180, timeout=8, max_segment_mb=32):
 
 
 
-def decode_sample(channel, seconds, timeout):
+def decode_sample(channel, seconds, timeout, include_audio=False):
     """Supplementary paced decode, not supply evidence and never promotes an ENDLIST to live."""
     if not shutil.which('ffmpeg'): return dict(status='skipped_no_ffmpeg')
     url, headers = base.media_headers(channel)
@@ -241,18 +245,24 @@ def decode_sample(channel, seconds, timeout):
                str(int(timeout*1000000)), '-user_agent',base.OKHTTP_UA]
     if headers:
         command += ['-headers', ''.join('%s: %s\r\n'%(k,v) for k,v in headers.items())]
-    command += ['-re','-i',url,'-t',str(seconds),'-map','0:v:0','-an','-progress','pipe:1',
-                '-nostats','-f','null','-']
+    command += ['-re','-i',url,'-t',str(seconds),'-map','0:v:0']
+    command += ['-map','0:a:0?'] if include_audio else ['-an']
+    command += ['-progress','pipe:1','-nostats','-f','null','-']
     start=time.monotonic()
     try:
         result=subprocess.run(command,capture_output=True,text=True,timeout=seconds+max(20,timeout*3))
         progress=[dict(re.findall(r'(?m)^([^=\n]+)=(.*)$', x)) for x in result.stdout.split('progress=')[:-1]]
         return dict(status='decoded' if result.returncode==0 else 'failed',returncode=result.returncode,
                     elapsed=time.monotonic()-start, requested_media_seconds=seconds,
-                    progress=progress, warnings=result.stderr[-16000:],
-                    note='-re paced FFmpeg video decode; supplementary only, not first frame or measured phone stalls')
-    except subprocess.TimeoutExpired:
-        return dict(status='timeout',elapsed=time.monotonic()-start)
+                    progress=progress, warnings=result.stderr[-16000:], warning_characters=len(result.stderr), warnings_truncated=len(result.stderr)>16000,
+                    audio_requested=include_audio,
+                    note='-re paced FFmpeg video/optional-audio decode; supplementary only, not first frame or measured phone stalls')
+    except subprocess.TimeoutExpired as exc:
+        def text(value): return value.decode('utf-8','replace') if isinstance(value,bytes) else value or ''
+        stdout,stderr=text(exc.stdout),text(exc.stderr)
+        progress=[dict(re.findall(r'(?m)^([^=\n]+)=(.*)$', x)) for x in stdout.split('progress=')[:-1]]
+        return dict(status='timeout',elapsed=time.monotonic()-start, requested_media_seconds=seconds,
+                    progress=progress,warnings=stderr[-16000:], warning_characters=len(stderr),warnings_truncated=len(stderr)>16000,audio_requested=include_audio)
 
 
 def clean_decode_sample(decoded, seconds):
@@ -281,20 +291,23 @@ def main():
     ap.add_argument('--source', action='append', help='exact source name; repeatable')
     ap.add_argument('--channel', action='append', default=[], help='channel regex; first match/line only')
     ap.add_argument('--seconds', type=float, default=180)
-    ap.add_argument('--decode-seconds', type=float, default=0, help='supplementary paced FFmpeg video decode per sample')
+    ap.add_argument('--decode-seconds', type=float, default=20, help='supplementary paced decode per sample; default20s,0 means supply-only')
+    ap.add_argument('--decode-audio', action='store_true', default=True, help='include available first audio track (default; presence is not asserted)')
+    ap.add_argument('--video-only-decode', dest='decode_audio', action='store_false', help='omit audio from decode supplement')
     ap.add_argument('--rounds', type=int, default=1)
     ap.add_argument('--workers', type=int, choices=(1,2), default=1, help='bounded low concurrency; default 1')
     ap.add_argument('--timeout', type=float, default=8)
     ap.add_argument('--json-out', required=True)
     ap.add_argument('--lock', default='.live-quality.lock')
     args = ap.parse_args()
-    if args.seconds < 1 or args.rounds < 1: ap.error('positive duration/rounds required')
+    if args.seconds < 1 or args.rounds < 1 or args.decode_seconds < 0: ap.error('positive duration/rounds and nonnegative decode-seconds required')
     data = json.loads(Path(args.manifest).read_text())
     unknown = set(args.source or []) - {e['name'] for e in data['live']}
     if unknown: ap.error('unknown sources: '+', '.join(sorted(unknown)))
     output = dict(started=time.strftime('%Y-%m-%d %H:%M:%S %Z'), network='user Mac; not phone',
-                  seconds=args.seconds, rounds=args.rounds, concurrency=args.workers, results=[], coverage=[])
-    patterns = args.channel or [r'^CCTV-?1(?:综合|高清|HD)?$', r'湖南卫视', r'凤凰资讯', r'少儿']
+                  seconds=args.seconds, rounds=args.rounds, concurrency=args.workers, decode_seconds=args.decode_seconds, decode_audio_requested=args.decode_audio, results=[], coverage=[])
+    patterns = args.channel or None
+    output['selection_policy'] = 'explicit channel regex' if patterns else 'CCTV1-17 plus5+ baseline; never CGTN/Phoenix substitute'
     ipv6, detail = base.ipv6_check(min(args.timeout, 3), quiet=True)
     output['ipv6'] = dict(ready=ipv6, detail=detail)
     def save():
@@ -304,8 +317,9 @@ def main():
         entry, channel, round_no = job
         print('START',round_no,entry['name'],channel[0],channel[1],flush=True)
         result = audit(channel,args.seconds,args.timeout)
+        result['qualification_scope'] = 'HLS supply plus supplementary decode' if args.decode_seconds else 'HLS supply only; no decode claim'
         if args.decode_seconds:
-            result['decode'] = decode_sample(channel,args.decode_seconds,args.timeout)
+            result['decode'] = decode_sample(channel,args.decode_seconds,args.timeout,args.decode_audio)
             result['hls_supply_stable_sample'] = result.get('stable_sample', False)
             result['decode_clean_sample'] = clean_decode_sample(result['decode'], args.decode_seconds)
             result['stable_sample'] = result.get('stable_sample', False) and result['decode_clean_sample']
@@ -320,15 +334,7 @@ def main():
                 if not response.ok:
                     output['results'].append(dict(source=entry['name'], round=round_no+1, error=response.error)); save(); continue
                 channels = base.parse_playlist_channels(response.body.decode('utf-8-sig','replace'))
-                picked = []; seen = set(); missing=[]
-                for pattern in patterns:
-                    matched = False
-                    for channel in channels:
-                        if re.search(pattern, channel[0], re.I) and channel[1] not in seen:
-                            seen.add(channel[1])
-                            if base.is_ipv6_url(channel[1]) and not ipv6: continue
-                            picked.append(channel); matched=True; break
-                    if not matched: missing.append(pattern)
+                picked, missing = select_representatives(channels, patterns, ipv6)
                 output['coverage'].append(dict(source=entry['name'],round=round_no+1,selected=[c[0] for c in picked],missing_patterns=missing))
                 if not picked:
                     output['results'].append(dict(source=entry['name'], round=round_no+1, error='no representative match/IPv6 skipped')); save()

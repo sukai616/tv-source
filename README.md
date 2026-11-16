@@ -27,6 +27,8 @@ App 侧行为要记住两点：
 
 ## 每次改完怎么推上去
 
+先完成下方统一维护流程；下面只是普通清单提交示例。涉及自管直播时，须同时审阅并显式提交`live/selected.json`、相应M3U和必要文档/脚本，不能用`git add .`混入其他工作。
+
 ```bash
 cd tv-source
 # 用任意编辑器改 builtin.json
@@ -60,11 +62,11 @@ python3 scripts/check_sources.py --live --git f2f4b5a   # 顺手把某个提交�
 | 参数 | 含义 |
 |------|------|
 | `--sample N` | 每个源抽测 N 个（线路 / 频道名），默认 10；与 `--full` 并存时 **`--full` 优先** |
-| `--full` | 全量：测该源全部可测线路，以及频道口径下全部频道名；默认 `workers=24`，并默认开 `--deep`；每源完成打印进度，Ctrl+C 可中断（有 `--json-out` 会尽量落盘） |
+| `--full` | 全量：测该源全部可测线路，以及频道口径下全部频道名；默认 `workers=4`，并默认开 `--deep`；每源完成打印进度，Ctrl+C 可中断（有 `--json-out` 会尽量落盘） |
 | `--deep` | 更深「真能看」：响应若是 m3u8，解析第一条媒体分片或子播放列表并再请求；子列表再跟一层到分片；分片用 TS/fMP4/视频流特征判定，HTML/403/超时算挂。不加时行为与旧版兼容（拿到 m3u8 列表即过） |
 | `--phone` / `--strict` | 贴近手机门槛预设：开 deep；`--min-pass` / `--min-pass-channel` 默认 **0.7**；**推荐源要求线路口径与频道口径都达标**（AND，不是 OR）；默认 `--max-lines 1`（只试该频道排序后的第一条，更贴近播放器常先试第一条） |
 | `--channel-first-line` | 频道口径只试第一条线路（等价 `--max-lines 1`） |
-| `--workers` | 并发数（默认 16；`--full` 时默认 24） |
+| `--workers` | 并发数（默认 16；`--full` 时默认 4） |
 | `--timeout` | 单请求超时秒数，默认 8（deep 跟进同样沿用） |
 | `--min-pass` / `--min-pass-channel` | 线路 / 频道口径门槛（默认 0.5；`--phone` 下 0.7） |
 | `--max-lines` | 频道口径每条频道最多试几条线路（默认 4；`--phone` 下 1） |
@@ -76,13 +78,13 @@ python3 scripts/check_sources.py --live --git f2f4b5a   # 顺手把某个提交�
 **退出码 0 = 通过，1 = 有问题**（JSON 坏了、地址重复、推荐源没达标、一条都没通过），
 适合推之前跑一遍或挂 CI；被跳过的源不计入失败。
 
-全量可能跑很久（大源 2000+ 频道 × deep 跟分片）；日常推送用 `--sample`，清单大改或用户要求贴近手机时立刻跑 `--full --phone`（不必等周一）。
+公开直播的`--sample`仅作预筛，不能代替统一流程中的全量基础和逐台持续验收。全量可能跑很久（大源 2000+ 频道 × deep 跟分片）；日常推送用 `--sample`，清单大改或用户要求贴近手机时立刻跑 `--full --phone`（不必等周一）。
 
 ### 2026-11-06 测法审计：不再把「能下载」当「好用」
 
 ```bash
 python3 scripts/check_sources.py --vod --vod-sample 8 --vod-playable --timeout 12
-python3 scripts/check_sources.py --live --full --phone --timeout 8 --workers 16
+python3 scripts/check_sources.py --live --full --phone --timeout 8 --workers 4
 python3 scripts/check_sources.py --live --sample 20 --phone --ffprobe  # 有 ffprobe 时真读流
 python3 scripts/test_check_sources.py                              # 误判回归夹具
 ```
@@ -94,37 +96,39 @@ python3 scripts/test_check_sources.py                              # 误判回�
 
 **仍有局限**：CSP jar 的格式可检不等于 App 内每个爬虫的搜索/播放可用；动态 Cookie、登录/授权码、防盗链私有算法、未知加密格式不绕过，需真机人工复核。抽样媒体、首分片及 ffprobe 不能测长期卡顿、持续追片、片源更新速度、VIP 解析成功率；单网络/单时段结果不能代表所有运营商，IPv6 无出口时只测域名线路。公开清单发现成人/会自动混入成人的源直接排除；仅名称关键词是提示，不替代人工看站构成。
 
-### 2026-11-16 直播持续质量：连通率不是流畅度
+### 公开直播统一维护流程：央视完整度和持续质量优先
 
-`check_sources.py --live --full --phone` **只作为基础门槛**（线路与频道均 ≥70%）；通过不再足以授予推荐。
-旧版一次短分片检查甚至会放过带 `#EXT-X-ENDLIST` 的录播/占位视频；短视频秒开、HTTP 200、首包快均不能证明在持续直播。
+此流程贯穿搜源、测试、筛选、排序、发布及汇报，不是末尾附加抽查。**仅适用于公开直播**；点播与密码隐藏专项仍各自验收，绝不将成人类别强套央视覆盖。
 
-新增独立工具（仅 Python 标准库，FFmpeg 可选）：
+1. **独占与复用**：先核对两仓工作树、进程、`.maintenance.lock/owner.json`和持续锁；识别owner/PID，不抢活动锁、不并发双写。复用带日期的全量和长测，过期/预算终止记“未完成”，不是源失效；单源及全流程设置外层总预算。
+2. **官方基础集合**：按[央视官方频道目录](https://tv.cctv.com/cctvnav/m/)逐台列CCTV-1至17及5+共18台；CCTV-4亚洲/默认版与欧洲、美洲分别记录。高清/标清是画质变体，不能重复计完整度；CCTV-4K/8K、付费特色频道单列，不计基础缺台。注明设备/编码/公开免费与授权限制，不绕过付费、登录、签名或区域鉴权。
+3. **缺台/弱台驱动搜源**：用`scripts/build_cctv_inventory.py`从指定公开快照离线提取规范化地址及来源矩阵，不递归扫描隐藏数据；它只盘点、不自动证明身份或可播。先从现有全部公开订阅和已保存候选提取央视矩阵，再只针对缺台、冻结、错台、供给不足继续查GitHub/Gitee、活跃维护者和公开论坛博客；必查四项目仍保留。不能以CGTN/凤凰替代央视，不能把“又发现一个大列表”当作补齐。
+4. **保留独立底层**：按完整媒体URL及请求头精确去重，保留来源、别名、主备关系、真实重定向和CDN/host分组；同源镜像不算不同底层，多个IP也未必独立运营者。保留query/必要UA与Referer，不仅因频道重合而淘汰更稳线路；TXT显式多线路须逐线展开，不能把URL片段拼成一条假线路。
+5. **基础与持续分开**：先低并发全量`--live --full --phone --workers 4`，保留线路与频道双70%基础门槛；大规模分层要准确报告哪些未测。无IPv6出口只跳过裸IPv6并保留，不据此删除。基础首片能下载不代表直播或流畅，ENDLIST/冻结/HTML及同片换URL不能计持续成功。
+6. **逐台身份/解码核实**：优胜候选用可见截帧人工核实台标/频道节目；没有看图就标“身份未核实”，名字、域名、ffprobe轨道都不能证明频道正确。记录截图和时间、音视频编码/实际分辨率，补连续解码并审阅错误、损坏帧、音频；ffmpeg退出0不是通过。8K/AVS3等设备不支持记能力限制，不伪造成功或计基础缺台。纯音频不计电视覆盖，4K角标不等于实际4K轨道；单张台标也不证明全天节目正确或实时性。
+7. **逐台持续测试**：每个基础频道至少一个最好候选连续180–300秒，最多2并发，不与基础并跑；优先CCTV1/5/5+/13及优胜主备600秒复验，拟推荐尽量两轮180秒。窗口必须真实等满；资源不足明确未测，不能提前说18台流畅。HLS连续刷新及完整分片，记录序号/哈希、媒体时长、每片耗时、重试、供给不足/停滞；FLV/TS直流走独立连续解码法，不误套HLS规则。
+8. **按合格央视覆盖及稳定性排序**：分别统计“有地址、基础通过、可见身份已核实、持续合格、主备底层”台数。优先身份正确且持续合格的央视覆盖，再比较供给、错误、画质与主备；不按总频道数或汇总通过率推荐。没有完整可用解就逐台给缺口，不凑冻结/录播/错台。按要求保留2–3个诚实的相对推荐；没有合格央视时既有新闻相对备选可以保留，但必须醒目标明央视合格覆盖0，不能冒充交差。
+9. **最小必要发布**：只有实证合格的公开频道进入`live/selected.json`手工白名单并渲染，不自动整表导入。列来源、完整URL、身份及长测证据/局限，保留UA/Referer，拒绝公开Cookie/Authorization。公开源/推荐变更升builtin版本并按需同步App公开离线默认，回归后只正常推指定GitHub分支；不碰无关点播、隐藏、UI/缓存，不为本公开直播专项打APK。文档/脚本规则修订但清单无变可单独提交，不为凑版本改清单。
+10. **逐频道交付**：必须交18台基础矩阵及国际变体/超高清/特色附表，逐台列地址是否存在、基础/长测秒数、供给/停滞/解码/画质、身份核实方式、主备完整URL与来源、缺台/失败/未测原因；提供完整文件。聊天明确“地址覆盖几台、身份核实几台、长测合格几台、缺哪些”，附全部候选/变更/版本/commit/远程核验，而非只说有两个推荐。周更调度按同一顺序，routine由调度维护者修改。
+
+#### 可重复命令和指标边界
 
 ```bash
-# 先基础全量，降低并发；不要与持续质量测试同时运行
+# 输入为本轮保存的公开*.playlist，以及[{"name":...,"url":...}]或文件路径→URL的来源映射
+python3 scripts/build_cctv_inventory.py --snapshot-dir .audit-work/current/public-playlists --source-map .audit-work/current/public-sources.json --out-dir .audit-work/current/cctv
 python3 scripts/check_sources.py --live --full --phone --workers 4 --timeout 8 --json-out /tmp/live-basic.json
-# 然后串行测代表台（每源约 4×180 秒，默认只测每个正则匹配到的第一条线路）
-python3 scripts/check_live_stability.py --source '央卫精选' --source '采集优选' \
-  --channel '^CCTV-?1(?:综合|高清|HD)?$' --channel '湖南卫视' --channel '凤凰资讯' --channel '少儿' \
-  --seconds 180 --rounds 2 --json-out /tmp/live-quality.json
-# 优胜线路十分钟复验，另加连续解码（可选；解码阶段不计入 HLS 供给测试）
-python3 scripts/check_live_stability.py --manifest /tmp/candidates.json --source '候选名' \
-  --channel '浙江卫视' --seconds 600 --decode-seconds 60 --json-out /tmp/live-finalist.json
-python3 scripts/test_live_stability.py
+# 默认现在是18个基础央视逐台首选，并明确报告缺台；其他类别必须显式--channel
+python3 scripts/check_live_stability.py --source '央卫精选' --seconds 180 --rounds 2 --json-out /tmp/cctv-quality.json
+python3 scripts/check_live_stability.py --manifest /tmp/candidates.json --source '央视候选' --channel '^CCTV-?13$' --seconds 600 --decode-seconds 60 --decode-audio --json-out /tmp/cctv13-final.json
+python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 scripts/refresh_curated_live.py --check
 ```
 
-- **首包/首帧严格区分**：`first_body_byte_seconds` 为首个完整有效分片请求的首字节耗时（DNS/TLS/响应头也在内），不是视频首帧；`startup_complete_segment_seconds` 为从开始到下载完第一个有效分片，仍不是首帧。
-- 从直播边缘最后两片开始，按 target-duration 一半定时刷新 HLS，保留每片序号/完整下载字节数/媒体时长/耗时/哈希，计算下载耗时÷媒体时长 P95、供给时长÷墙钟时长、最长无新媒体间隙、丢失序号、重试/错误和模拟缓冲供给不足时长。每请求最多重试一次，不隐藏第一次失败。
-- `ENDLIST` 不算持续直播；重复 playlist 不计新增供给；不同 URL/序号却完全相同的分片不重复记功；回退序号、HTML 假视频、分片超限、Range 被忽略均报告。连续测试**下载完整分片**而不是只读 64KB。窗口末尾不启动新一轮，但已发起请求保留正常单次超时，实际墙钟可能略超过目标，按实际耗时统计；不以人为缩短超时制造假失败。
-- 保留主/子列表的 BANDWIDTH、RESOLUTION，默认取最高带宽变体（不会静默切低画质抬高成绩），另报实际下载媒体平均码率；没有标明分辨率时不得臆测“1080P”。`--decode-seconds` 用本机 FFmpeg 实际持续解码视频轨，保存逐次进度及错误；它不能把 ENDLIST 变成直播。
-- `stable_sample=true` 仅表示**本次选中线路**完整跑完窗口且：≥3 个不同分片、供给比≥0.95、下载/媒体 P95<0.7、无请求/验证失败、无漏序号、模拟供给不足≤1秒、最长无新增≤max(20秒,3×target)。这些是保守筛选阈值，不是播放器卡顿率，不自动推荐整个聚合列表。
-- 完整聚合推荐还需基础全量达标 + 央视/卫视/港澳台/少儿或其他实际覆盖类别的多个样本 + 至少两轮3–5分钟 + 优胜者10分钟复验。没有相应类别要写缺口。用户要求无理想源时保留2–3个相对推荐：本次只对白名单的实际少量频道给相对推荐，不代表央卫少儿全覆盖，也不把弱聚合重新标成流畅。**不能只看汇总通过率；不能仅因频道重复就淘汰更稳定的底层线路。**
-- `--manifest` 接受 `{"live":[{"name":"候选名","url":"订阅URL"}]}`；`--source` 可重复；`--workers 1` 默认串行，可显式用 `--workers 2` 做同网低并发对照（不要同时跑基础全量）；`--channel` 为正则且仅选首匹配，找不到会明确记录，不能当通过。无 IPv6 出口跳过裸 IPv6，不作为失效删除。AES/DRM 等加密 HLS 与非 HLS 直流在此工具中不计稳定通过，另做授权范围内解码验证，绝不绕过鉴权。
-- 两次持续测试使用同一个目录锁 `.live-quality.lock`，冲突直接停止，不自动抢锁；正常结束/异常会释放，进程被强杀后须核对 owner.json 中 PID 再人工处理。**全量基础检查本身尚不取该锁**，维护者必须将基础和持续测试串行运行。改清单/脚本前先检查 `ps`、`git status` 和仓库根 `.maintenance.lock/owner.json`；周更遇维护锁应先协调，不得并发改仓库。锁目录和 `.audit-work` 不入提交。
-- 工具退出码0只表示测量流程完成，**不是所有线路通过**；结论看 JSON 中 `status`、`stable_sample` 和每项错误。JSON 每个频道完成后原子落盘。历史统计必须带日期，不可冒充本次结果。
-
-局限：单次 Mac 网络/上午结果不能代表手机、晚高峰、其他运营商；供给模拟不等于真实播放器卡顿统计，未测丢帧/音画同步/节目名是否正确。CDN 正常轮播、时间戳异常、广告/节目错误仍需实看；不可宣称已证实用户网络或播放器有问题。
+- `first_body_byte_seconds`是首个有效完整分片请求的首字节耗时（含DNS/TLS/响应头），`startup_complete_segment_seconds`是下载完第一片的时间，**两者都不是真实首帧**。
+- 从直播边缘最后两片开始，以半target刷新最终重定向媒体playlist，保留其完整query，不能反复入口调度把不同后端序列拼作一条；旧跨后端跳序样本须按修正口径复验，不能直接判死。保存完整分片的序号、时长、耗时、字节数、哈希；重复playlist/重复payload不计新增，正常窗口重叠不误判回退。最高带宽变体不静默降画质，保存BANDWIDTH/RESOLUTION；每请求最多重试1次且保留首次错误。窗口结束不新起请求，已起请求保留正常超时，按实际墙钟计量。
+- HLS低层`audit()`的`stable_sample`仅表示本次供给窗口：至少3不同片、供给比≥0.95、下载/媒体P95<0.7、无请求/验证失败或漏片、模拟不足≤1秒、最长无新片≤max(20秒,3×target)。不自动授予整表推荐。CLI默认补20秒可用视频/音频解码（不是180秒全程解码），`--decode-seconds 0`仅测供给并显式标范围，不能当整体合格；`--video-only-decode`显式省略音频。补解码时CLI另报`hls_supply_stable_sample`与`decode_clean_sample`，最终稳定标志需两者通过；`--decode-audio`保留为显式写法，仅请求可用第一音轨，不自动证明有音轨或音画同步。任何警告/损坏不可称无错误解码。
+- 连续工具共用`.live-quality.lock`并记录owner/PID，冲突即停、不自动抢锁；基础脚本尚不自行加该锁，外层独占维护者必须串行安排。JSON每台原子落盘；退出0只代表流程完成，不代表每台合格。解码阶段不混入HLS供给时长。
+- 仅Mac当前网络，不能保证手机/晚高峰/异地，不把供给模拟说成播放器实际卡顿；未测音画同步/节目实时性，不归咎网络或播放器为已证实根因。加密/非HLS不算HLS稳定通过，不绕鉴权；另走授权范围内适当测法。
 
 ### 两个口径：线路 vs 频道
 
@@ -196,7 +200,7 @@ IPv4 映射地址（`::ffff:1.2.3.4`）会被识破，不会误报。
 
 ## 换源时的建议
 
-- 只改 `builtin.json` 一个文件，别改文件名/分支（App 里内置的那条地址是
+- 只改必要的清单/自管白名单及验收脚本，保持 `builtin.json` 文件名/分支（App 里内置的那条地址是
   `https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/builtin.json`；换分支就同步改设置里的清单地址）。
 - 仓库里的地址尽量用**免登录、无防盗链**的直链。网盘分享页（阿里云盘 / 夸克 / 百度网盘分享）App 直接 GET 拿不到。
 - GitHub raw 国内不稳，用 `gh-proxy.com/`、`ghfast.top/` 这类加速前缀包一层（清单里已有例子）。
@@ -384,7 +388,7 @@ python3 scripts/test_curated_live.py
 
 连续流记录FFmpeg视频解码进度、帧数、dup/drop、完整媒体时长/墙钟比、错误警告；不是HLS刷新供给，也不是首帧或手机卡顿率。不检查音画同步或节目画面真实性；`-re`节流自身会影响速度，不能把这些数字与HLS供给比当同一指标。已知冻结/ENDLIST不应改用解码通过来洗白。
 
-维护顺序：核对`.maintenance.lock/owner.json`、PID和工作树 → 独占维护 → 基础全量（workers 4，有外部整体时限）→ HLS/连续流分类型低并发两轮180秒 → 优胜600秒 → 人工审公开频道/完整URL/必要UA与Referer → 修改`live/selected.json`并运行生成器 → 本地完整测试 → 清单升版与App离线同步 → 正常提交推送。生成器只渲染人工白名单，不自动采集整张第三方表，因此不会跟随上游自动混入成人或录播；仍需每周复查实际节目与线路变化。query完整保留，不擅自去签名、换IP或绕鉴权；公开输出拒绝Cookie/Authorization。不要把本地`.audit-work`（含隐藏专项）推送到公共仓库。
+维护顺序只以本文上方“公开直播统一维护流程：央视完整度和持续质量优先”为权威；本节仅说明非HLS及白名单工具，不能跳过逐台缺口、身份和长测矩阵。点播和隐藏专项维持各自隔离验收，不套央视完整度。
 
 基础请求改为read1分块并检查读入总时限，避免无限滴流刷新socket超时；单源/全流程仍应另加外层总时限。预算终止为“未完成”，不是“源失效”。本周未改routine，由调度维护者采用上述流程。
 

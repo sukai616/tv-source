@@ -4,6 +4,7 @@ import argparse,json,re
 from pathlib import Path
 from urllib.parse import urlsplit
 from check_live_stability import run_lock
+from cctv_policy import BASE_CHANNELS, canonical_station
 
 def render(data):
     outputs={};all_urls=set()
@@ -14,6 +15,16 @@ def render(data):
         if any(x in group['title'] for x in '\r\n\"'):raise ValueError('invalid group title')
         lines=['#EXTM3U','# Manually reviewed public stations; see live/README.md and selected.json.']
         if not group['channels']:raise ValueError('empty list')
+        claimed=set(group.get('cctv_baseline_qualified',[]))
+        actual={canonical_station(ch['name']) for ch in group['channels']}
+        if not claimed.issubset(set(BASE_CHANNELS)) or not claimed.issubset(actual):
+            raise ValueError('CCTV completeness claim not supported by channel entries')
+        for ch in group['channels']:
+            if canonical_station(ch['name']) in claimed:
+                evidence=ch.get('evidence',{})
+                if not isinstance(evidence,dict) or evidence.get('identity_verified') is not True or evidence.get('sustained_seconds',0)<180 or evidence.get('sustained_qualified') is not True:
+                    raise ValueError('CCTV qualification requires visible identity and qualified sustained evidence')
+
         for ch in group['channels']:
             if ch.get('reviewed_public_station') is not True:raise ValueError('explicit public station review required')
             url=ch['url'];parsed=urlsplit(url)

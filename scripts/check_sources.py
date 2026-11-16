@@ -626,12 +626,15 @@ def parse_playlist_channels(text):
                     name = line.split(",")[-1].strip() or None
                 continue
             if line:
-                url, extra = split_url_headers(line)
-                if name is not None or url.lower().startswith("http"):
-                    channels.append((name or url, url, extra, "\n".join(pending)))
+                # TVBox explicit #http(s) alternatives: split BEFORE parsing each suffix/header.
+                for alternate in re.split(r'#(?=https?://)',line,flags=re.I):
+                    url, extra = split_url_headers(alternate)
+                    if name is not None or url.lower().startswith("http"):
+                        channels.append((name or url, url, extra, "\n".join(pending)))
                 name, pending = None, []
     else:
-        channels = [(n, u, split_url_headers(u)[1], "") for n, u in parse_playlist(text)]
+        channels = [(n, u, split_url_headers(u)[1], "") for n, raw in parse_playlist(text)
+                    for u in re.split(r"#(?=https?://)",raw,flags=re.I)]
     return channels
 
 
@@ -1327,6 +1330,11 @@ def report_live(label, results, min_pass, min_pass_channel=None, require_both=Fa
 # main
 # --------------------------------------------------------------------------- #
 
+def default_workers(full=False):
+    """Full live probes favor low load; sustained audits have a separate cap of2."""
+    return 4 if full else 16
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="builtin.json 自检：JSON 合法性、重复地址、频道能不能真播")
     parser.add_argument("-f", "--file", action="append", default=[],
@@ -1354,7 +1362,7 @@ def main(argv=None):
     parser.add_argument("--channel-first-line", action="store_true",
                         help="频道口径只试排序后的第一条线路（等价于 --max-lines 1）")
     parser.add_argument("--workers", type=int, default=None,
-                        help="并发数（默认 16；--full 时默认 24）")
+                        help="并发数（默认 16；--full 时默认 4）")
     parser.add_argument("--timeout", type=float, default=8.0, help="单请求超时秒数，默认 8")
     parser.add_argument("--min-pass", type=float, default=None,
                         help="线路口径最低可播比例（默认 0.5；--phone 下 0.7）")
@@ -1378,7 +1386,7 @@ def main(argv=None):
     if args.max_lines is None:
         args.max_lines = 1 if phone else 4
     if args.workers is None:
-        args.workers = 24 if args.full else 16
+        args.workers = default_workers(args.full)
     require_both = phone  # --phone：推荐源/达标判定用 AND
 
     ipv6_ready = True

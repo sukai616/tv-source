@@ -14,6 +14,47 @@ class Clock:
     def sleep(self,n): self.now+=n
 
 class StabilityTests(unittest.TestCase):
+    def test_cli_defaults_cctv_and_supplementary_audio_decode(self):
+        import contextlib,io,json,sys
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest=Path(tmp,'manifest.json');output=Path(tmp,'out.json')
+            manifest.write_text(json.dumps({'live':[{'name':'fixture','url':'https://a.test/list'}]}))
+            body=b'#EXTM3U\n#EXTINF:-1,CCTV-1\nhttps://a.test/1.m3u8\n#EXTINF:-1,CGTN\nhttps://a.test/news.m3u8\n'
+            decoded={'status':'decoded','warnings':'','progress':[{'frame':'500','out_time_us':'20000000','dup_frames':'0','drop_frames':'0'}]}
+            with patch.object(sys,'argv',['audit','--manifest',str(manifest),'--json-out',str(output),'--seconds','1']),patch.object(q,'run_lock',return_value=contextlib.nullcontext()),patch.object(q.base,'ipv6_check',return_value=(False,'fixture')),patch.object(q.base,'fetch',return_value=SimpleNamespace(ok=True,body=body)),patch.object(q,'audit',return_value={'channel':'CCTV-1','status':'measured','stable_sample':True,'summary':{}}),patch.object(q,'decode_sample',return_value=decoded) as decode,contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(q.main(),0)
+            result=json.loads(output.read_text());self.assertEqual(result['coverage'][0]['selected'],['CCTV-1']);self.assertEqual(len(result['coverage'][0]['missing_patterns']),17)
+            self.assertEqual(decode.call_args.args[1:],(20,8,True));self.assertEqual(result['decode_seconds'],20)
+
+    def test_decode_timeout_keeps_partial_evidence(self):
+        import subprocess
+        exc=subprocess.TimeoutExpired(['ffmpeg'],25,output=b'frame=20\nout_time_us=800000\nprogress=continue\n',stderr=b'partial decode warning')
+        with patch.object(q.shutil,'which',return_value='/usr/bin/ffmpeg'),patch.object(q.subprocess,'run',side_effect=exc):
+            result=q.decode_sample(('test','https://a.test/a'),5,1,True)
+        self.assertEqual(result['status'],'timeout');self.assertIn('partial decode',result['warnings']);self.assertEqual(result['progress'][-1]['frame'],'20');self.assertFalse(q.clean_decode_sample(result,5))
+
+    def test_optional_audio_decode_is_explicit(self):
+        from types import SimpleNamespace
+        done=SimpleNamespace(returncode=0,stderr='',stdout='frame=25\nout_time_us=1000000\ndup_frames=0\ndrop_frames=0\nprogress=end\n')
+        with patch.object(q.shutil,'which',return_value='/usr/bin/ffmpeg'),patch.object(q.subprocess,'run',return_value=done) as run:
+            result=q.decode_sample(('test','https://a.test/live.m3u8'),1,1,True)
+            self.assertIn('0:a:0?',run.call_args.args[0]);self.assertNotIn('-an',run.call_args.args[0]);self.assertTrue(result['audio_requested']);self.assertTrue(q.clean_decode_sample(result,1))
+            q.decode_sample(('test','https://a.test/live.m3u8'),1,1)
+            self.assertIn('-an',run.call_args.args[0])
+
+    def test_refreshes_resolved_playlist_not_scheduling_entry(self):
+        clock=Clock();calls=[];counter=[0]
+        def fetch(url,headers,timeout,cap,br=None,**kwargs):
+            clock.now+=.01;calls.append(url)
+            if '.ts' not in url:
+                counter[0]+=1;n=counter[0];body=('#EXTM3U\n#EXT-X-TARGETDURATION:2\n#EXT-X-MEDIA-SEQUENCE:%d\n#EXTINF:2,\n%d.ts\n'%(n,n)).encode();actual='https://cdn.test/actual.m3u8?sig=keep'
+            else:body=(b'G'+bytes(187))*3+url.encode();actual=url
+            return body,dict(url=actual,ttfb=.005,seconds=.01,bytes=len(body),status=200)
+        with patch.object(q.time,'monotonic',clock.monotonic),patch.object(q.time,'sleep',clock.sleep),patch.object(q,'request',fetch):
+            result=q.audit(('test','https://entry.test/live'),8)
+        self.assertEqual(calls.count('https://entry.test/live'),1);self.assertGreaterEqual(calls.count('https://cdn.test/actual.m3u8?sig=keep'),1);self.assertTrue(result['stable_sample'])
+
     def test_parse_sequence_range_variant(self):
         p=q.playlist('#EXTM3U\n#EXT-X-MEDIA-SEQUENCE:42\n#EXT-X-TARGETDURATION:4\n#EXTINF:4,\n#EXT-X-BYTERANGE:100@50\na.ts\n#EXTINF:4,\n#EXT-X-BYTERANGE:80\na.ts','https://a.test/live/index.m3u8')
         self.assertEqual(p['segments'][1]['seq'],43)

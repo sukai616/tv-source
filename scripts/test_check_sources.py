@@ -22,6 +22,19 @@ class CheckSourcesRegressionTest(unittest.TestCase):
         self.assertEqual(c.media_headers(entries[0])[1],{'User-Agent':'fixtureUA','Referer':'https://example.com/'})
         self.assertEqual(c.media_headers(entries[1])[1],{})
 
+    def test_explicit_alternatives_preserve_per_line_headers(self):
+        text='CCTV-1,http://a.test/1.m3u8|User-Agent=first#https://b.test/1.m3u8?x=2|User-Agent=second'
+        channels=c.parse_playlist_channels(text);self.assertEqual(len(channels),2)
+        self.assertEqual(c.media_headers(channels[0]),('http://a.test/1.m3u8',{'User-Agent':'first'}))
+        self.assertEqual(c.media_headers(channels[1]),('https://b.test/1.m3u8?x=2',{'User-Agent':'second'}))
+        m3u='#EXTM3U\n#EXTINF:-1,CCTV-1\n#EXTHTTP:{"Referer":"https://ref.test/"}\nhttp://a.test/1|User-Agent=one#https://b.test/1|User-Agent=two\n'
+        parsed=c.parse_playlist_channels(m3u);self.assertEqual(len(parsed),2)
+        self.assertEqual(c.media_headers(parsed[1])[1],{'User-Agent':'two','Referer':'https://ref.test/'})
+
+    def test_full_default_is_low_concurrency(self):
+        self.assertEqual(c.default_workers(True),4)
+        self.assertEqual(c.default_workers(False),16)
+
     def test_type0_xml_list_and_detail(self):
         body=b'<rss><list><video><id>42</id><name>fixture</name><dl><dd flag="m3u8"><![CDATA[ep$https://example.com/a.m3u8]]></dd></dl></video></list></rss>'
         data=c.parse_cms_body(body)

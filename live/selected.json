@@ -26,7 +26,9 @@
             "reference": "evidence-2026-11-16.json#cgtn"
           }
         }
-      ]
+      ],
+      "cctv_baseline_qualified": [],
+      "qualification_state": "relative_non_cctv; CCTV baseline coverage zero"
     },
     {
       "file": "phoenix.m3u",
@@ -53,7 +55,17 @@
             "limitations": "600s video decode completed, 15000 frames and zero dup/drop; paced reading lag warnings up to 8.092s; strict no-warning sample false. Relative fallback only."
           }
         }
-      ]
+      ],
+      "cctv_baseline_qualified": [],
+      "qualification_state": "relative_non_cctv; CCTV baseline coverage zero"
     }
-  ]
+  ],
+  "public_live_priority": {
+    "baseline": "CCTV1-17 plus CCTV5+ =18; international variants/UHD/pay channels separate",
+    "workflow": "gap-driven search > exact dedup/backend grouping > per-channel identity/basic/sustained matrix > qualified CCTV coverage and stability > minimal publish > per-channel report",
+    "not_a_cctv_substitute": [
+      "CGTN",
+      "Phoenix"
+    ]
+  }
 }

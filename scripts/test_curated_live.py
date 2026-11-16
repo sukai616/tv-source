@@ -19,6 +19,16 @@ class CuratedTests(unittest.TestCase):
         with self.assertRaises(ValueError):c.render(data)
         data=self.fixture();data['lists'][0]['file']='../bad.m3u'
         with self.assertRaises(ValueError):c.render(data)
+    def test_non_cctv_cannot_claim_cctv_coverage(self):
+        data=self.fixture();data['lists'][0]['cctv_baseline_qualified']=['CCTV-1']
+        with self.assertRaises(ValueError):c.render(data)
+    def test_cctv_claim_requires_visible_identity_and_duration(self):
+        data=self.fixture();group=data['lists'][0];group['channels'][0]['name']='CCTV-1';group['cctv_baseline_qualified']=['CCTV-1']
+        with self.assertRaises(ValueError):c.render(data)
+        group['channels'][0]['evidence'].update(identity_verified=True,sustained_seconds=180)
+        with self.assertRaises(ValueError):c.render(data)
+        group['channels'][0]['evidence']['sustained_qualified']=True
+        self.assertIn('CCTV-1',c.render(data)['news.m3u'])
     def test_decode_success_requires_full_video_and_no_warning(self):
         decoded={'status':'decoded','elapsed':181,'progress':[{'out_time_us':'180000000','frame':'4500','dup_frames':'0','drop_frames':'0'}],'warnings':''}
         with patch.object(stream.quality,'decode_sample',return_value=decoded):self.assertTrue(stream.measure(('x','https://example.com/a'),180)['continuous_decode_sample'])
