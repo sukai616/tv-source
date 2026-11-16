@@ -1,9 +1,9 @@
 {
-  "versionCode": 10,
-  "versionName": "1.0.9",
+  "versionCode": 11,
+  "versionName": "1.0.10",
   "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33352269,
-  "sha256": "5122fd33f21673bf817aba5f2a93365e79f5a96679f23c8298248520f22372ed",
-  "log": "修复换源卡死残留风险：更新包三重校验、JarLoader 代际作废、Spider 两段清理、JS 超时可挂起/级联取消、配置加载代际校验",
+  "size": 33353459,
+  "sha256": "23e3aca0cc1a42d29b0731698c3579f72704a86b06cae3655f09fc74e1d9a878",
+  "log": "修复部分电视设备检查更新弹窗报错（Window令牌/子线程UI/生命周期/低版本TLS防护）；修复起播后只有声音、画面停在嗅探中（首帧渲染后可靠隐藏遮罩）",
   "force": false
 }
