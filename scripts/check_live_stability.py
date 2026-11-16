@@ -151,7 +151,7 @@ def audit(channel, seconds=180, timeout=8, max_segment_mb=32):
             raise ValueError('too many HLS nesting levels')
         # Refresh the resolved media playlist, not a scheduling entry that may choose another stream.
         media_url = meta['url']
-        out['media_url'] = media_url; out['initial_sequence'] = parsed['segments'][0]['seq'] if parsed['segments'] else None
+        out['initial_media_url'] = media_url; out['media_url'] = media_url; out['initial_sequence'] = parsed['segments'][0]['seq'] if parsed['segments'] else None
         while time.monotonic() < deadline:
             if parsed['end']:
                 out['status'] = 'not_live_endlist'; break
@@ -206,7 +206,7 @@ def audit(channel, seconds=180, timeout=8, max_segment_mb=32):
             time.sleep(min(max(1., parsed['target']/2), max(0., deadline-time.monotonic())))
             if time.monotonic() >= deadline: break
             body, pm = get(media_url, 2*1024*1024, 'playlist'); events.append(pm)
-            media_url = pm['url']
+            media_url = pm['url']; out['media_url'] = media_url
             parsed = playlist(body.decode('utf-8-sig','replace'), pm['url'])
         else:
             out['status'] = 'measured'
@@ -319,7 +319,10 @@ def main():
         result = audit(channel,args.seconds,args.timeout)
         result['qualification_scope'] = 'HLS supply plus supplementary decode' if args.decode_seconds else 'HLS supply only; no decode claim'
         if args.decode_seconds:
-            result['decode'] = decode_sample(channel,args.decode_seconds,args.timeout,args.decode_audio)
+            _,decode_headers=base.media_headers(channel)
+            decode_channel=(channel[0],result.get('media_url',channel[1]),decode_headers,'')
+            result['decode'] = decode_sample(decode_channel,args.decode_seconds,args.timeout,args.decode_audio)
+            result['decode']['media_url']=decode_channel[1]
             result['hls_supply_stable_sample'] = result.get('stable_sample', False)
             result['decode_clean_sample'] = clean_decode_sample(result['decode'], args.decode_seconds)
             result['stable_sample'] = result.get('stable_sample', False) and result['decode_clean_sample']

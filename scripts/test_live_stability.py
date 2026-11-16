@@ -22,10 +22,10 @@ class StabilityTests(unittest.TestCase):
             manifest.write_text(json.dumps({'live':[{'name':'fixture','url':'https://a.test/list'}]}))
             body=b'#EXTM3U\n#EXTINF:-1,CCTV-1\nhttps://a.test/1.m3u8\n#EXTINF:-1,CGTN\nhttps://a.test/news.m3u8\n'
             decoded={'status':'decoded','warnings':'','progress':[{'frame':'500','out_time_us':'20000000','dup_frames':'0','drop_frames':'0'}]}
-            with patch.object(sys,'argv',['audit','--manifest',str(manifest),'--json-out',str(output),'--seconds','1']),patch.object(q,'run_lock',return_value=contextlib.nullcontext()),patch.object(q.base,'ipv6_check',return_value=(False,'fixture')),patch.object(q.base,'fetch',return_value=SimpleNamespace(ok=True,body=body)),patch.object(q,'audit',return_value={'channel':'CCTV-1','status':'measured','stable_sample':True,'summary':{}}),patch.object(q,'decode_sample',return_value=decoded) as decode,contextlib.redirect_stdout(io.StringIO()):
+            with patch.object(sys,'argv',['audit','--manifest',str(manifest),'--json-out',str(output),'--seconds','1']),patch.object(q,'run_lock',return_value=contextlib.nullcontext()),patch.object(q.base,'ipv6_check',return_value=(False,'fixture')),patch.object(q.base,'fetch',return_value=SimpleNamespace(ok=True,body=body)),patch.object(q,'audit',return_value={'channel':'CCTV-1','status':'measured','stable_sample':True,'summary':{},'media_url':'https://cdn.test/actual.m3u8?sig=keep'}),patch.object(q,'decode_sample',return_value=decoded) as decode,contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(q.main(),0)
             result=json.loads(output.read_text());self.assertEqual(result['coverage'][0]['selected'],['CCTV-1']);self.assertEqual(len(result['coverage'][0]['missing_patterns']),17)
-            self.assertEqual(decode.call_args.args[1:],(20,8,True));self.assertEqual(result['decode_seconds'],20)
+            self.assertEqual(decode.call_args.args[1:],(20,8,True));self.assertEqual(result['decode_seconds'],20);self.assertEqual(decode.call_args.args[0][1],'https://cdn.test/actual.m3u8?sig=keep')
 
     def test_decode_timeout_keeps_partial_evidence(self):
         import subprocess
