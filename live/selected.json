@@ -1,0 +1,59 @@
+{
+  "reviewed": "2026-11-16 Beijing daytime Mac network; not phone",
+  "policy": "Manual public-station allowlist only; no whole-upstream auto-import; preserve full URLs; relative recommendations with limited coverage",
+  "lists": [
+    {
+      "file": "international.m3u",
+      "title": "国际新闻实测",
+      "channels": [
+        {
+          "name": "CGTN英语",
+          "url": "http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://live.zbds.top/tv/iptv4.m3u",
+            "https://raw.githubusercontent.com/mymsnn/DailyIPTV/main/outputs/tier_a.m3u"
+          ],
+          "evidence": {
+            "date": "2026-11-16",
+            "method": "HLS refreshed playlists plus complete unique segments; supplementary 60s video decode",
+            "rounds_seconds": [
+              180,
+              180,
+              600
+            ],
+            "reference": "evidence-2026-11-16.json#cgtn"
+          }
+        }
+      ]
+    },
+    {
+      "file": "phoenix.m3u",
+      "title": "港澳资讯实测",
+      "channels": [
+        {
+          "name": "凤凰资讯",
+          "url": "http://43.152.224.209/qctv.fengshows.cn/live/0701pin72.flv",
+          "headers": {},
+          "reviewed_public_station": true,
+          "provenance": [
+            "https://github.com/suxuang/myIPTV",
+            "https://raw.githubusercontent.com/suxuang/myIPTV/main/榴芒电视.txt"
+          ],
+          "evidence": {
+            "date": "2026-11-16",
+            "method": "FFmpeg video-only continuous decode; not HLS supply",
+            "rounds_seconds": [
+              180,
+              180,
+              600
+            ],
+            "reference": "evidence-2026-11-16.json#phoenix",
+            "limitations": "600s video decode completed, 15000 frames and zero dup/drop; paced reading lag warnings up to 8.092s; strict no-warning sample false. Relative fallback only."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,3 +4,8 @@ Thumbs.db
 __pycache__/
 *.pyc
 .workbuddy-ai/
+.audit-work/
+.maintenance.lock/
+.live-quality.lock/
+.curated-live.lock/
+scripts/__pycache__/

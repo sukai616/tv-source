@@ -34,6 +34,7 @@
 """
 
 import argparse
+import xml.etree.ElementTree as ET
 import base64
 import gzip
 import hashlib
@@ -145,7 +146,18 @@ def fetch(url, timeout, limit=None, ua=None, use_range=True, headers=None, max_b
             req.add_header("Range", "bytes=0-%d" % (limit - 1))
         opener = urllib.request.build_opener(redirect_handler)
         with opener.open(req, timeout=timeout) as resp:
-            body = resp.read(limit) if limit else resp.read(max_bytes + 1 if max_bytes else -1)
+            # read1 returns available transport data rather than waiting to fill a large
+            # read forever when a server trickles bytes and resets the socket timeout.
+            cap = limit or (max_bytes + 1 if max_bytes else 64 * 1024 * 1024)
+            chunks, received = [], 0
+            while received < cap:
+                if time.time() - started > timeout:
+                    raise TimeoutError("response exceeded total read deadline")
+                part = resp.read1(min(65536, cap-received))
+                if not part:
+                    break
+                chunks.append(part); received += len(part)
+            body = b"".join(chunks)
             if max_bytes and len(body) > max_bytes:
                 raise ValueError("响应超过 %d 字节上限" % max_bytes)
             encoding = resp.headers.get("Content-Encoding", "").lower().strip()
@@ -585,7 +597,7 @@ def media_headers(channel):
         for line in text.replace("\r", "\n").split("\n"):
             if line.upper().startswith("#EXTVLCOPT:HTTP-USER-AGENT="):
                 headers["User-Agent"] = line.split("=", 1)[1].strip()
-            elif line.upper().startswith("#EXTVLCOPT:HTTP-REFERER="):
+            elif line.upper().startswith(("#EXTVLCOPT:HTTP-REFERER=", "#EXTVLCOPT:HTTP-REFERRER=")):
                 headers["Referer"] = line.split("=", 1)[1].strip()
             elif line.upper().startswith("#EXTHTTP:"):
                 try:
@@ -597,6 +609,30 @@ def media_headers(channel):
     for key, value in extra.items():
         headers.setdefault(key, value)
     return clean, headers
+
+
+def parse_playlist_channels(text):
+    """Parse subscription entries while retaining per-entry VLC/HTTP headers."""
+    # 把文本关联到频道：M3U 的 header 行属于下一条 EXTINF；TXT 用 URL 后缀。
+    channels = []
+    if text.lstrip()[:512].upper().find("#EXTM3U") >= 0:
+        pending = []
+        name = None
+        for line in text.replace("\r", "\n").split("\n"):
+            line = line.strip()
+            if line.startswith("#"):
+                pending.append(line)
+                if line.upper().startswith("#EXTINF"):
+                    name = line.split(",")[-1].strip() or None
+                continue
+            if line:
+                url, extra = split_url_headers(line)
+                if name is not None or url.lower().startswith("http"):
+                    channels.append((name or url, url, extra, "\n".join(pending)))
+                name, pending = None, []
+    else:
+        channels = [(n, u, split_url_headers(u)[1], "") for n, u in parse_playlist(text)]
+    return channels
 
 
 def looks_like_m3u8(body, ctype):
@@ -789,25 +825,7 @@ def test_live_source(entry, sample_size, timeout, workers, ipv6_ready=True,
         out["seconds"] = time.time() - started
         return out
     text = page.body.decode("utf-8", "ignore")
-    # 把文本关联到频道：M3U 的 header 行属于下一条 EXTINF；TXT 用 URL 后缀。
-    channels = []
-    if text.lstrip()[:512].upper().find("#EXTM3U") >= 0:
-        pending = []
-        name = None
-        for line in text.replace("\r", "\n").split("\n"):
-            line = line.strip()
-            if line.startswith("#"):
-                pending.append(line)
-                if line.upper().startswith("#EXTINF"):
-                    name = line.split(",")[-1].strip() or None
-                continue
-            if line:
-                url, extra = split_url_headers(line)
-                if name is not None or url.lower().startswith("http"):
-                    channels.append((name or url, url, extra, "\n".join(pending)))
-                name, pending = None, []
-    else:
-        channels = [(n, u, split_url_headers(u)[1], "") for n, u in parse_playlist(text)]
+    channels = parse_playlist_channels(text)
     out["fetch_ok"] = True
     out["total"] = len(channels)
     if not channels:
@@ -1056,6 +1074,27 @@ def cms_list_url(api, vod_id=None):
     return api + separator + ("ac=detail&ids=%s" % urllib.parse.quote(str(vod_id)) if vod_id else "ac=detail&pg=1")
 
 
+def parse_cms_body(body):
+    """MacCMS JSON or type0 XML, without executing DTD/entities or response code."""
+    text = body.decode("utf-8-sig", "replace").strip()
+    if not text.startswith("<"):
+        data = json.loads(text)
+        return data if isinstance(data, dict) else {}
+    if "<!DOCTYPE" in text.upper() or "<!ENTITY" in text.upper():
+        raise ValueError("XML DTD/entities are not accepted")
+    root = ET.fromstring(text)
+    if root.tag.lower() not in ("rss", "list"):
+        raise ValueError("not a MacCMS RSS/list XML document")
+    rows = []
+    for video in root.findall(".//video"):
+        if not (video.findtext("id") or video.findtext("vod_id")):
+            continue
+        rows.append({"vod_id": video.findtext("id") or video.findtext("vod_id"),
+                     "vod_name": video.findtext("name") or video.findtext("vod_name"),
+                     "vod_play_url": "$$$".join("".join(x.itertext()) for x in video.findall(".//dd"))})
+    return {"list": rows, "response_format": "xml"}
+
+
 def probe_cms_site(site, timeout, playable=False):
     name = str(site.get("name") or site.get("key"))
     result = fetch(cms_list_url(site["api"]), timeout, ua=OKHTTP_UA, use_range=False, max_bytes=4 * 1024 * 1024)
@@ -1064,10 +1103,11 @@ def probe_cms_site(site, timeout, playable=False):
         out["reason"] = result.error
         return out
     try:
-        data = json.loads(result.body.decode("utf-8-sig", "replace"))
+        data = parse_cms_body(result.body)
+        out["response_format"] = data.get("response_format", "json")
         items = data.get("list") if isinstance(data, dict) else None
         if not isinstance(items, list) or not items:
-            out["reason"] = "列表为空或不是采集 JSON"
+            out["reason"] = "列表为空或不是有效采集 JSON/XML"
             return out
         out["items"] = len(items)
         out["ok"] = True
@@ -1080,7 +1120,7 @@ def probe_cms_site(site, timeout, playable=False):
                 return out
             detail = fetch(cms_list_url(site["api"], vod_id), timeout, ua=OKHTTP_UA, use_range=False,
                            max_bytes=4 * 1024 * 1024)
-            detail_data = json.loads(detail.body.decode("utf-8-sig", "replace")) if detail.ok else {}
+            detail_data = parse_cms_body(detail.body) if detail.ok else {}
             rows = detail_data.get("list") or []
             play_url = rows[0].get("vod_play_url", "") if rows else ""
             urls = re.findall(r"https?://[^$#\s]+", str(play_url))
@@ -1093,7 +1133,7 @@ def probe_cms_site(site, timeout, playable=False):
             out["reason"] += "；详情播放地址%s（%s）" % ("有媒体迹象" if ok else "失败", why)
             # 有列表和详情但媒体需 App 专用解析时标 playable=False，人工降级，不把详情抹成空列表。
     except Exception as exc:
-        out["reason"] = "采集 JSON 异常：%s" % exc
+        out["reason"] = "采集 JSON/XML 异常：%s" % exc
     return out
 
 

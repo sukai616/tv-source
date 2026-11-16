@@ -1,0 +1,4 @@
+#EXTM3U
+# Manually reviewed public stations; see live/README.md and selected.json.
+#EXTINF:-1 group-title="国际新闻实测",CGTN英语
+http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8

@@ -16,6 +16,22 @@ class CheckSourcesRegressionTest(unittest.TestCase):
             "sites": [{"key": "a", "api": "https://example.com/api"}],
         }).encode()
 
+    def test_subscription_preserves_headers(self):
+        text='#EXTM3U\n#EXTINF:-1,A\n#EXTVLCOPT:http-user-agent=fixtureUA\n#EXTHTTP:{"Referer":"https://example.com/"}\nhttps://example.com/live.m3u8\n#EXTINF:-1,B\nhttps://example.com/b.m3u8'
+        entries=c.parse_playlist_channels(text)
+        self.assertEqual(c.media_headers(entries[0])[1],{'User-Agent':'fixtureUA','Referer':'https://example.com/'})
+        self.assertEqual(c.media_headers(entries[1])[1],{})
+
+    def test_type0_xml_list_and_detail(self):
+        body=b'<rss><list><video><id>42</id><name>fixture</name><dl><dd flag="m3u8"><![CDATA[ep$https://example.com/a.m3u8]]></dd></dl></video></list></rss>'
+        data=c.parse_cms_body(body)
+        self.assertEqual(data['response_format'],'xml')
+        self.assertEqual(data['list'][0]['vod_id'],'42')
+        self.assertIn('https://example.com/a.m3u8',data['list'][0]['vod_play_url'])
+        with self.assertRaises(ValueError):c.parse_cms_body(b'<!DOCTYPE x [<!ENTITY x "x">]><rss/>')
+        with self.assertRaises(ValueError):c.parse_cms_body(b'<html><video><id>1</id></video></html>')
+        self.assertEqual(c.parse_cms_body(b'<rss><list><video/></list></rss>')["list"],[])
+
     def test_invalid_configs_do_not_pass_by_keyword(self):
         for body in (b'{"sites":[]}', b'{"sites":[broken', b'{"spider":"ok"}',
                      b'<html>{"sites":[{}]}</html>'):
