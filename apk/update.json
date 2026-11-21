@@ -1,9 +1,9 @@
 {
-  "versionCode": 11,
-  "versionName": "1.0.10",
+  "versionCode": 12,
+  "versionName": "1.0.11",
   "url": "https://gh-proxy.com/https://raw.githubusercontent.com/sukai616/tv-source/master/apk/TVBox_release-java.apk",
-  "size": 33353459,
-  "sha256": "23e3aca0cc1a42d29b0731698c3579f72704a86b06cae3655f09fc74e1d9a878",
-  "log": "修复部分电视设备检查更新弹窗报错（Window令牌/子线程UI/生命周期/低版本TLS防护）；修复起播后只有声音、画面停在嗅探中（首帧渲染后可靠隐藏遮罩）",
+  "size": 33353960,
+  "sha256": "66133c3b312e87954c139e2005a6b92673b1d8fbbb7f788bd9c8c5f25c8a209d",
+  "log": "启动优化：1. 首屏与首页推荐位解耦，分类一回来就出首页，推荐位后到再增量刷新，不再为第二个网络请求多等一个 RTT；2. 首页爬虫源首屏超时 30 秒降到 10 秒、首页自动换源重试次数 3 次降到 1 次，最坏等待从约 2 分钟降到约 20 秒；3. 增加启动图（原来是透明背景，从点击图标到首帧之间是纯黑），改为深色底 + 应用图标，首帧后被内容盖住无额外开销",
   "force": false
 }
